@@ -1,0 +1,49 @@
+status	key	command
+Composition	Backspace	Backspace
+Composition	Ctrl a	MoveCursorToBeginning
+Composition	Ctrl b	MoveCursorLeft
+Composition	Ctrl d	Delete
+Composition	Ctrl e	MoveCursorToEnd
+Composition	Ctrl f	MoveCursorRight
+Composition	Ctrl j	Cancel
+Composition	Ctrl h	Backspace
+Composition	Ctrl m	Commit
+Composition	Ctrl n	PredictAndConvert
+Composition	Enter	Commit
+Composition	ESC	Cancel
+Composition	F8	DisplayAsHalfWidth
+Composition	F10	DisplayAsHalfAlphanumeric
+Composition	Space	Convert
+Composition	Tab	PredictAndConvert
+Conversion	Backspace	Backspace
+Conversion	Ctrl a	SegmentFocusFirst
+Conversion	Ctrl b	SegmentFocusLeft
+Conversion	Ctrl e	SegmentFocusLast
+Conversion	Ctrl f	SegmentFocusRight
+Conversion	Ctrl h	Backspace
+Conversion	Ctrl i	SegmentWidthShrink
+Conversion	Ctrl j	Cancel
+Conversion	Ctrl m	CommitOnlyFirstSegment
+Conversion	Ctrl n	ConvertNext
+Conversion	Ctrl o	SegmentWidthExpand
+Conversion	Ctrl p	ConvertPrev
+Conversion	Enter	Commit
+Conversion	ESC	Cancel
+Conversion	F8	DisplayAsHalfWidth
+Conversion	F10	DisplayAsHalfAlphanumeric
+Conversion	Shift Space	ConvertPrev
+Conversion	Space	ConvertNext
+Conversion	Tab	PredictAndConvert
+Precomposition	Shift Space	InsertAlternateSpace
+Precomposition	Space	InsertSpace
+Composition	Ctrl h	Backspace
+Suggestion	Ctrl n	ConvertNext
+Suggestion	Ctrl p	ConvertPrev
+Composition	Backspace	Backspace
+Composition	OFF	IMEOff
+Composition	ON	IMEOn
+Conversion	OFF	IMEOff
+Conversion	ON	IMEOn
+DirectInput	ON	IMEOn
+Precomposition	OFF	IMEOff
+Precomposition	ON	IMEOn

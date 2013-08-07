@@ -1,0 +1,22 @@
+[user]
+    name = Takaaki Hirano
+    email = hivedark@gmail.com
+[color]
+    ui = auto
+[core]
+    editor = vim
+    pager = less -R
+    excludesfile = ~/.gitignore
+[alias]
+    a = add
+    b = branch
+    ci = commit
+    co = checkout
+    d = diff
+    f = fetch
+    l = log
+    m = merge
+    st = status
+[push]
+    default = simple
+

@@ -1,0 +1,40 @@
+" vim: set ft=vim:
+set hintchars=bhjklasdfgyuiopqwertnmzxcv
+" input like the terminal
+noremap <C-h> <BS>
+noremap <C-i> <Tab>
+noremap <C-m> <CR>
+vnoremap <C-h> <BS>
+vnoremap <C-i> <Tab>
+vnoremap <C-m> <CR>
+inoremap <C-h> <BS>
+inoremap <C-i> <Tab>
+inoremap <C-m> <CR>
+cnoremap <C-h> <BS>
+cnoremap <C-i> <Tab>
+cnoremap <C-m> <CR>
+" move around like shell in input and command-line mode
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-b> <Left>
+" switch ; and : in normal mode
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
+" cancel and return to normal mode
+vnoremap <C-j> <Esc>
+inoremap <C-j> <Esc>
+cnoremap <C-j> <Esc>
+" clear highlighting on last searched pattern
+nnoremap <silent> <C-j> <Esc>:<C-u>nohlsearch<CR>
+" move around the tabs even in insert or visual mode
+vnoremap <C-n> <ESC>gt
+vnoremap <C-p> <ESC>gT
+inoremap <C-n> <ESC>gt
+inoremap <C-p> <ESC>gT
+" recall previous/next command
+cnoremap <C-n> <Down>
+cnoremap <C-p> <Up>
+
