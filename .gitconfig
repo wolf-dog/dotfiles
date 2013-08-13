@@ -21,4 +21,6 @@
     st = status
 [push]
     default = simple
+[credential]
+    helper = cache --timeout=300
 
