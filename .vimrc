@@ -390,7 +390,7 @@ nnoremap <silent> <Leader>z :<C-u>set tags+=
 " quick diff
 nnoremap <silent> <Leader>dd :<C-u>diffthis<CR><C-w>p:<C-u>diffthis<CR><C-w>p
 " turn off diff mode in all windows
-nnoremap <silent> <Leader>dq :<C-u>diffoff!<CR>
+nnoremap <silent> <Leader>dq :<C-u>diffoff!<CR><C-w>p:<C-u>quit<CR>
 " diff
 nnoremap <Leader>ds :<C-u>diffsplit<Space>
 nnoremap <Leader>dv :<C-u>vertical diffsplit<Space>

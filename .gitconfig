@@ -7,6 +7,7 @@
     editor = vim
     pager = less -R
     excludesfile = ~/.gitignore
+    autocrlf = input
 [alias]
     a = add
     b = branch
@@ -14,7 +15,8 @@
     co = checkout
     d = diff
     f = fetch
-    l = log
+    l = log --decorate
+    l1 = log --decorate --oneline
     m = merge
     st = status
 [push]

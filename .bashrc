@@ -63,7 +63,12 @@ alias la='ls -A'
 alias lal='ls -lA'
 alias lla='ls -lA'
 alias l='ls'
-# shorthand for connecting to local mysql
-alias mysqllocal='mysql -h 127.0.0.1'
+# git
+alias g='git'
+# go up directories
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 #--------------------------------------
 
