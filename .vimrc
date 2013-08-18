@@ -33,7 +33,16 @@ else
     \ }
 endif
 
-NeoBundle 'git://github.com/Shougo/neocomplete.vim'
+if ( has('lua') && (v:version > 703 || v:version == 703 && has('patch885')) )
+    let s:neocomplete_available = 1
+endif
+
+if ( s:neocomplete_available )
+    NeoBundle 'git://github.com/Shougo/neocomplete.vim'
+else
+    NeoBundle 'git://github.com/Shougo/neocomplcache.vim'
+endif
+
 NeoBundle 'git://github.com/Shougo/unite.vim'
 NeoBundle 'git://github.com/Shougo/unite-outline'
 NeoBundle 'git://github.com/thinca/vim-ref'
@@ -58,7 +67,7 @@ NeoBundle 'git://github.com/osyo-manga/unite-airline_themes'
 " colorschemes
 NeoBundle 'git://github.com/wolf-dog/nighted.vim'
 NeoBundle 'git://github.com/veloce/vim-aldmeris'
-NeoBundle 'git://github.com/Lokaltog/vim-distinguished'
+NeoBundle 'git://github.com/apeacox/vim-distinguished'
 NeoBundle 'git://github.com/tomasr/molokai'
 
 " display color table
@@ -185,7 +194,9 @@ set tags& tags+=./tags;
 " use command-line completion
 set wildmenu
 set wildmode=list:longest,full
-set wildignorecase
+if ( v:version >= 703)
+    set wildignorecase
+endif
 
 " binds {{{1
 "--------------------------------------
@@ -408,9 +419,16 @@ augroup vimrc-autocmd
 augroup END
 
 " always use this format options regardless of the file type
-autocmd vimrc-autocmd FileType * setlocal formatoptions&
+autocmd vimrc-autocmd FileType *
+\ if ( v:version >= 703)
+\ | setlocal formatoptions&
 \ formatoptions-=t formatoptions-=c
 \ formatoptions+=r formatoptions+=M formatoptions+=j
+\ | else
+\ | setlocal formatoptions&
+\ formatoptions-=t formatoptions-=c
+\ formatoptions+=r formatoptions+=M
+\ | endif
 
 " set fileencoding to empty (use default encoding)
 " when buffer only contains ASCII characters
@@ -436,13 +454,21 @@ let g:php_folding = 1
 " use bash by default
 let g:is_bash = 1
 
-" neocomplete
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#max_list = 20
-let g:neocomplete#disable_auto_complete = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#enable_fuzzy_completion = 0
-let g:neocomplete#enable_refresh_always = 0
+if ( s:neocomplete_available )
+    " neocomplete
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#max_list = 20
+    let g:neocomplete#disable_auto_complete = 1
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#enable_fuzzy_completion = 0
+    let g:neocomplete#enable_refresh_always = 0
+else
+    " neocomplcache
+    let g:neocomplcache#enable_at_startup = 1
+    let g:neocomplcache#max_list = 20
+    let g:neocomplcache#disable_auto_complete = 1
+    let g:neocomplcache#enable_smart_case = 1
+endif
 
 " unite
 call unite#set_profile('default', 'ignorecase', 1)

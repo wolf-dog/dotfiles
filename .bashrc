@@ -7,6 +7,8 @@ fi
 #--------------------------------------
 # Don't use ^D to exit
 set -o ignoreeof
+# Disable Ctrl-s
+stty stop undef
 # Use case-insensitive filename globbing
 shopt -s nocaseglob
 # Don't put duplicate lines in the history.
