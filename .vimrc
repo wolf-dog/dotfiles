@@ -439,6 +439,12 @@ autocmd vimrc-autocmd BufReadPost *
 \ if &modifiable && !search('[^\x00-\x7F]', 'cnw')
     \ | setlocal fileencoding=
 \ | endif
+
+" when vim running in terminal, disable tmux status line
+if !has('gui_running') && $TMUX !=# ''
+    autocmd vimrc-autocmd VimEnter,VimLeave *
+    \ silent !tmux set status
+endif
 "--------------------------------------
 
 " plugins, filetype settings {{{1
