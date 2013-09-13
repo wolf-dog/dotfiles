@@ -35,6 +35,8 @@ endif
 
 if ( has('lua') && (v:version > 703 || v:version == 703 && has('patch885')) )
     let s:neocomplete_available = 1
+else
+    let s:neocomplete_available = 0
 endif
 
 if ( s:neocomplete_available )
@@ -63,6 +65,7 @@ NeoBundle 'git://github.com/thinca/vim-textobj-between'
 NeoBundle 'git://github.com/ujihisa/unite-colorscheme'
 NeoBundle 'git://github.com/bling/vim-airline'
 NeoBundle 'git://github.com/osyo-manga/unite-airline_themes'
+NeoBundle 'git://github.com/osyo-manga/unite-highlight'
 
 " colorschemes
 NeoBundle 'git://github.com/wolf-dog/nighted.vim'
@@ -474,6 +477,7 @@ endif
 call unite#set_profile('default', 'ignorecase', 1)
 call unite#set_profile('default', 'smartcase', 0)
 let g:unite_enable_start_insert = 1
+" unite menu
 let g:unite_source_menu_menus = {
 \     'shortcut' : {
 \         'command_candidates' : [
@@ -491,6 +495,7 @@ let g:unite_source_menu_menus = {
 \                 'execute "tabedit " . resolve(expand($MYGVIMRC))'
 \             ],
 \             ['outline', 'Unite outline'],
+\             ['highlight', 'Unite highlight'],
 \             ['output map', 'Unite output:map|map!|lmap'],
 \             ['output message', 'Unite output:message'],
 \             ['output version', 'Unite output:version'],
@@ -538,7 +543,7 @@ let g:syntastic_check_on_wq=0
 " airline
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
-let g:airline_theme = 'laederon'
+let g:airline_theme = 'ubaryd'
 
 "--------------------------------------
 
@@ -560,7 +565,11 @@ nnoremap <silent> [unite]r :<C-u>Unite file_mru<CR>
 " open junk file
 nnoremap <silent> [unite]j :<C-u>Unite junkfile/new junkfile<CR>
 " open register
-nnoremap <silent> [unite]g :<C-u>Unite register<CR>
+nnoremap <silent> [unite]' :<C-u>Unite register<CR>
+" grep
+nnoremap [unite]g :<C-u>Unite -no-quit grep:
+" grep in current directory recursively
+nnoremap [unite]G :<C-u>Unite -no-quit grep:./:-r:
 " open menu:shortcut
 nnoremap <silent> [unite]f :<C-u>Unite menu:shortcut<CR>
 
@@ -581,9 +590,9 @@ autocmd vimrc-autocmd FileType unite inoremap
 \ <silent> <buffer> <expr> <C-a> unite#do_action('bookmark')
 " list actions
 autocmd vimrc-autocmd FileType unite nmap
-\ <silent> <buffer> <C-f> <Plug>(unite_choose_action)
+\ <silent> <buffer> <C-r> <Plug>(unite_choose_action)
 autocmd vimrc-autocmd FileType unite imap
-\ <silent> <buffer> <C-f> i_<Plug>(unite_choose_action)
+\ <silent> <buffer> <C-r> i_<Plug>(unite_choose_action)
 " quit unite window
 autocmd vimrc-autocmd FileType unite nnoremap
 \ <silent> <buffer> <C-j> :<C-u>quit<CR>
@@ -598,7 +607,7 @@ nnoremap <silent> [Leader]x :<C-u>QuickRun<CR>
 
 " alignta
 vnoremap          [Leader]a :Alignta<Space>
-vnoremap <silent> [Leader][Leader]a :Alignta =>\=<CR>
+vnoremap <silent> [Leader]A :Alignta =>\=<CR>
 
 " syntastic
 nnoremap [Leader]c :<C-u>SyntasticCheck<CR>
