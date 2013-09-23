@@ -63,9 +63,8 @@ NeoBundle 'git://github.com/kana/vim-textobj-entire'
 NeoBundle 'git://github.com/kana/vim-textobj-indent'
 NeoBundle 'git://github.com/thinca/vim-textobj-between'
 NeoBundle 'git://github.com/ujihisa/unite-colorscheme'
-NeoBundle 'git://github.com/bling/vim-airline'
-NeoBundle 'git://github.com/osyo-manga/unite-airline_themes'
 NeoBundle 'git://github.com/osyo-manga/unite-highlight'
+NeoBundle 'git://github.com/itchyny/lightline.vim'
 
 " colorschemes
 NeoBundle 'git://github.com/wolf-dog/nighted.vim'
@@ -105,7 +104,7 @@ set termencoding=utf-8
 "--------------------------------------
 "general {{{2
 set list
-set listchars=tab:^\-,trail:<
+set listchars=tab:\|\-,trail:<
 set number
 set ruler
 " display doublewidth char correctly
@@ -439,12 +438,6 @@ autocmd vimrc-autocmd BufReadPost *
 \ if &modifiable && !search('[^\x00-\x7F]', 'cnw')
     \ | setlocal fileencoding=
 \ | endif
-
-" when vim running in terminal, disable tmux status line
-if !has('gui_running') && $TMUX !=# ''
-    autocmd vimrc-autocmd VimEnter,VimLeave *
-    \ silent !tmux set status
-endif
 "--------------------------------------
 
 " plugins, filetype settings {{{1
@@ -506,7 +499,6 @@ let g:unite_source_menu_menus = {
 \             ['output message', 'Unite output:message'],
 \             ['output version', 'Unite output:version'],
 \             ['Unite Beautiful Attack', 'Unite colorscheme -auto-preview'],
-\             ['airline Beautiful Attack', 'Unite airline_themes -auto-preview'],
 \         ],
 \     },
 \ }
@@ -544,13 +536,17 @@ if has('win32unix')
 endif
 
 " syntastic
-let g:syntastic_check_on_wq=0
+let g:syntastic_check_on_wq = 0
 
-" airline
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_theme = 'ubaryd'
-
+" lightline
+let g:lightline = {}
+let g:lightline = {
+\   'colorscheme': 'nighted',
+\   'enable': {
+\       'statusline': 1,
+\       'tabline': 1
+\   }
+\ }
 "--------------------------------------
 
 " plugin binds {{{1
