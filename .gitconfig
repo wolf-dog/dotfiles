@@ -14,10 +14,14 @@
     ci = commit
     co = checkout
     d = diff
+    dc = diff --cached
+    dh = diff HEAD^
     f = fetch
-    l = log --decorate
-    l1 = log --decorate --oneline
-    m = merge
+    l = log --decorate --oneline
+    ll = log --decorate --oneline
+    m = merge --ff-only
+    pm = pull --ff-only
+    r = rebase
     st = status
 [push]
     default = simple

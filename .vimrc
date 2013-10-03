@@ -20,11 +20,12 @@ endif
 call neobundle#rc(expand('$VIMUSERDIR/bundle/'))
 
 " plugins
-NeoBundle 'git://github.com/Shougo/neobundle.vim'
+let g:neobundle#types#git#default_protocol = 'git'
+NeoBundle '://github.com/Shougo/neobundle.vim'
 if has ('win32') || has ('win64')
 " in windows, don't manage vimproc with NeoBundle
 else
-    NeoBundle 'git://github.com/Shougo/vimproc.vim', {
+    NeoBundle '://github.com/Shougo/vimproc.vim', {
     \     'build' : {
     \         'cygwin' : 'make -f make_cygwin.mak',
     \         'mac'    : 'make -f make_mac.mak',
@@ -40,39 +41,40 @@ else
 endif
 
 if ( s:neocomplete_available )
-    NeoBundle 'git://github.com/Shougo/neocomplete.vim'
+    NeoBundle '://github.com/Shougo/neocomplete.vim'
 else
-    NeoBundle 'git://github.com/Shougo/neocomplcache.vim'
+    NeoBundle '://github.com/Shougo/neocomplcache.vim'
 endif
 
-NeoBundle 'git://github.com/Shougo/unite.vim'
-NeoBundle 'git://github.com/Shougo/unite-outline'
-NeoBundle 'git://github.com/thinca/vim-ref'
-NeoBundle 'git://github.com/Yggdroot/indentLine'
-NeoBundle 'git://github.com/thinca/vim-quickrun'
-NeoBundle 'git://github.com/h1mesuke/vim-alignta'
-NeoBundle 'git://github.com/ChoiZ/vim-json'
-NeoBundle 'git://github.com/scrooloose/syntastic'
-NeoBundle 'git://github.com/jelera/vim-javascript-syntax'
-NeoBundle 'git://github.com/tpope/vim-fugitive'
-NeoBundle 'git://github.com/Shougo/junkfile.vim'
-NeoBundle 'git://github.com/kana/vim-textobj-user'
-NeoBundle 'git://github.com/kana/vim-textobj-line'
-NeoBundle 'git://github.com/kana/vim-textobj-entire'
-NeoBundle 'git://github.com/kana/vim-textobj-indent'
-NeoBundle 'git://github.com/thinca/vim-textobj-between'
-NeoBundle 'git://github.com/ujihisa/unite-colorscheme'
-NeoBundle 'git://github.com/osyo-manga/unite-highlight'
-NeoBundle 'git://github.com/itchyny/lightline.vim'
+NeoBundle '://github.com/Shougo/unite.vim'
+NeoBundle '://github.com/Shougo/unite-outline'
+NeoBundle '://github.com/thinca/vim-ref'
+NeoBundle '://github.com/Yggdroot/indentLine'
+NeoBundle '://github.com/thinca/vim-quickrun'
+NeoBundle '://github.com/h1mesuke/vim-alignta'
+NeoBundle '://github.com/ChoiZ/vim-json'
+NeoBundle '://github.com/scrooloose/syntastic'
+NeoBundle '://github.com/jelera/vim-javascript-syntax'
+NeoBundle '://github.com/tpope/vim-fugitive'
+NeoBundle '://github.com/Shougo/junkfile.vim'
+NeoBundle '://github.com/kana/vim-textobj-user'
+NeoBundle '://github.com/kana/vim-textobj-line'
+NeoBundle '://github.com/kana/vim-textobj-entire'
+NeoBundle '://github.com/kana/vim-textobj-indent'
+NeoBundle '://github.com/thinca/vim-textobj-between'
+NeoBundle '://github.com/ujihisa/unite-colorscheme'
+NeoBundle '://github.com/osyo-manga/unite-highlight'
+NeoBundle '://github.com/itchyny/lightline.vim'
+NeoBundle '://github.com/vim-scripts/sudo.vim'
 
 " colorschemes
-NeoBundle 'git://github.com/wolf-dog/nighted.vim'
-NeoBundle 'git://github.com/veloce/vim-aldmeris'
-NeoBundle 'git://github.com/apeacox/vim-distinguished'
-NeoBundle 'git://github.com/tomasr/molokai'
+NeoBundle '://github.com/wolf-dog/nighted.vim'
+NeoBundle '://github.com/veloce/vim-aldmeris'
+NeoBundle '://github.com/apeacox/vim-distinguished'
+NeoBundle '://github.com/tomasr/molokai'
 
 " display color table
-NeoBundle 'git://github.com/guns/xterm-color-table.vim'
+NeoBundle '://github.com/guns/xterm-color-table.vim'
 
 filetype plugin indent on
 "--------------------------------------
@@ -543,7 +545,11 @@ let g:lightline = {
 \   'colorscheme': 'nighted',
 \   'enable': {
 \       'statusline': 1,
-\       'tabline': 1
+\       'tabline': 0
+\   },
+\   'active': {
+\       'left': [ ['mode', 'paste' ],
+\                 [ 'readonly', 'absolutepath', 'modified' ] ]
 \   }
 \ }
 "--------------------------------------
