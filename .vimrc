@@ -342,6 +342,8 @@ nnoremap [Leader]O O<Esc>
 nnoremap [Leader]a $i
 " open a new tab
 nnoremap <silent> [Leader]t :<C-u>tabnew<CR>
+" duplicate current tab
+nnoremap <silent> [Leader]u :<C-u>tabnew %<CR>
 " search using very nomagic
 nnoremap [Leader]/ /\V
 nnoremap [Leader]? ?\V
@@ -353,6 +355,8 @@ nnoremap [Leader]n *zz
 nnoremap [Leader]N #zz
 " list the marks
 nnoremap <silent> [Leader]m :<C-u>marks<CR>
+" git grep
+nnoremap [Leader]g :<C-u>!git grep<Space>
 " change encodings and formats
 nnoremap [Leader]e <Nop>
 nnoremap <silent> [Leader]ec :<C-u>setlocal fileencoding=cp932<CR>
@@ -613,8 +617,9 @@ nnoremap <Space>r :<C-u>Ref phpmanual<Space>
 nnoremap <silent> [Leader]x :<C-u>QuickRun<CR>
 
 " alignta
-vnoremap          [Leader]a :Alignta<Space>
-vnoremap <silent> [Leader]A :Alignta =>\=<CR>
+vnoremap          [Leader]A :Alignta<Space>
+vnoremap <silent> [Leader]aa :Alignta =>\=<CR>
+vnoremap <silent> [Leader]as :Alignta <-- =>\=<CR>
 
 " syntastic
 nnoremap [Leader]c :<C-u>SyntasticCheck<CR>
