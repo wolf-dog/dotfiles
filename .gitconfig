@@ -18,11 +18,13 @@
     dh = diff HEAD^
     f = fetch
     l = log --decorate --oneline
-    ll = log --decorate --oneline
+    l5 = log --decorate --oneline -n5
+    ll = log --decorate
+    ls = log --decorate --stat
     m = merge --ff-only
-    pm = pull --ff-only
+    p = pull --ff-only
     r = rebase
-    st = status
+    s = status
 [push]
     default = simple
 [credential]

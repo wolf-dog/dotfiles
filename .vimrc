@@ -69,6 +69,7 @@ NeoBundle '://github.com/vim-scripts/sudo.vim'
 
 " colorschemes
 NeoBundle '://github.com/wolf-dog/nighted.vim'
+NeoBundle '://github.com/wolf-dog/lightline-nighted.vim'
 NeoBundle '://github.com/veloce/vim-aldmeris'
 NeoBundle '://github.com/apeacox/vim-distinguished'
 NeoBundle '://github.com/tomasr/molokai'
@@ -355,8 +356,6 @@ nnoremap [Leader]n *zz
 nnoremap [Leader]N #zz
 " list the marks
 nnoremap <silent> [Leader]m :<C-u>marks<CR>
-" git grep
-nnoremap [Leader]g :<C-u>!git grep<Space>
 " change encodings and formats
 nnoremap [Leader]e <Nop>
 nnoremap <silent> [Leader]ec :<C-u>setlocal fileencoding=cp932<CR>
@@ -625,12 +624,14 @@ vnoremap <silent> [Leader]as :Alignta <-- =>\=<CR>
 nnoremap [Leader]c :<C-u>SyntasticCheck<CR>
 
 " fugitive
-nnoremap          <Leader>gg :<C-u>Git<Space>
+nnoremap          <Leader>gi :<C-u>Git<Space>
 nnoremap <silent> <Leader>gl :<C-u>Glog<CR>
 nnoremap <silent> <Leader>gs :<C-u>Gstatus<CR>
 nnoremap <silent> <Leader>gc :<C-u>Gcommit<CR>
 nnoremap <silent> <Leader>gw :<C-u>Gwrite<CR>
 nnoremap <silent> <Leader>gb :<C-u>Gblame<CR>
 nnoremap <silent> <Leader>gd :<C-u>Gsdiff<CR>
+nnoremap <silent> <Leader>gh :<C-u>Gsdiff HEAD^<CR>
+nnoremap <silent> <Leader>gg :<C-u>Ggrep<CR>
 "--------------------------------------
 
