@@ -70,9 +70,11 @@ NeoBundle '://github.com/vim-scripts/sudo.vim'
 " colorschemes
 NeoBundle '://github.com/wolf-dog/nighted.vim'
 NeoBundle '://github.com/wolf-dog/lightline-nighted.vim'
+NeoBundle '://github.com/wolf-dog/sceaduhelm.vim'
 NeoBundle '://github.com/veloce/vim-aldmeris'
 NeoBundle '://github.com/apeacox/vim-distinguished'
 NeoBundle '://github.com/tomasr/molokai'
+NeoBundle '://github.com/croaker/mustang-vim'
 
 " display color table
 NeoBundle '://github.com/guns/xterm-color-table.vim'
@@ -156,7 +158,7 @@ syntax enable
 " prevent overriding colorscheme on reloading
 if !exists('g:colors_name')
     set background=dark
-    colorscheme nighted
+    colorscheme sceaduhelm
 endif
 
 "--------------------------------------
@@ -484,8 +486,8 @@ let g:unite_enable_start_insert = 1
 let g:unite_source_menu_menus = {
 \     'shortcut' : {
 \         'command_candidates' : [
-\             ['NeoBundle', 'Unite neobundle'],
-\             ['NeoBundleUpdate', 'Unite neobundle/update'],
+\             ['NeoBundle', 'Unite neobundle -no-start-insert'],
+\             ['NeoBundleUpdate', 'Unite neobundle/update -no-start-inert'],
 \             ['NeoBundleCheck', 'NeoBundleCheck'],
 \             ['NeoBundleClean', 'NeoBundleClean'],
 \             ['NeoBundleInstall', 'NeoBundleInstall'],
@@ -497,12 +499,12 @@ let g:unite_source_menu_menus = {
 \                 'edit .gvimrc',
 \                 'execute "tabedit " . resolve(expand($MYGVIMRC))'
 \             ],
-\             ['outline', 'Unite outline'],
-\             ['highlight', 'Unite highlight'],
+\             ['outline', 'Unite outline -no-start-insert'],
+\             ['highlight', 'Unite highlight -no-start-insert'],
 \             ['output map', 'Unite output:map|map!|lmap'],
 \             ['output message', 'Unite output:message'],
 \             ['output version', 'Unite output:version'],
-\             ['Unite Beautiful Attack', 'Unite colorscheme -auto-preview'],
+\             ['Unite Beautiful Attack', 'Unite colorscheme -auto-preview -no-start-insert'],
 \         ],
 \     },
 \ }
@@ -519,8 +521,8 @@ else
 endif
 
 " indentLine
-let g:indentLine_color_term = 236
-let g:indentLine_color_gui = '#303030'
+let g:indentLine_color_term = 60
+let g:indentLine_color_gui = '#5f5f87'
 
 " quickrun
 let g:quickrun_config = {}
@@ -571,7 +573,7 @@ nnoremap <silent> [unite]a :<C-u>Unite bookmark<CR>
 " open buffer list
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 " open recently used file list
-nnoremap <silent> [unite]r :<C-u>Unite file_mru<CR>
+nnoremap <silent> [unite]r :<C-u>Unite file_mru:long<CR>
 " open junk file
 nnoremap <silent> [unite]j :<C-u>Unite junkfile/new junkfile<CR>
 " open register
