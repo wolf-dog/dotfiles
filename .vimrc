@@ -487,7 +487,7 @@ let g:unite_source_menu_menus = {
 \     'shortcut' : {
 \         'command_candidates' : [
 \             ['NeoBundle', 'Unite neobundle -no-start-insert'],
-\             ['NeoBundleUpdate', 'Unite neobundle/update -no-start-inert'],
+\             ['NeoBundleUpdate', 'Unite neobundle/update -no-start-insert'],
 \             ['NeoBundleCheck', 'NeoBundleCheck'],
 \             ['NeoBundleClean', 'NeoBundleClean'],
 \             ['NeoBundleInstall', 'NeoBundleInstall'],
