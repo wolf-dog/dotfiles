@@ -48,6 +48,10 @@ endif
 
 NeoBundle '://github.com/Shougo/unite.vim'
 NeoBundle '://github.com/Shougo/unite-outline'
+NeoBundle '://github.com/osyo-manga/unite-highlight'
+NeoBundle '://github.com/ujihisa/unite-colorscheme'
+NeoBundle '://github.com/sgur/unite-git_grep'
+NeoBundle '://github.com/osyo-manga/unite-quickfix'
 NeoBundle '://github.com/thinca/vim-ref'
 NeoBundle '://github.com/Yggdroot/indentLine'
 NeoBundle '://github.com/thinca/vim-quickrun'
@@ -61,9 +65,9 @@ NeoBundle '://github.com/kana/vim-textobj-user'
 NeoBundle '://github.com/kana/vim-textobj-line'
 NeoBundle '://github.com/kana/vim-textobj-entire'
 NeoBundle '://github.com/kana/vim-textobj-indent'
+NeoBundle '://github.com/kana/vim-textobj-underscore'
+NeoBundle '://github.com/h1mesuke/textobj-wiw'
 NeoBundle '://github.com/thinca/vim-textobj-between'
-NeoBundle '://github.com/ujihisa/unite-colorscheme'
-NeoBundle '://github.com/osyo-manga/unite-highlight'
 NeoBundle '://github.com/itchyny/lightline.vim'
 NeoBundle '://github.com/vim-scripts/sudo.vim'
 
@@ -71,6 +75,7 @@ NeoBundle '://github.com/vim-scripts/sudo.vim'
 NeoBundle '://github.com/wolf-dog/nighted.vim'
 NeoBundle '://github.com/wolf-dog/lightline-nighted.vim'
 NeoBundle '://github.com/wolf-dog/sceaduhelm.vim'
+NeoBundle '://github.com/wolf-dog/lightline-sceaduhelm.vim'
 NeoBundle '://github.com/veloce/vim-aldmeris'
 NeoBundle '://github.com/apeacox/vim-distinguished'
 NeoBundle '://github.com/tomasr/molokai'
@@ -499,7 +504,6 @@ let g:unite_source_menu_menus = {
 \                 'edit .gvimrc',
 \                 'execute "tabedit " . resolve(expand($MYGVIMRC))'
 \             ],
-\             ['outline', 'Unite outline -no-start-insert'],
 \             ['highlight', 'Unite highlight -no-start-insert'],
 \             ['output map', 'Unite output:map|map!|lmap'],
 \             ['output message', 'Unite output:message'],
@@ -547,10 +551,10 @@ let g:syntastic_check_on_wq = 0
 " lightline
 let g:lightline = {}
 let g:lightline = {
-\   'colorscheme': 'nighted',
+\   'colorscheme': 'sceaduhelm',
 \   'enable': {
 \       'statusline': 1,
-\       'tabline': 0
+\       'tabline': 1
 \   },
 \   'active': {
 \       'left': [ ['mode', 'paste' ],
@@ -578,6 +582,10 @@ nnoremap <silent> [unite]r :<C-u>Unite file_mru:long<CR>
 nnoremap <silent> [unite]j :<C-u>Unite junkfile/new junkfile<CR>
 " open register
 nnoremap <silent> [unite]' :<C-u>Unite register<CR>
+" open quixfix
+nnoremap <silent> [unite]q :<C-u>Unite -no-start-insert -no-quit quickfix<CR>
+" outline
+nnoremap <silent> [unite]o :<C-u>Unite -no-start-insert -no-quit outline<CR>
 " grep
 nnoremap [unite]g :<C-u>Unite -no-quit grep:
 " grep in current directory recursively
@@ -634,6 +642,6 @@ nnoremap <silent> <Leader>gw :<C-u>Gwrite<CR>
 nnoremap <silent> <Leader>gb :<C-u>Gblame<CR>
 nnoremap <silent> <Leader>gd :<C-u>Gsdiff<CR>
 nnoremap <silent> <Leader>gh :<C-u>Gsdiff HEAD^<CR>
-nnoremap <silent> <Leader>gg :<C-u>Ggrep<CR>
+nnoremap <Leader>gg :<C-u>Ggrep<Space>
 "--------------------------------------
 
