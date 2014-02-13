@@ -234,9 +234,6 @@ onoremap j gj
 onoremap k gk
 onoremap gj j
 onoremap gk k
-" indent more quickly
-nnoremap > >>
-nnoremap < <<
 " use very magic by default
 nnoremap / /\v
 nnoremap ? ?\v
@@ -307,6 +304,10 @@ nnoremap <C-s> <Nop>
 vnoremap . :<C-u>normal.<CR>
 " repeat macro on every selected line
 vnoremap @ :<C-u>normal@
+" repeat last f, t, F or T in opposite direction
+nnoremap \ ,
+vnoremap \ ,
+onoremap \ ,
 
 " start with [Leader] {{{2
 " disable <Space> to use it as the prefix key
@@ -321,19 +322,11 @@ vnoremap [Leader]h ^
 vnoremap [Leader]l $
 onoremap [Leader]h ^
 onoremap [Leader]l $
-" default indent command
-nnoremap [Leader]> >
-nnoremap [Leader]< <
 " paste from the clipboard
 nnoremap [Leader]p "*p
 nnoremap [Leader]P "*P
 vnoremap [Leader]p "*p
 vnoremap [Leader]P "*P
-" paste from the 0 register
-nnoremap [Leader]0p "0p
-nnoremap [Leader]0P "0P
-vnoremap [Leader]0p "0p
-vnoremap [Leader]0P "0P
 " yank to the clipboard
 nnoremap [Leader]y "*y
 nnoremap [Leader]Y "*y$
@@ -624,6 +617,7 @@ nnoremap <Space>r :<C-u>Ref phpmanual<Space>
 
 " quickrun
 nnoremap <silent> [Leader]x :<C-u>QuickRun<CR>
+nnoremap <silent> [Leader]X :<C-u>QuickRun -args<Space>
 
 " alignta
 vnoremap          [Leader]A :Alignta<Space>

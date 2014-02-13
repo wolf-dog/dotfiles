@@ -12,7 +12,9 @@
     a = add
     b = branch
     ci = commit
+    ca = commit --amend
     co = checkout
+    cb = checkout -b
     d = diff
     dc = diff --cached
     dh = diff HEAD^
