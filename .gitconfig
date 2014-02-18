@@ -19,8 +19,8 @@
     dc = diff --cached
     dh = diff HEAD^
     f = fetch
-    l = log --decorate --oneline
-    l5 = log --decorate --oneline -n5
+    l = log --oneline
+    l5 = log --oneline -n5
     ll = log --decorate
     ls = log --decorate --stat
     m = merge --ff-only

@@ -47,6 +47,7 @@ else
 endif
 
 NeoBundle '://github.com/Shougo/unite.vim'
+NeoBundle '://github.com/Shougo/neomru.vim'
 NeoBundle '://github.com/Shougo/unite-outline'
 NeoBundle '://github.com/osyo-manga/unite-highlight'
 NeoBundle '://github.com/ujihisa/unite-colorscheme'
@@ -70,6 +71,7 @@ NeoBundle '://github.com/h1mesuke/textobj-wiw'
 NeoBundle '://github.com/thinca/vim-textobj-between'
 NeoBundle '://github.com/itchyny/lightline.vim'
 NeoBundle '://github.com/vim-scripts/sudo.vim'
+NeoBundle '://github.com/joonty/vdebug'
 
 " colorschemes
 NeoBundle '://github.com/wolf-dog/nighted.vim'
@@ -460,6 +462,10 @@ let g:php_folding = 1
 " use bash by default
 let g:is_bash = 1
 
+" json
+" disable concealing
+let g:vim_json_syntax_conceal = 0
+
 if ( s:neocomplete_available )
     " neocomplete
     let g:neocomplete#enable_at_startup = 1
@@ -511,10 +517,10 @@ let g:unite_source_menu_menus = {
 if has('win32') || ('win64')
     let s:lynx = 'D:/usr/local/share/lynx/lynx.exe'
     let s:lynx_cfg = 'D:/usr/local/share/lynx/lynx.cfg'
-    let g:ref_phpmanual_path = 'D:/usr/local/man/php'
+    let g:ref_phpmanual_path = 'D:/usr/local/etc/man/php'
     let g:ref_phpmanual_cmd = s:lynx.' -cfg='.s:lynx_cfg.' -dump -nonumbers %s'
 else
-    let g:ref_phpmanual_path = '/usr/local/man/php'
+    let g:ref_phpmanual_path = '/usr/local/etc/man/php'
 endif
 
 " indentLine
@@ -569,20 +575,22 @@ nnoremap <silent> [unite]d :<C-u>UniteWithBufferDir file file/new<CR>
 nnoremap <silent> [unite]a :<C-u>Unite bookmark<CR>
 " open buffer list
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
-" open recently used file list
-nnoremap <silent> [unite]r :<C-u>Unite file_mru:long<CR>
+" open recently used files list
+nnoremap <silent> [unite]r :<C-u>Unite neomru/file<CR>
+" open recently used directories list
+nnoremap <silent> [unite]t :<C-u>Unite neomru/directory<CR>
 " open junk file
 nnoremap <silent> [unite]j :<C-u>Unite junkfile/new junkfile<CR>
 " open register
 nnoremap <silent> [unite]' :<C-u>Unite register<CR>
-" open quixfix
+" open quickfix
 nnoremap <silent> [unite]q :<C-u>Unite -no-start-insert -no-quit quickfix<CR>
 " outline
 nnoremap <silent> [unite]o :<C-u>Unite -no-start-insert -no-quit outline<CR>
 " grep
-nnoremap [unite]g :<C-u>Unite -no-quit grep:
+nnoremap [unite]g :<C-u>Unite -no-start-insert -no-quit grep:
 " grep in current directory recursively
-nnoremap [unite]G :<C-u>Unite -no-quit grep:./:-r:
+nnoremap [unite]G :<C-u>Unite -no-start-insert -no-quit grep:./:-r:
 " open menu:shortcut
 nnoremap <silent> [unite]f :<C-u>Unite menu:shortcut<CR>
 
@@ -637,5 +645,20 @@ nnoremap <silent> <Leader>gb :<C-u>Gblame<CR>
 nnoremap <silent> <Leader>gd :<C-u>Gsdiff<CR>
 nnoremap <silent> <Leader>gh :<C-u>Gsdiff HEAD^<CR>
 nnoremap <Leader>gg :<C-u>Ggrep<Space>
+
+" vdebug
+let g:vdebug_keymap = {
+\   "run" : "<Leader>ss",
+\   "run_to_cursor" : "<Leader>sr",
+\   "step_over" : "<Leader>sl",
+\   "step_into" : "<Leader>si",
+\   "step_out" : "<Leader>so",
+\   "close" : "<Leader>sq",
+\   "detach" : "<Leader>sj",
+\   "set_breakpoint" : "<Leader>sb",
+\   "get_context" : "<Leader>sc",
+\   "eval_under_cursor" : "<Leader>se",
+\   "eval_visual" : "<Leader>sv",
+\ }
 "--------------------------------------
 
