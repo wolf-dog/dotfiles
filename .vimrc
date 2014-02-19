@@ -520,7 +520,7 @@ if has('win32') || ('win64')
     let g:ref_phpmanual_path = 'D:/usr/local/etc/man/php'
     let g:ref_phpmanual_cmd = s:lynx.' -cfg='.s:lynx_cfg.' -dump -nonumbers %s'
 else
-    let g:ref_phpmanual_path = '/usr/local/etc/man/php'
+    let g:ref_phpmanual_path = expand('~/usr/local/etc/man/php')
 endif
 
 " indentLine
@@ -554,6 +554,10 @@ let g:lightline = {
 \   'enable': {
 \       'statusline': 1,
 \       'tabline': 1
+\   },
+\   'tabline_subseparator': {
+\       'left': '',
+\       'right': ''
 \   },
 \   'active': {
 \       'left': [ ['mode', 'paste' ],
@@ -648,17 +652,17 @@ nnoremap <Leader>gg :<C-u>Ggrep<Space>
 
 " vdebug
 let g:vdebug_keymap = {
-\   "run" : "<Leader>ss",
-\   "run_to_cursor" : "<Leader>sr",
-\   "step_over" : "<Leader>sl",
-\   "step_into" : "<Leader>si",
-\   "step_out" : "<Leader>so",
-\   "close" : "<Leader>sq",
-\   "detach" : "<Leader>sj",
-\   "set_breakpoint" : "<Leader>sb",
-\   "get_context" : "<Leader>sc",
-\   "eval_under_cursor" : "<Leader>se",
-\   "eval_visual" : "<Leader>sv",
+\   "run"               : "<Leader>ss",
+\   "run_to_cursor"     : "<Leader>sr",
+\   "step_over"         : "<Leader>sl",
+\   "step_into"         : "<Leader>si",
+\   "step_out"          : "<Leader>so",
+\   "close"             : "<Leader>sj",
+\   "detach"            : "<Leader>sd",
+\   "set_breakpoint"    : "<Leader>sb",
+\   "get_context"       : "<Leader>sc",
+\   "eval_under_cursor" : "<Leader>sx",
+\   "eval_visual"       : "<Leader>sv",
 \ }
 "--------------------------------------
 

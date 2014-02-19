@@ -7,7 +7,9 @@
     editor = vim
     pager = less -R
     excludesfile = ~/.gitignore
+    whitespace = trailing-space, space-before-tab
     autocrlf = input
+    safecrlf = true
 [alias]
     a = add
     b = branch
