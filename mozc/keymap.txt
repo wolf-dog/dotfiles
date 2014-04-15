@@ -9,6 +9,7 @@ Composition	Ctrl j	Cancel
 Composition	Ctrl h	Backspace
 Composition	Ctrl m	Commit
 Composition	Ctrl n	PredictAndConvert
+Composition	Ctrl u	Cancel
 Composition	Enter	Commit
 Composition	ESC	Cancel
 Composition	F8	DisplayAsHalfWidth
@@ -27,6 +28,7 @@ Conversion	Ctrl m	CommitOnlyFirstSegment
 Conversion	Ctrl n	ConvertNext
 Conversion	Ctrl o	SegmentWidthExpand
 Conversion	Ctrl p	ConvertPrev
+Conversion	Ctrl u	Cancel
 Conversion	Enter	Commit
 Conversion	ESC	Cancel
 Conversion	F8	DisplayAsHalfWidth
@@ -39,6 +41,10 @@ Precomposition	Space	InsertSpace
 Composition	Ctrl h	Backspace
 Suggestion	Ctrl n	ConvertNext
 Suggestion	Ctrl p	ConvertPrev
+Suggestion	Ctrl j	Cancel
+Suggestion	Ctrl u	Cancel
+Prediction	Ctrl j	Cancel
+Prediction	Ctrl u	Cancel
 Composition	Backspace	Backspace
 Composition	OFF	IMEOff
 Composition	ON	IMEOn

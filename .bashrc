@@ -67,10 +67,17 @@ alias lla='ls -lA'
 alias l='ls'
 # git
 alias g='git'
+# tmux always use 256-color terminal
+alias tmux='tmux -2'
 # go up directories
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 #--------------------------------------
+
+# Source local definitions
+if [ -f .bashrc_local ]; then
+    . .bashrc_local
+fi
 

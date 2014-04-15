@@ -5,11 +5,7 @@ set nocompatible
 set langmenu=none
 language messages C
 " set user local directory
-if has ('win32') || has('win64')
-    let $VIMUSERDIR=$HOME.'/vimfiles'
-else
-    let $VIMUSERDIR=$HOME.'/.vim'
-endif
+let $VIMUSERDIR=$HOME.'/.vim'
 "--------------------------------------
 
 " NeoBundle {{{1
@@ -22,17 +18,13 @@ call neobundle#rc(expand('$VIMUSERDIR/bundle/'))
 " plugins
 let g:neobundle#types#git#default_protocol = 'git'
 NeoBundle '://github.com/Shougo/neobundle.vim'
-if has ('win32') || has ('win64')
-" in windows, don't manage vimproc with NeoBundle
-else
-    NeoBundle '://github.com/Shougo/vimproc.vim', {
-    \     'build' : {
-    \         'cygwin' : 'make -f make_cygwin.mak',
-    \         'mac'    : 'make -f make_mac.mak',
-    \         'unix'   : 'make -f make_unix.mak',
-    \     },
-    \ }
-endif
+NeoBundle '://github.com/Shougo/vimproc.vim', {
+\     'build' : {
+\         'cygwin' : 'make -f make_cygwin.mak',
+\         'mac'    : 'make -f make_mac.mak',
+\         'unix'   : 'make -f make_unix.mak',
+\     },
+\ }
 
 if ( has('lua') && (v:version > 703 || v:version == 703 && has('patch885')) )
     let s:neocomplete_available = 1
@@ -514,14 +506,7 @@ let g:unite_source_menu_menus = {
 
 " ref
 " define path to php manual
-if has('win32') || ('win64')
-    let s:lynx = 'D:/usr/local/share/lynx/lynx.exe'
-    let s:lynx_cfg = 'D:/usr/local/share/lynx/lynx.cfg'
-    let g:ref_phpmanual_path = 'D:/usr/local/etc/man/php'
-    let g:ref_phpmanual_cmd = s:lynx.' -cfg='.s:lynx_cfg.' -dump -nonumbers %s'
-else
-    let g:ref_phpmanual_path = expand('~/usr/local/etc/man/php')
-endif
+let g:ref_phpmanual_path = expand('~/usr/local/etc/man/php')
 
 " indentLine
 let g:indentLine_color_term = 60
@@ -535,14 +520,6 @@ let g:quickrun_config = {
 \         'runner/vimproc/updatetime': 100,
 \     }
 \ }
-" if running on cygwin, replace cygwin-style path to windows-style path
-if has('win32unix')
-    let g:quickrun_config = {
-\       '_' : {
-\           'exec': '%c %o %a < `cygpath -m %s`'
-\       }
-\   }
-endif
 
 " syntastic
 let g:syntastic_check_on_wq = 0
@@ -582,7 +559,7 @@ nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 " open recently used files list
 nnoremap <silent> [unite]r :<C-u>Unite neomru/file<CR>
 " open recently used directories list
-nnoremap <silent> [unite]t :<C-u>Unite neomru/directory<CR>
+nnoremap <silent> [unite]t :<C-u>Unite -default-action=lcd neomru/directory<CR>
 " open junk file
 nnoremap <silent> [unite]j :<C-u>Unite junkfile/new junkfile<CR>
 " open register
@@ -600,14 +577,14 @@ nnoremap <silent> [unite]f :<C-u>Unite menu:shortcut<CR>
 
 " open with horizontally split window
 autocmd vimrc-autocmd FileType unite nnoremap
-\ <silent> <buffer> <expr> <C-k> unite#do_action('below')
+\ <silent> <buffer> <expr> <C-s> unite#do_action('below')
 autocmd vimrc-autocmd FileType unite inoremap
-\ <silent> <buffer> <expr> <C-k> unite#do_action('below')
+\ <silent> <buffer> <expr> <C-s> unite#do_action('below')
 " open with vertically split window
 autocmd vimrc-autocmd FileType unite nnoremap
-\ <silent> <buffer> <expr> <C-l> unite#do_action('right')
+\ <silent> <buffer> <expr> <C-v> unite#do_action('right')
 autocmd vimrc-autocmd FileType unite inoremap
-\ <silent> <buffer> <expr> <C-l> unite#do_action('right')
+\ <silent> <buffer> <expr> <C-v> unite#do_action('right')
 " add to bookmark
 autocmd vimrc-autocmd FileType unite nnoremap
 \ <silent> <buffer> <expr> <C-a> unite#do_action('bookmark')
