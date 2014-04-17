@@ -483,7 +483,7 @@ let g:unite_source_menu_menus = {
 \     'shortcut' : {
 \         'command_candidates' : [
 \             ['NeoBundle', 'Unite neobundle -no-start-insert'],
-\             ['NeoBundleUpdate', 'Unite neobundle/update -no-start-insert'],
+\             ['NeoBundleUpdate', 'Unite neobundle/update -no-start-insert -no-quit'],
 \             ['NeoBundleCheck', 'NeoBundleCheck'],
 \             ['NeoBundleClean', 'NeoBundleClean'],
 \             ['NeoBundleInstall', 'NeoBundleInstall'],
@@ -629,17 +629,17 @@ nnoremap <Leader>gg :<C-u>Ggrep<Space>
 
 " vdebug
 let g:vdebug_keymap = {
-\   "run"               : "<Leader>ss",
-\   "run_to_cursor"     : "<Leader>sr",
-\   "step_over"         : "<Leader>sl",
-\   "step_into"         : "<Leader>si",
-\   "step_out"          : "<Leader>so",
-\   "close"             : "<Leader>sj",
-\   "detach"            : "<Leader>sd",
-\   "set_breakpoint"    : "<Leader>sb",
-\   "get_context"       : "<Leader>sc",
-\   "eval_under_cursor" : "<Leader>sx",
-\   "eval_visual"       : "<Leader>sv",
+\   'run'               : '<Leader>ss',
+\   'run_to_cursor'     : '<Leader>sr',
+\   'step_over'         : '<Leader>sl',
+\   'step_into'         : '<Leader>si',
+\   'step_out'          : '<Leader>so',
+\   'close'             : '<Leader>sj',
+\   'detach'            : '<Leader>sd',
+\   'set_breakpoint'    : '<Leader>sb',
+\   'get_context'       : '<Leader>sc',
+\   'eval_under_cursor' : '<Leader>sx',
+\   'eval_visual'       : '<Leader>sv',
 \ }
 "--------------------------------------
 
