@@ -17,29 +17,41 @@ export HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 export EDITOR=vim
 export PAGER=less
 # custom prompt
-_set_up_prompt() {
-    local _default='\[\033[0;0m\]'
-    local _user
-    if [ "$USER" = 'root' ]
-    then
-        local _user='\[\033[0;31m\]'
+_set_user_color() {
+    if [ "$USER" = 'root' ]; then
+        echo '\[\033[0;31m\]'
     else
-        local _user='\[\033[0;33m\]'
+        echo '\[\033[0;33m\]'
     fi
-
-    local _host
-    if [ "$HOSTNAME" = 'localhost' -o "$HOSTNAME" = 'localhost.localdomain' ]
-    then
-        local _host='\[\033[0;32m\]'
-    else
-        local _host='\[\033[0;34m\]'
-    fi
-
-    export PS1="[$_user\u$_default@$_host\h$_default \w] \$ "
 }
-_set_up_prompt
-unset -f _set_up_prompt
+
+_set_host_color() {
+    if [ "$HOSTNAME" = 'localhost' ]; then
+        echo '\[\033[0;32m\]'
+    else
+        echo '\[\033[0;34m\]'
+    fi
+}
+
+_DEFAULT_COLOR='\[\033[0;0m\]'
+
+if [ -f ~/.git-completion.bash -a -f ~/.git-prompt.sh ]; then
+    source ~/.git-completion.bash
+    source ~/.git-prompt.sh
+    GIT_PS1_SHOWDIRTYSTATE=true
+    GIT_PS1_SHOWSTASHSTATE=true
+    GIT_PS1_SHOWUNTRACKEDFILES=true
+    GIT_PS1_SHOWUPSTREAM=true
+    GIT_PS1_SHOWCOLORHINTS=true
+
+    export PROMPT_COMMAND='__git_ps1 "'`_set_user_color`'\u'${_DEFAULT_COLOR}'@'`_set_host_color`'\h\[\033[01;33m\] \w\[\033[00m\]" "\n'${_DEFAULT_COLOR}\$' "'
+else
+    export PS1="["`_set_user_color`"\u${_DEFAULT_COLOR}@"`_set_host_color`"\h${_DEFAULT_COLOR} \w] \$ "
+fi
+unset -f _set_user_color
+unset -f _set_host_color
 #--------------------------------------
+
 
 # Aliases {{{1
 #--------------------------------------
