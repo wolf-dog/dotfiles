@@ -520,6 +520,14 @@ let g:quickrun_config = {
 \         'runner/vimproc/updatetime': 100,
 \     }
 \ }
+" if running on cygwin, replace cygwin-style path to windows-style path
+if has('win32unix')
+    let g:quickrun_config = {
+\       '_' : {
+\           'exec': '%c %o %a < `cygpath -m %s`'
+\       }
+\   }
+endif
 
 " syntastic
 let g:syntastic_check_on_wq = 0
