@@ -17,7 +17,7 @@ call neobundle#rc(expand('$VIMUSERDIR/bundle/'))
 
 " plugins
 let g:neobundle#types#git#default_protocol = 'git'
-NeoBundle '://github.com/Shougo/neobundle.vim'
+NeoBundleFetch '://github.com/Shougo/neobundle.vim'
 NeoBundle '://github.com/Shougo/vimproc.vim', {
 \     'build' : {
 \         'cygwin' : 'make -f make_cygwin.mak',
