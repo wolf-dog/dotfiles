@@ -49,7 +49,7 @@ NeoBundle '://github.com/thinca/vim-ref'
 NeoBundle '://github.com/Yggdroot/indentLine'
 NeoBundle '://github.com/thinca/vim-quickrun'
 NeoBundle '://github.com/h1mesuke/vim-alignta'
-NeoBundle '://github.com/ChoiZ/vim-json'
+NeoBundle '://github.com/wolf-dog/vim-json'
 NeoBundle '://github.com/scrooloose/syntastic'
 NeoBundle '://github.com/jelera/vim-javascript-syntax'
 NeoBundle '://github.com/tpope/vim-fugitive'
@@ -453,10 +453,6 @@ let g:php_folding = 1
 " sh
 " use bash by default
 let g:is_bash = 1
-
-" json
-" disable concealing
-let g:vim_json_syntax_conceal = 0
 
 if ( s:neocomplete_available )
     " neocomplete
