@@ -471,8 +471,10 @@ else
 endif
 
 " unite
-call unite#set_profile('default', 'ignorecase', 1)
-call unite#set_profile('default', 'smartcase', 0)
+call unite#set_profile('default', 'context', {
+\     'ignorecase': 1,
+\     'smartcase': 0
+\ })
 let g:unite_enable_start_insert = 1
 " unite menu
 let g:unite_source_menu_menus = {
@@ -579,31 +581,26 @@ nnoremap [unite]G :<C-u>Unite -no-start-insert -no-quit grep:./:-r:
 " open menu:shortcut
 nnoremap <silent> [unite]f :<C-u>Unite menu:shortcut<CR>
 
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
 " open with horizontally split window
-autocmd vimrc-autocmd FileType unite nnoremap
-\ <silent> <buffer> <expr> <C-s> unite#do_action('below')
-autocmd vimrc-autocmd FileType unite inoremap
-\ <silent> <buffer> <expr> <C-s> unite#do_action('below')
+nnoremap <silent> <buffer> <expr> <C-s> unite#do_action('below')
+inoremap <silent> <buffer> <expr> <C-s> unite#do_action('below')
 " open with vertically split window
-autocmd vimrc-autocmd FileType unite nnoremap
-\ <silent> <buffer> <expr> <C-v> unite#do_action('right')
-autocmd vimrc-autocmd FileType unite inoremap
-\ <silent> <buffer> <expr> <C-v> unite#do_action('right')
+nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('right')
+inoremap <silent> <buffer> <expr> <C-v> unite#do_action('right')
 " add to bookmark
-autocmd vimrc-autocmd FileType unite nnoremap
-\ <silent> <buffer> <expr> <C-a> unite#do_action('bookmark')
-autocmd vimrc-autocmd FileType unite inoremap
-\ <silent> <buffer> <expr> <C-a> unite#do_action('bookmark')
+nnoremap <silent> <buffer> <expr> <C-a> unite#do_action('bookmark')
+inoremap <silent> <buffer> <expr> <C-a> unite#do_action('bookmark')
+" delete backward path
+imap <silent> <buffer> <C-w> <Plug>(unite_delete_backward_path)
 " list actions
-autocmd vimrc-autocmd FileType unite nmap
-\ <silent> <buffer> <C-r> <Plug>(unite_choose_action)
-autocmd vimrc-autocmd FileType unite imap
-\ <silent> <buffer> <C-r> i_<Plug>(unite_choose_action)
+nmap <silent> <buffer> <C-r> <Plug>(unite_choose_action)
+imap <silent> <buffer> <C-r> i_<Plug>(unite_choose_action)
 " quit unite window
-autocmd vimrc-autocmd FileType unite nnoremap
-\ <silent> <buffer> <C-j> :<C-u>quit<CR>
-autocmd vimrc-autocmd FileType unite inoremap
-\ <silent> <buffer> <C-j> <Esc>
+nnoremap <silent> <buffer> <C-j> :<C-u>quit<CR>
+inoremap <silent> <buffer> <C-j> <Esc>
+endfunction
 
 " ref
 nnoremap <Space>r :<C-u>Ref phpmanual<Space>
