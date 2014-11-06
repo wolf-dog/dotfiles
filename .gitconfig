@@ -13,6 +13,7 @@
 [alias]
     a = add
     b = branch
+    bd = branch -d
     ci = commit
     ca = commit --amend
     co = checkout
@@ -27,7 +28,10 @@
     ls = log --decorate --stat
     m = merge --ff-only
     p = pull --ff-only
+    pp = pull --prune
+    pu = push -u origin
     r = rebase
+    ri = rebase -i
     s = status
 [push]
     default = simple
