@@ -33,6 +33,7 @@
     r = rebase
     ri = rebase -i
     s = status
+    sfp = submodule foreach git pull
 [push]
     default = simple
 [credential]
