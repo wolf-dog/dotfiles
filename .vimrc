@@ -13,7 +13,7 @@ let $VIMUSERDIR=$HOME.'/.vim'
 if has ('vim_starting')
     set runtimepath& runtimepath+=$VIMUSERDIR/bundle/neobundle.vim/
 endif
-call neobundle#rc(expand('$VIMUSERDIR/bundle/'))
+call neobundle#begin(expand('$VIMUSERDIR/bundle/'))
 
 " plugins
 let g:neobundle#types#git#default_protocol = 'git'
@@ -77,6 +77,8 @@ NeoBundle '://github.com/croaker/mustang-vim'
 
 " display color table
 NeoBundle '://github.com/guns/xterm-color-table.vim'
+
+call neobundle#end()
 
 filetype plugin indent on
 "--------------------------------------
