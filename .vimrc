@@ -1,6 +1,8 @@
 " core {{{1
 "--------------------------------------
-set nocompatible
+" always use utf-8 inside Vim
+set encoding=utf-8
+scriptencoding utf-8
 " use english menu and messages
 set langmenu=none
 language messages C
@@ -90,8 +92,6 @@ set nobackup
 set nohidden
 " set current buffer's dir to base dir
 set browsedir=buffer
-" always use utf-8 inside Vim
-set encoding=utf-8
 " detect ordinary encodings
 " of course, utf-8 contains all characters in latin1
 " so if fileencoding is set to latin1, something is wrong ...
@@ -381,7 +381,7 @@ nnoremap <silent> [Leader]+ :<C-u>source $MYGVIMRC<CR>
 
 " start with <Leader> {{{2
 " disable ',' to use it as the prefix key
-let mapleader = ','
+let g:mapleader = ','
 nnoremap , <Nop>
 " open the preview window and jump to the tag under the cursor
 " or show candidates if multiple tags found
@@ -583,7 +583,8 @@ nnoremap [unite]G :<C-u>Unite -no-start-insert -no-quit grep:./:-r:
 " open menu:shortcut
 nnoremap <silent> [unite]f :<C-u>Unite menu:shortcut<CR>
 
-autocmd FileType unite call s:unite_settings()
+autocmd vimrc-autocmd FileType unite call s:unite_settings()
+
 function! s:unite_settings()
 " open with horizontally split window
 nnoremap <silent> <buffer> <expr> <C-s> unite#do_action('below')
