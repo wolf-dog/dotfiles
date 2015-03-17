@@ -415,29 +415,38 @@ nnoremap <silent> <Leader>du :<C-u>diffupdate<CR>
 
 " autocmd {{{1
 "--------------------------------------
-" augroup for all autocmd in this .vimrc
-augroup vimrc-autocmd
+augroup vimrc-file
     autocmd!
+
+    " always use this format options regardless of the file type
+    autocmd FileType *
+    \ if ( v:version >= 703)
+    \ | setlocal formatoptions&
+    \ formatoptions-=t formatoptions-=c
+    \ formatoptions+=r formatoptions+=M formatoptions+=j
+    \ | else
+    \ | setlocal formatoptions&
+    \ formatoptions-=t formatoptions-=c
+    \ formatoptions+=r formatoptions+=M
+    \ | endif
+
+    " set fileencoding to empty (use default encoding)
+    " when buffer only contains ASCII characters
+    autocmd BufReadPost *
+    \ if &modifiable && !search('[^\x00-\x7F]', 'cnw')
+        \ | setlocal fileencoding=
+    \ | endif
 augroup END
 
-" always use this format options regardless of the file type
-autocmd vimrc-autocmd FileType *
-\ if ( v:version >= 703)
-\ | setlocal formatoptions&
-\ formatoptions-=t formatoptions-=c
-\ formatoptions+=r formatoptions+=M formatoptions+=j
-\ | else
-\ | setlocal formatoptions&
-\ formatoptions-=t formatoptions-=c
-\ formatoptions+=r formatoptions+=M
-\ | endif
+augroup vimrc-highlight
+    autocmd!
 
-" set fileencoding to empty (use default encoding)
-" when buffer only contains ASCII characters
-autocmd vimrc-autocmd BufReadPost *
-\ if &modifiable && !search('[^\x00-\x7F]', 'cnw')
-    \ | setlocal fileencoding=
-\ | endif
+    " highlight ideographic-space
+    autocmd VimEnter,ColorScheme *
+    \ highlight IdeographicSpace ctermbg=Red guibg=Red
+    autocmd VimEnter,WinEnter *
+    \ let w:match_additional = matchadd('IdeographicSpace', '\%u3000')
+augroup END
 "--------------------------------------
 
 " plugins, filetype settings {{{1
@@ -583,7 +592,10 @@ nnoremap [unite]G :<C-u>Unite -no-start-insert -no-quit grep:./:-r:
 " open menu:shortcut
 nnoremap <silent> [unite]f :<C-u>Unite menu:shortcut<CR>
 
-autocmd vimrc-autocmd FileType unite call s:unite_settings()
+augroup vimrc-unite
+    autocmd!
+    autocmd FileType unite call s:unite_settings()
+augroup END
 
 function! s:unite_settings()
 " open with horizontally split window
@@ -606,7 +618,10 @@ inoremap <silent> <buffer> <C-j> <Esc>
 endfunction
 
 " ref
-nnoremap <Space>r :<C-u>Ref phpmanual<Space>
+nnoremap [Leader]r :<C-u>Ref phpmanual<Space>
+
+" indentLine
+nnoremap <Leader>t :IndentLinesToggle<CR>
 
 " quickrun
 nnoremap <silent> [Leader]x :<C-u>QuickRun<CR>
