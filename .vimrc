@@ -52,7 +52,6 @@ NeoBundle '://github.com/Yggdroot/indentLine'
 NeoBundle '://github.com/thinca/vim-quickrun'
 NeoBundle '://github.com/h1mesuke/vim-alignta'
 NeoBundle '://github.com/wolf-dog/vim-json'
-NeoBundle '://github.com/scrooloose/syntastic'
 NeoBundle '://github.com/jelera/vim-javascript-syntax'
 NeoBundle '://github.com/tpope/vim-fugitive'
 NeoBundle '://github.com/Shougo/junkfile.vim'
@@ -538,9 +537,6 @@ if has('win32unix')
 \   }
 endif
 
-" syntastic
-let g:syntastic_check_on_wq = 0
-
 " lightline
 let g:lightline = {}
 let g:lightline = {
@@ -631,9 +627,6 @@ nnoremap <silent> [Leader]X :<C-u>QuickRun -args<Space>
 vnoremap          [Leader]A :Alignta<Space>
 vnoremap <silent> [Leader]aa :Alignta =>\=<CR>
 vnoremap <silent> [Leader]as :Alignta <-- =>\=<CR>
-
-" syntastic
-nnoremap [Leader]c :<C-u>SyntasticCheck<CR>
 
 " fugitive
 nnoremap          <Leader>gi :<C-u>Git<Space>
