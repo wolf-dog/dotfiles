@@ -23,7 +23,6 @@ NeoBundleFetch '://github.com/Shougo/neobundle.vim'
 NeoBundle '://github.com/Shougo/vimproc.vim', {
 \     'build' : {
 \         'cygwin' : 'make -f make_cygwin.mak',
-\         'mac'    : 'make -f make_mac.mak',
 \         'unix'   : 'make -f make_unix.mak',
 \     },
 \ }
@@ -45,7 +44,6 @@ NeoBundle '://github.com/Shougo/neomru.vim'
 NeoBundle '://github.com/Shougo/unite-outline'
 NeoBundle '://github.com/osyo-manga/unite-highlight'
 NeoBundle '://github.com/ujihisa/unite-colorscheme'
-NeoBundle '://github.com/sgur/unite-git_grep'
 NeoBundle '://github.com/osyo-manga/unite-quickfix'
 NeoBundle '://github.com/thinca/vim-ref'
 NeoBundle '://github.com/Yggdroot/indentLine'
@@ -62,9 +60,14 @@ NeoBundle '://github.com/kana/vim-textobj-indent'
 NeoBundle '://github.com/kana/vim-textobj-underscore'
 NeoBundle '://github.com/h1mesuke/textobj-wiw'
 NeoBundle '://github.com/thinca/vim-textobj-between'
+NeoBundle '://github.com/kana/vim-operator-user'
+NeoBundle '://github.com/osyo-manga/vim-operator-alignta'
 NeoBundle '://github.com/itchyny/lightline.vim'
 NeoBundle '://github.com/vim-scripts/sudo.vim'
 NeoBundle '://github.com/joonty/vdebug'
+NeoBundle '://github.com/osyo-manga/shabadou.vim'
+NeoBundle '://github.com/osyo-manga/vim-watchdogs'
+NeoBundle '://github.com/cohama/vim-hier'
 
 " colorschemes
 NeoBundle '://github.com/wolf-dog/nighted.vim'
@@ -377,39 +380,32 @@ nnoremap <silent> [Leader]' :<C-u>help <C-r><C-w><CR>
 nnoremap <silent> [Leader]= :<C-u>source $MYVIMRC<CR>
 " source .gvimrc
 nnoremap <silent> [Leader]+ :<C-u>source $MYGVIMRC<CR>
-
-" start with <Leader> {{{2
-" disable ',' to use it as the prefix key
-let g:mapleader = ','
-nnoremap , <Nop>
 " open the preview window and jump to the tag under the cursor
 " or show candidates if multiple tags found
-nnoremap <Leader><Leader> <C-w>g}
+nnoremap [Leader]ff <C-w>g}
 " list the matches
-nnoremap <silent> <Leader>l :<C-u>ptselect<CR>
+nnoremap <silent> [Leader]fl :<C-u>ptselect<CR>
 " jump to the next match
-nnoremap <silent> <Leader>n :<C-u>ptnext<CR>
+nnoremap <silent> [Leader]fn :<C-u>ptnext<CR>
 " jump to the previous match
-nnoremap <silent> <Leader>p :<C-u>ptprevious<CR>
+nnoremap <silent> [Leader]fp :<C-u>ptprevious<CR>
 " jump to the first match
-nnoremap <silent> <Leader>N :<C-u>ptfirst<CR>
+nnoremap <silent> [Leader]fN :<C-u>ptfirst<CR>
 " jump to the last match
-nnoremap <silent> <Leader>P :<C-u>ptlast<CR>
+nnoremap <silent> [Leader]fP :<C-u>ptlast<CR>
 " close the preview window
-nnoremap <silent> <Leader>j :<C-u>pclose<CR>
-" read a new tag file
-nnoremap <silent> <Leader>z :<C-u>set tags+=
+nnoremap <silent> [Leader]fj :<C-u>pclose<CR>
 " quick diff
-nnoremap <silent> <Leader>dd :<C-u>diffthis<CR><C-w>p:<C-u>diffthis<CR><C-w>p
+nnoremap <silent> [Leader]cd :<C-u>diffthis<CR><C-w>p:<C-u>diffthis<CR><C-w>p
 " turn off diff mode in all windows
-nnoremap <silent> <Leader>dq :<C-u>diffoff!<CR><C-w>p:<C-u>quit<CR>
+nnoremap <silent> [Leader]cq :<C-u>diffoff!<CR><C-w>p:<C-u>quit<CR>
 " diff
-nnoremap <Leader>ds :<C-u>diffsplit<Space>
-nnoremap <Leader>dv :<C-u>vertical diffsplit<Space>
+nnoremap [Leader]cs :<C-u>diffsplit<Space>
+nnoremap [Leader]cv :<C-u>vertical diffsplit<Space>
 " turn off diff mode
-nnoremap <silent> <Leader>dc :<C-u>diffoff<CR>
+nnoremap <silent> [Leader]cc :<C-u>diffoff<CR>
 " update diff
-nnoremap <silent> <Leader>du :<C-u>diffupdate<CR>
+nnoremap <silent> [Leader]cu :<C-u>diffupdate<CR>
 "--------------------------------------
 
 " autocmd {{{1
@@ -521,7 +517,6 @@ let g:indentLine_color_term = 60
 let g:indentLine_color_gui = '#5f5f87'
 
 " quickrun
-let g:quickrun_config = {}
 let g:quickrun_config = {
 \     '_' : {
 \         'runner/vimproc/sleep': 50,
@@ -537,8 +532,15 @@ if has('win32unix')
 \   }
 endif
 
+" vdebug
+let g:vdebug_options = {
+\     'port': 9008,
+\     'marker_default' : '.',
+\     'marker_closed_tree' : '+',
+\     'marker_open_tree' : '-',
+\ }
+
 " lightline
-let g:lightline = {}
 let g:lightline = {
 \   'colorscheme': 'sceaduhelm',
 \   'enable': {
@@ -558,7 +560,7 @@ let g:lightline = {
 
 " plugin binds {{{1
 "--------------------------------------
-" unite
+" unite {{{2
 noremap [unite] <Nop>
 nmap s [unite]
 " open file list
@@ -594,39 +596,48 @@ augroup vimrc-unite
 augroup END
 
 function! s:unite_settings()
-" open with horizontally split window
-nnoremap <silent> <buffer> <expr> <C-s> unite#do_action('below')
-inoremap <silent> <buffer> <expr> <C-s> unite#do_action('below')
-" open with vertically split window
-nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('right')
-inoremap <silent> <buffer> <expr> <C-v> unite#do_action('right')
-" add to bookmark
-nnoremap <silent> <buffer> <expr> <C-a> unite#do_action('bookmark')
-inoremap <silent> <buffer> <expr> <C-a> unite#do_action('bookmark')
-" delete backward path
-imap <silent> <buffer> <C-w> <Plug>(unite_delete_backward_path)
-" list actions
-nmap <silent> <buffer> <C-r> <Plug>(unite_choose_action)
-imap <silent> <buffer> <C-r> i_<Plug>(unite_choose_action)
-" quit unite window
-nnoremap <silent> <buffer> <C-j> :<C-u>quit<CR>
-inoremap <silent> <buffer> <C-j> <Esc>
+    " open with horizontally split window
+    nnoremap <silent> <buffer> <expr> <C-s> unite#do_action('below')
+    inoremap <silent> <buffer> <expr> <C-s> unite#do_action('below')
+    " open with vertically split window
+    nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('right')
+    inoremap <silent> <buffer> <expr> <C-v> unite#do_action('right')
+    " add to bookmark
+    nnoremap <silent> <buffer> <expr> <C-a> unite#do_action('bookmark')
+    inoremap <silent> <buffer> <expr> <C-a> unite#do_action('bookmark')
+    " delete backward path
+    imap <silent> <buffer> <C-w> <Plug>(unite_delete_backward_path)
+    " list actions
+    nmap <silent> <buffer> <C-r> <Plug>(unite_choose_action)
+    imap <silent> <buffer> <C-r> i_<Plug>(unite_choose_action)
+    " quit unite window
+    nnoremap <silent> <buffer> <C-j> :<C-u>quit<CR>
+    inoremap <silent> <buffer> <C-j> <Esc>
 endfunction
 
+" start with <Leader> {{{2
+" disable ',' to use it as the prefix key
+let g:mapleader = ','
+nnoremap , <Nop>
+
 " ref
-nnoremap [Leader]r :<C-u>Ref phpmanual<Space>
+nnoremap <Leader>rph :<C-u>Ref phpmanual<Space>
 
 " indentLine
 nnoremap <Leader>t :IndentLinesToggle<CR>
 
 " quickrun
-nnoremap <silent> [Leader]x :<C-u>QuickRun<CR>
-nnoremap <silent> [Leader]X :<C-u>QuickRun -args<Space>
+nnoremap <silent> <Leader>x :<C-u>QuickRun<CR>
+nnoremap          <Leader>X :<C-u>QuickRun -args<Space>
 
 " alignta
-vnoremap          [Leader]A :Alignta<Space>
-vnoremap <silent> [Leader]aa :Alignta =>\=<CR>
-vnoremap <silent> [Leader]as :Alignta <-- =>\=<CR>
+vnoremap          <Leader>A :Alignta<Space>
+vnoremap <silent> <Leader>aa :Alignta =>\=<CR>
+vnoremap <silent> <Leader>as :Alignta 0 \ \+<CR>
+" operator-alignta
+nmap          <Leader>A <Plug>(operator-alignta)
+nmap <silent> <Leader>aa <Plug>(operator-alignta-preset) =>\=<CR>
+nmap <silent> <Leader>as <Plug>(operator-alignta-preset) 0 \ \+<CR>
 
 " fugitive
 nnoremap          <Leader>gi :<C-u>Git<Space>
@@ -637,7 +648,7 @@ nnoremap <silent> <Leader>gw :<C-u>Gwrite<CR>
 nnoremap <silent> <Leader>gb :<C-u>Gblame<CR>
 nnoremap <silent> <Leader>gd :<C-u>Gsdiff<CR>
 nnoremap <silent> <Leader>gh :<C-u>Gsdiff HEAD^<CR>
-nnoremap <Leader>gg :<C-u>Ggrep<Space>
+nnoremap          <Leader>gg :<C-u>Ggrep<Space>
 
 " vdebug
 let g:vdebug_keymap = {
@@ -653,5 +664,8 @@ let g:vdebug_keymap = {
 \   'eval_under_cursor' : '<Leader>sx',
 \   'eval_visual'       : '<Leader>sv',
 \ }
+
+" watchdogs
+nnoremap <silent> <Leader>w :WatchdogsRun<CR>
 "--------------------------------------
 
