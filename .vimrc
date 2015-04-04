@@ -10,14 +10,13 @@ language messages C
 let $VIMUSERDIR=$HOME.'/.vim'
 "--------------------------------------
 
-" NeoBundle {{{1
+" plugins {{{1
 "--------------------------------------
 if has ('vim_starting')
     set runtimepath& runtimepath+=$VIMUSERDIR/bundle/neobundle.vim/
 endif
 call neobundle#begin(expand('$VIMUSERDIR/bundle/'))
 
-" plugins
 let g:neobundle#types#git#default_protocol = 'git'
 NeoBundleFetch '://github.com/Shougo/neobundle.vim'
 NeoBundle '://github.com/Shougo/vimproc.vim', {
@@ -27,32 +26,34 @@ NeoBundle '://github.com/Shougo/vimproc.vim', {
 \     },
 \ }
 
+" neocomplete, neocomplcache
 if ( has('lua') && (v:version > 703 || v:version == 703 && has('patch885')) )
     let s:neocomplete_available = 1
 else
     let s:neocomplete_available = 0
 endif
-
 if ( s:neocomplete_available )
     NeoBundle '://github.com/Shougo/neocomplete.vim'
 else
     NeoBundle '://github.com/Shougo/neocomplcache.vim'
 endif
 
+" unite
 NeoBundle '://github.com/Shougo/unite.vim'
 NeoBundle '://github.com/Shougo/neomru.vim'
 NeoBundle '://github.com/Shougo/unite-outline'
 NeoBundle '://github.com/osyo-manga/unite-highlight'
 NeoBundle '://github.com/ujihisa/unite-colorscheme'
 NeoBundle '://github.com/osyo-manga/unite-quickfix'
-NeoBundle '://github.com/thinca/vim-ref'
-NeoBundle '://github.com/Yggdroot/indentLine'
-NeoBundle '://github.com/thinca/vim-quickrun'
-NeoBundle '://github.com/h1mesuke/vim-alignta'
+NeoBundle '://github.com/Shougo/junkfile.vim'
+
+" syntax
 NeoBundle '://github.com/wolf-dog/vim-json'
 NeoBundle '://github.com/jelera/vim-javascript-syntax'
-NeoBundle '://github.com/tpope/vim-fugitive'
-NeoBundle '://github.com/Shougo/junkfile.vim'
+NeoBundle '://github.com/emonkak/vim-filetype-pukiwiki'
+NeoBundle '://github.com/kchmck/vim-coffee-script'
+
+" textobj-user
 NeoBundle '://github.com/kana/vim-textobj-user'
 NeoBundle '://github.com/kana/vim-textobj-line'
 NeoBundle '://github.com/kana/vim-textobj-entire'
@@ -60,10 +61,16 @@ NeoBundle '://github.com/kana/vim-textobj-indent'
 NeoBundle '://github.com/kana/vim-textobj-underscore'
 NeoBundle '://github.com/h1mesuke/textobj-wiw'
 NeoBundle '://github.com/thinca/vim-textobj-between'
+
+" operator-user
 NeoBundle '://github.com/kana/vim-operator-user'
 NeoBundle '://github.com/osyo-manga/vim-operator-alignta'
-NeoBundle '://github.com/itchyny/lightline.vim'
-NeoBundle '://github.com/vim-scripts/sudo.vim'
+NeoBundle '://github.com/emonkak/vim-operator-comment'
+NeoBundle '://github.com/rhysd/vim-operator-surround'
+
+" development tools
+NeoBundle '://github.com/thinca/vim-ref'
+NeoBundle '://github.com/thinca/vim-quickrun'
 NeoBundle '://github.com/joonty/vdebug'
 NeoBundle '://github.com/osyo-manga/shabadou.vim'
 NeoBundle '://github.com/osyo-manga/vim-watchdogs'
@@ -81,6 +88,13 @@ NeoBundle '://github.com/croaker/mustang-vim'
 
 " display color table
 NeoBundle '://github.com/guns/xterm-color-table.vim'
+
+" misc.
+NeoBundle '://github.com/Yggdroot/indentLine'
+NeoBundle '://github.com/h1mesuke/vim-alignta'
+NeoBundle '://github.com/tpope/vim-fugitive'
+NeoBundle '://github.com/itchyny/lightline.vim'
+NeoBundle '://github.com/vim-scripts/sudo.vim'
 
 call neobundle#end()
 
@@ -321,19 +335,19 @@ vnoremap [Leader]l $
 onoremap [Leader]h ^
 onoremap [Leader]l $
 " paste from the clipboard
-nnoremap [Leader]p "*p
-nnoremap [Leader]P "*P
-vnoremap [Leader]p "*p
-vnoremap [Leader]P "*P
+nnoremap [Leader]p "+p
+nnoremap [Leader]P "+P
+vnoremap [Leader]p "+p
+vnoremap [Leader]P "+P
 " yank to the clipboard
-nnoremap [Leader]y "*y
-nnoremap [Leader]Y "*y$
-vnoremap [Leader]y "*y
+nnoremap [Leader]y "+y
+nnoremap [Leader]Y "+y$
+vnoremap [Leader]y "+y
 " delete and yank to the clipboard
-nnoremap [Leader]d "*d
-nnoremap [Leader]D "*D
-vnoremap [Leader]d "*d
-vnoremap [Leader]D "*D
+nnoremap [Leader]d "+d
+nnoremap [Leader]D "+D
+vnoremap [Leader]d "+d
+vnoremap [Leader]D "+D
 " insert a new line in normal mode
 nnoremap [Leader]o o<Esc>
 nnoremap [Leader]O O<Esc>
@@ -406,6 +420,8 @@ nnoremap [Leader]cv :<C-u>vertical diffsplit<Space>
 nnoremap <silent> [Leader]cc :<C-u>diffoff<CR>
 " update diff
 nnoremap <silent> [Leader]cu :<C-u>diffupdate<CR>
+" toggle paste
+nnoremap <silent> [Leader]g :<C-u>set paste!<CR>
 "--------------------------------------
 
 " autocmd {{{1
@@ -639,11 +655,20 @@ nmap          <Leader>A <Plug>(operator-alignta)
 nmap <silent> <Leader>aa <Plug>(operator-alignta-preset) =>\=<CR>
 nmap <silent> <Leader>as <Plug>(operator-alignta-preset) 0 \ \+<CR>
 
+" operator-comment
+nmap <silent> <Leader>c <Plug>(operator-comment)
+nmap <silent> <Leader>C <Plug>(operator-uncomment)
+
+" operator-surround
+nmap <silent> <Leader>sa <Plug>(operator-surround-append)
+nmap <silent> <Leader>sd <Plug>(operator-surround-delete)
+nmap <silent> <Leader>sr <Plug>(operator-surround-replace)
+
 " fugitive
 nnoremap          <Leader>gi :<C-u>Git<Space>
 nnoremap <silent> <Leader>gl :<C-u>Glog<CR>
 nnoremap <silent> <Leader>gs :<C-u>Gstatus<CR>
-nnoremap <silent> <Leader>gc :<C-u>Gcommit<CR>
+nnoremap <silent> <Leader>gc :<C-u>Gcommit -v<CR>
 nnoremap <silent> <Leader>gw :<C-u>Gwrite<CR>
 nnoremap <silent> <Leader>gb :<C-u>Gblame<CR>
 nnoremap <silent> <Leader>gd :<C-u>Gsdiff<CR>
@@ -652,17 +677,17 @@ nnoremap          <Leader>gg :<C-u>Ggrep<Space>
 
 " vdebug
 let g:vdebug_keymap = {
-\   'run'               : '<Leader>ss',
-\   'run_to_cursor'     : '<Leader>sr',
-\   'step_over'         : '<Leader>sl',
-\   'step_into'         : '<Leader>si',
-\   'step_out'          : '<Leader>so',
-\   'close'             : '<Leader>sj',
-\   'detach'            : '<Leader>sd',
-\   'set_breakpoint'    : '<Leader>sb',
-\   'get_context'       : '<Leader>sc',
-\   'eval_under_cursor' : '<Leader>sx',
-\   'eval_visual'       : '<Leader>sv',
+\   'run'               : '<Leader>ff',
+\   'run_to_cursor'     : '<Leader>fr',
+\   'step_over'         : '<Leader>fl',
+\   'step_into'         : '<Leader>fi',
+\   'step_out'          : '<Leader>fo',
+\   'close'             : '<Leader>fj',
+\   'detach'            : '<Leader>fd',
+\   'set_breakpoint'    : '<Leader>fb',
+\   'get_context'       : '<Leader>fc',
+\   'eval_under_cursor' : '<Leader>fx',
+\   'eval_visual'       : '<Leader>fv',
 \ }
 
 " watchdogs
