@@ -1,5 +1,6 @@
-" core {{{1
 "--------------------------------------
+" core
+
 " always use utf-8 inside Vim
 set encoding=utf-8
 scriptencoding utf-8
@@ -10,8 +11,9 @@ language messages C
 let $VIMUSERDIR=$HOME.'/.vim'
 "--------------------------------------
 
-" plugins {{{1
 "--------------------------------------
+" plugins
+
 if has ('vim_starting')
     set runtimepath& runtimepath+=$VIMUSERDIR/bundle/neobundle.vim/
 endif
@@ -101,8 +103,9 @@ call neobundle#end()
 filetype plugin indent on
 "--------------------------------------
 
-" buffers and files handling, encodings {{{1
 "--------------------------------------
+" buffers and files handling, encodings
+
 set noautoread
 set nobackup
 set nohidden
@@ -121,9 +124,12 @@ set fileformats=unix,dos,mac
 set termencoding=utf-8
 "--------------------------------------
 
-" display {{{1
 "--------------------------------------
-"general {{{2
+" display
+
+"--------------------------------------
+" general
+
 set list
 set listchars=tab:\|\-,trail:<
 set number
@@ -145,7 +151,7 @@ set showcmd
 " set title of the window
 set title
 
-" status line, tab line {{{2
+" status line, tab line
 " always show the status line
 set laststatus=2
 " show fileencoding (or internal encoding) in the status line
@@ -159,7 +165,7 @@ if v:version >= 700
     set showtabline=2
 endif
 
-" tabs and indents {{{2
+" tabs and indents
 set cindent
 set expandtab
 set shiftround
@@ -168,7 +174,7 @@ set smarttab
 set softtabstop=4
 set tabstop=4
 
-" colors, syntax highlighting {{{2
+" colors, syntax highlighting
 " always use the terminal can display 256 colors
 set t_Co=256
 syntax enable
@@ -177,11 +183,11 @@ if !exists('g:colors_name')
     set background=dark
     colorscheme sceaduhelm
 endif
-
 "--------------------------------------
 
-" input {{{1
 "--------------------------------------
+" input
+
 " allow backspace to delete anything
 set backspace=indent,eol,start
 " disable turning on IME automatically
@@ -198,8 +204,9 @@ set ttimeoutlen=50
 set virtualedit& virtualedit+=block
 "--------------------------------------
 
-" searching, matching, tags {{{1
 "--------------------------------------
+" searching, matching, tags
+
 set hlsearch
 set ignorecase
 set incsearch
@@ -221,9 +228,10 @@ if ( v:version >= 703)
     set wildignorecase
 endif
 
-" binds {{{1
 "--------------------------------------
-" no modifier or prefix {{{2
+" binds
+
+" no modifier or prefix
 " <BS> is the same as <C-h>
 nmap <BS> <C-h>
 " switch ; and :
@@ -277,8 +285,16 @@ nnoremap N Nzz
 nnoremap gg gg0
 vnoremap gg gg0
 onoremap gg gg0
+" repeat last command on every selected line
+vnoremap . :<C-u>normal.<CR>
+" repeat macro on every selected line
+vnoremap @ :<C-u>normal@
+" repeat last f, t, F or T in opposite direction
+nnoremap \ ,
+vnoremap \ ,
+onoremap \ ,
 
-" start with <Ctrl> {{{2
+" start with <Ctrl>
 " input backspace with C-h
 nnoremap <C-h> X
 " move around like shell in command-line mode
@@ -312,16 +328,8 @@ inoremap <C-w> <C-g>u<C-w>
 inoremap <C-u> <C-g>u<C-u>
 " disable Ctrl-s
 nnoremap <C-s> <Nop>
-" repeat last command on every selected line
-vnoremap . :<C-u>normal.<CR>
-" repeat macro on every selected line
-vnoremap @ :<C-u>normal@
-" repeat last f, t, F or T in opposite direction
-nnoremap \ ,
-vnoremap \ ,
-onoremap \ ,
 
-" start with [Leader] {{{2
+" start with [Leader]
 " disable <Space> to use it as the prefix key
 noremap [Leader] <Nop>
 nmap <Space> [Leader]
@@ -382,8 +390,6 @@ nnoremap <silent> [Leader]<C-p> :<C-u>tabmove -1<CR>
 " split window
 nnoremap <silent> [Leader]s :<C-u>rightbelow split<CR>
 nnoremap <silent> [Leader]v :<C-u>rightbelow vsplit<CR>
-" close previous window
-nnoremap <silent> [Leader]q <C-w>p:<C-u>quit<CR>
 " help
 nnoremap [Leader]; :<C-u>help<Space>
 " quickref
@@ -422,10 +428,15 @@ nnoremap <silent> [Leader]cc :<C-u>diffoff<CR>
 nnoremap <silent> [Leader]cu :<C-u>diffupdate<CR>
 " toggle paste
 nnoremap <silent> [Leader]g :<C-u>set paste!<CR>
+" Go to older quickfix list
+nnoremap <silent> [Leader]qp :<C-u>colder<CR>
+" Go to newer quickfix list
+nnoremap <silent> [Leader]qn :<C-u>cnewer<CR>
 "--------------------------------------
 
-" autocmd {{{1
 "--------------------------------------
+" autocmd
+
 augroup vimrc-file
     autocmd!
 
@@ -460,8 +471,9 @@ augroup vimrc-highlight
 augroup END
 "--------------------------------------
 
-" plugins, filetype settings {{{1
 "--------------------------------------
+" plugins, filetype settings
+
 " PHP
 " enable sql syntax highlighting in the php strings
 let g:php_sql_query = 1
@@ -572,17 +584,21 @@ let g:lightline = {
 \                 [ 'readonly', 'absolutepath', 'modified' ] ]
 \   }
 \ }
+
+" watchdogs
+let g:watchdogs_check_BufWritePost_enable = 1
 "--------------------------------------
 
-" plugin binds {{{1
 "--------------------------------------
-" unite {{{2
+" plugin binds
+
+" unite
 noremap [unite] <Nop>
 nmap s [unite]
 " open file list
-nnoremap <silent> [unite]s :<C-u>Unite file file/new<CR>
+nnoremap <silent> [unite]s :<C-u>Unite file file/new directory/new<CR>
 " open file list with current buffer directory
-nnoremap <silent> [unite]d :<C-u>UniteWithBufferDir file file/new<CR>
+nnoremap <silent> [unite]d :<C-u>UniteWithBufferDir file file/new directory/new<CR>
 " open bookmarks
 nnoremap <silent> [unite]a :<C-u>Unite bookmark<CR>
 " open buffer list
@@ -599,10 +615,6 @@ nnoremap <silent> [unite]' :<C-u>Unite register<CR>
 nnoremap <silent> [unite]q :<C-u>Unite -no-start-insert -no-quit quickfix<CR>
 " outline
 nnoremap <silent> [unite]o :<C-u>Unite -no-start-insert -no-quit outline<CR>
-" grep
-nnoremap [unite]g :<C-u>Unite -no-start-insert -no-quit grep:
-" grep in current directory recursively
-nnoremap [unite]G :<C-u>Unite -no-start-insert -no-quit grep:./:-r:
 " open menu:shortcut
 nnoremap <silent> [unite]f :<C-u>Unite menu:shortcut<CR>
 
@@ -631,7 +643,7 @@ function! s:unite_settings()
     inoremap <silent> <buffer> <C-j> <Esc>
 endfunction
 
-" start with <Leader> {{{2
+" start with <Leader>
 " disable ',' to use it as the prefix key
 let g:mapleader = ','
 nnoremap , <Nop>
