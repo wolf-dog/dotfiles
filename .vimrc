@@ -19,7 +19,7 @@ if has ('vim_starting')
 endif
 call neobundle#begin(expand('$VIMUSERDIR/bundle/'))
 
-let g:neobundle#types#git#default_protocol = 'git'
+let g:neobundle#types#git#default_protocol = 'ssh'
 NeoBundleFetch '://github.com/Shougo/neobundle.vim'
 NeoBundle '://github.com/Shougo/vimproc.vim', {
 \     'build' : {
