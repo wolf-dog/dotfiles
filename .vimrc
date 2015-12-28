@@ -257,8 +257,8 @@ onoremap gk k
 " use very magic by default
 nnoremap / /\v
 nnoremap ? ?\v
-" shorthand of replace on all lines
-nnoremap // :<C-u>%s/
+" shorthand of replace using very magic
+nnoremap // :<C-u>%s/\v
 " yank to the end of the line
 nnoremap Y y$
 " quit
@@ -328,6 +328,8 @@ inoremap <C-w> <C-g>u<C-w>
 inoremap <C-u> <C-g>u<C-u>
 " disable Ctrl-s
 nnoremap <C-s> <Nop>
+" :HierStop on Ctrl-l
+nnoremap <silent> <C-l> <C-l>:<C-u>HierStop<CR>
 
 " start with [Leader]
 " disable <Space> to use it as the prefix key
@@ -369,7 +371,7 @@ nnoremap <silent> [Leader]u :<C-u>tabnew %<CR>
 nnoremap [Leader]/ /\V
 nnoremap [Leader]? ?\V
 " shorthand of replace
-nnoremap [Leader]// :<C-u>s/
+nnoremap [Leader]// :<C-u>%s/
 " search for the word under the cursor
 nnoremap [Leader]n *zz
 " search backward for the word under the cursor
@@ -432,6 +434,8 @@ nnoremap <silent> [Leader]g :<C-u>set paste!<CR>
 nnoremap <silent> [Leader]qp :<C-u>colder<CR>
 " Go to newer quickfix list
 nnoremap <silent> [Leader]qn :<C-u>cnewer<CR>
+" search conflict marker
+nnoremap <silent> [Leader]i /\v[<=>]{7}<CR>
 "--------------------------------------
 
 "--------------------------------------
@@ -635,9 +639,6 @@ function! s:unite_settings()
     inoremap <silent> <buffer> <expr> <C-a> unite#do_action('bookmark')
     " delete backward path
     imap <silent> <buffer> <C-w> <Plug>(unite_delete_backward_path)
-    " list actions
-    nmap <silent> <buffer> <C-r> <Plug>(unite_choose_action)
-    imap <silent> <buffer> <C-r> i_<Plug>(unite_choose_action)
     " quit unite window
     nnoremap <silent> <buffer> <C-j> :<C-u>quit<CR>
     inoremap <silent> <buffer> <C-j> <Esc>
@@ -661,11 +662,11 @@ nnoremap          <Leader>X :<C-u>QuickRun -args<Space>
 " alignta
 vnoremap          <Leader>A :Alignta<Space>
 vnoremap <silent> <Leader>aa :Alignta =>\=<CR>
-vnoremap <silent> <Leader>as :Alignta 0 \ \+<CR>
+vnoremap <silent> <Leader>as :Alignta 0 -r \ [^\ ]<CR>
 " operator-alignta
 nmap          <Leader>A <Plug>(operator-alignta)
 nmap <silent> <Leader>aa <Plug>(operator-alignta-preset) =>\=<CR>
-nmap <silent> <Leader>as <Plug>(operator-alignta-preset) 0 \ \+<CR>
+nmap <silent> <Leader>as <Plug>(operator-alignta-preset) 0 -r \ [^\ ]<CR>
 
 " operator-comment
 nmap <silent> <Leader>c <Plug>(operator-comment)
