@@ -1,0 +1,21 @@
+[global_config]
+[keybindings]
+[profiles]
+  [[default]]
+    use_system_font = False
+    background_darkness = 0.75
+    background_type = transparent
+    background_image = None
+    cursor_color = "#ffaf00"
+    cursor_shape = ibeam
+    font = EnvyCodeMigu1M 10.5
+    scrollback_infinite = True
+[layouts]
+  [[default]]
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+    [[[window0]]]
+      type = Window
+      parent = ""
+[plugins]
