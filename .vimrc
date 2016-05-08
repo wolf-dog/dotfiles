@@ -7,26 +7,23 @@ scriptencoding utf-8
 " use english menu and messages
 set langmenu=none
 language messages C
-" set user local directory
-let $VIMUSERDIR=$HOME.'/.vim'
 "--------------------------------------
 
 "--------------------------------------
 " plugins
 
-if has ('vim_starting')
-    set runtimepath& runtimepath+=$VIMUSERDIR/bundle/neobundle.vim/
-endif
-call neobundle#begin(expand('$VIMUSERDIR/bundle/'))
+" set user local directory
+let $DEINDIR=expand('~/.cache/dein')
+let g:dein#types#git#default_protocol='ssh'
 
-let g:neobundle#types#git#default_protocol = 'ssh'
-NeoBundleFetch '://github.com/Shougo/neobundle.vim'
-NeoBundle '://github.com/Shougo/vimproc.vim', {
-\     'build' : {
-\         'cygwin' : 'make -f make_cygwin.mak',
-\         'unix'   : 'make -f make_unix.mak',
-\     },
-\ }
+if has ('vim_starting')
+    set runtimepath^=$DEINDIR/repos/github.com/Shougo/dein.vim
+endif
+call dein#begin(expand($DEINDIR))
+
+call dein#add('/Shougo/dein.vim')
+
+call dein#add('/Shougo/vimproc.vim', {'build': 'make'})
 
 " neocomplete, neocomplcache
 if ( has('lua') && (v:version > 703 || v:version == 703 && has('patch885')) )
@@ -35,70 +32,70 @@ else
     let s:neocomplete_available = 0
 endif
 if ( s:neocomplete_available )
-    NeoBundle '://github.com/Shougo/neocomplete.vim'
+    call dein#add('/Shougo/neocomplete.vim')
 else
-    NeoBundle '://github.com/Shougo/neocomplcache.vim'
+    call dein#add('/Shougo/neocomplcache.vim')
 endif
 
 " unite
-NeoBundle '://github.com/Shougo/unite.vim'
-NeoBundle '://github.com/Shougo/neomru.vim'
-NeoBundle '://github.com/Shougo/unite-outline'
-NeoBundle '://github.com/osyo-manga/unite-highlight'
-NeoBundle '://github.com/ujihisa/unite-colorscheme'
-NeoBundle '://github.com/osyo-manga/unite-quickfix'
-NeoBundle '://github.com/Shougo/junkfile.vim'
+call dein#add('/Shougo/unite.vim')
+call dein#add('/Shougo/neomru.vim')
+call dein#add('/Shougo/unite-outline')
+call dein#add('/osyo-manga/unite-highlight')
+call dein#add('/ujihisa/unite-colorscheme')
+call dein#add('/osyo-manga/unite-quickfix')
+call dein#add('/Shougo/junkfile.vim')
 
 " syntax
-NeoBundle '://github.com/wolf-dog/vim-json'
-NeoBundle '://github.com/jelera/vim-javascript-syntax'
-NeoBundle '://github.com/emonkak/vim-filetype-pukiwiki'
-NeoBundle '://github.com/kchmck/vim-coffee-script'
+call dein#add('/wolf-dog/vim-json')
+call dein#add('/jelera/vim-javascript-syntax')
+call dein#add('/emonkak/vim-filetype-pukiwiki')
+call dein#add('/kchmck/vim-coffee-script')
 
 " textobj-user
-NeoBundle '://github.com/kana/vim-textobj-user'
-NeoBundle '://github.com/kana/vim-textobj-line'
-NeoBundle '://github.com/kana/vim-textobj-entire'
-NeoBundle '://github.com/kana/vim-textobj-indent'
-NeoBundle '://github.com/kana/vim-textobj-underscore'
-NeoBundle '://github.com/h1mesuke/textobj-wiw'
-NeoBundle '://github.com/thinca/vim-textobj-between'
+call dein#add('/kana/vim-textobj-user')
+call dein#add('/kana/vim-textobj-line')
+call dein#add('/kana/vim-textobj-entire')
+call dein#add('/kana/vim-textobj-indent')
+call dein#add('/kana/vim-textobj-underscore')
+call dein#add('/h1mesuke/textobj-wiw')
+call dein#add('/thinca/vim-textobj-between')
 
 " operator-user
-NeoBundle '://github.com/kana/vim-operator-user'
-NeoBundle '://github.com/osyo-manga/vim-operator-alignta'
-NeoBundle '://github.com/emonkak/vim-operator-comment'
-NeoBundle '://github.com/rhysd/vim-operator-surround'
+call dein#add('/kana/vim-operator-user')
+call dein#add('/osyo-manga/vim-operator-alignta')
+call dein#add('/emonkak/vim-operator-comment')
+call dein#add('/rhysd/vim-operator-surround')
 
 " development tools
-NeoBundle '://github.com/thinca/vim-ref'
-NeoBundle '://github.com/thinca/vim-quickrun'
-NeoBundle '://github.com/joonty/vdebug'
-NeoBundle '://github.com/osyo-manga/shabadou.vim'
-NeoBundle '://github.com/osyo-manga/vim-watchdogs'
-NeoBundle '://github.com/cohama/vim-hier'
+call dein#add('/thinca/vim-ref')
+call dein#add('/thinca/vim-quickrun')
+call dein#add('/joonty/vdebug')
+call dein#add('/osyo-manga/shabadou.vim')
+call dein#add('/osyo-manga/vim-watchdogs')
+call dein#add('/cohama/vim-hier')
 
 " colorschemes
-NeoBundle '://github.com/wolf-dog/nighted.vim'
-NeoBundle '://github.com/wolf-dog/lightline-nighted.vim'
-NeoBundle '://github.com/wolf-dog/sceaduhelm.vim'
-NeoBundle '://github.com/wolf-dog/lightline-sceaduhelm.vim'
-NeoBundle '://github.com/veloce/vim-aldmeris'
-NeoBundle '://github.com/apeacox/vim-distinguished'
-NeoBundle '://github.com/tomasr/molokai'
-NeoBundle '://github.com/croaker/mustang-vim'
+call dein#add('/wolf-dog/nighted.vim')
+call dein#add('/wolf-dog/lightline-nighted.vim')
+call dein#add('/wolf-dog/sceaduhelm.vim')
+call dein#add('/wolf-dog/lightline-sceaduhelm.vim')
+call dein#add('/veloce/vim-aldmeris')
+call dein#add('/apeacox/vim-distinguished')
+call dein#add('/tomasr/molokai')
+call dein#add('/croaker/mustang-vim')
 
 " display color table
-NeoBundle '://github.com/guns/xterm-color-table.vim'
+call dein#add('/guns/xterm-color-table.vim')
 
 " misc.
-NeoBundle '://github.com/Yggdroot/indentLine'
-NeoBundle '://github.com/h1mesuke/vim-alignta'
-NeoBundle '://github.com/tpope/vim-fugitive'
-NeoBundle '://github.com/itchyny/lightline.vim'
-NeoBundle '://github.com/vim-scripts/sudo.vim'
+call dein#add('/Yggdroot/indentLine')
+call dein#add('/h1mesuke/vim-alignta')
+call dein#add('/tpope/vim-fugitive')
+call dein#add('/itchyny/lightline.vim')
+call dein#add('/vim-scripts/sudo.vim')
 
-call neobundle#end()
+call dein#end()
 
 filetype plugin indent on
 "--------------------------------------
@@ -518,11 +515,9 @@ let g:unite_enable_start_insert = 1
 let g:unite_source_menu_menus = {
 \     'shortcut' : {
 \         'command_candidates' : [
-\             ['NeoBundle', 'Unite neobundle -no-start-insert'],
-\             ['NeoBundleUpdate', 'Unite neobundle/update -no-start-insert -no-quit'],
-\             ['NeoBundleCheck', 'NeoBundleCheck'],
-\             ['NeoBundleClean', 'NeoBundleClean'],
-\             ['NeoBundleInstall', 'NeoBundleInstall'],
+\             ['DeinUpdate', 'execute "call dein#update()"'],
+\             ['DeinCheck', 'execute "call dein#check_install()"'],
+\             ['DeinInstall', 'execute "call dein#install()"'],
 \             [
 \                 'edit .vimrc',
 \                 'execute "tabedit " . resolve(expand($MYVIMRC))'
@@ -566,7 +561,7 @@ endif
 
 " vdebug
 let g:vdebug_options = {
-\     'port': 9008,
+\     'port': $XDEBUG_PORT,
 \     'marker_default' : '.',
 \     'marker_closed_tree' : '+',
 \     'marker_open_tree' : '-',
