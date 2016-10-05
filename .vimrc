@@ -74,6 +74,7 @@ call dein#add('/joonty/vdebug')
 call dein#add('/osyo-manga/shabadou.vim')
 call dein#add('/osyo-manga/vim-watchdogs')
 call dein#add('/cohama/vim-hier')
+call dein#add('/vim-scripts/gtags.vim')
 
 " colorschemes
 call dein#add('/wolf-dog/nighted.vim')
@@ -700,5 +701,13 @@ let g:vdebug_keymap = {
 
 " watchdogs
 nnoremap <silent> <Leader>w :WatchdogsRun<CR>
+
+" gtags
+let g:Gtags_OpenQuickfixWindow = 0
+nnoremap <silent> <C-k> :<C-u>GtagsCursor<CR>
+nnoremap          <Leader>dd :<C-u>Gtags<Space>
+nnoremap <silent> <Leader>dr :<C-u>Gtags -r <C-r><C-w><CR>
+nnoremap <silent> <Leader>dn :<C-u>cn<CR>
+nnoremap <silent> <Leader>dp :<C-u>cp<CR>
 "--------------------------------------
 
