@@ -10,6 +10,8 @@
     whitespace = trailing-space, space-before-tab
     autocrlf = input
     safecrlf = true
+    preloadindex = true
+    fscache = true
 [alias]
     a = add
     b = branch
