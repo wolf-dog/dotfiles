@@ -541,8 +541,11 @@ let g:unite_source_menu_menus = {
 let g:ref_phpmanual_path = expand('~/usr/local/etc/man/php')
 
 " indentLine
+let g:indentLine_setColors = 0
 let g:indentLine_color_term = 60
 let g:indentLine_color_gui = '#5f5f87'
+let g:indentLine_faster = 1
+let g:indentLine_setConceal = 0
 
 " quickrun
 let g:quickrun_config = {
