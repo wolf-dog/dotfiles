@@ -69,7 +69,6 @@ if [ -d ${HOME}/.anyenv ]; then
         export PATH="${HOME}/.anyenv/envs/${Dir}/shims:${PATH}"
     done
 fi
-#--------------------------------------
 
 #--------------------------------------
 # Aliases {{{1
@@ -105,6 +104,12 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+
+#--------------------------------------
+# Source windows settings
+if [ -f .bashrc_windows ] && grep -q 'Microsoft' /proc/version; then
+    . .bashrc_windows
+fi
 
 #--------------------------------------
 # Source local definitions
