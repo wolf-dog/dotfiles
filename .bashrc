@@ -83,8 +83,8 @@ alias du='du -h'
 # Show diff on side by side mode
 alias diff='diff -s'
 alias colordiff='colordiff -s'
-# Use ignorecase in less
-alias less='less -i'
+# Use ignorecase and chop long lines in less
+alias less='less -iS'
 # Colorize on default
 alias grep='grep --color'
 alias tree='tree --dirsfirst -C'

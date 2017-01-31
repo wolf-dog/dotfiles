@@ -14,6 +14,7 @@
     fscache = true
 [alias]
     a = add
+    aa = add --all :/
     b = branch
     bd = branch -d
     ci = commit
@@ -36,6 +37,15 @@
     ri = rebase -i
     s = status
     sfp = submodule foreach git pull
+    su = submodule update
+    stl = stash list
+    sta = stash apply
+    sts = stash save
+    std = stash drop
+    unstage = reset -q HEAD --
+    discard = checkout --
+    forget = !git reset --hard HEAD && git clean -d -f
+    obey = !git fetch && git reset --hard FETCH_HEAD
 [push]
     default = simple
 [credential]
