@@ -17,7 +17,7 @@ let $DEINDIR=expand('~/.cache/dein')
 let g:dein#types#git#default_protocol='ssh'
 
 if has ('vim_starting')
-    set runtimepath^=$DEINDIR/repos/github.com/Shougo/dein.vim
+  set runtimepath^=$DEINDIR/repos/github.com/Shougo/dein.vim
 endif
 call dein#begin(expand($DEINDIR))
 
@@ -27,14 +27,14 @@ call dein#add('/Shougo/vimproc.vim', {'build': 'make'})
 
 " neocomplete, neocomplcache
 if ( has('lua') && (v:version > 703 || v:version == 703 && has('patch885')) )
-    let s:neocomplete_available = 1
+  let s:neocomplete_available = 1
 else
-    let s:neocomplete_available = 0
+  let s:neocomplete_available = 0
 endif
 if ( s:neocomplete_available )
-    call dein#add('/Shougo/neocomplete.vim')
+  call dein#add('/Shougo/neocomplete.vim')
 else
-    call dein#add('/Shougo/neocomplcache.vim')
+  call dein#add('/Shougo/neocomplcache.vim')
 endif
 
 " unite
@@ -160,17 +160,17 @@ let &statusline .= '[%{&l:fileencoding == "" ? &encoding : &l:fileencoding}]'
 let &statusline .= ' %-14.(%l,%c%V%) %P'
 " always show the tabline
 if v:version >= 700
-    set showtabline=2
+  set showtabline=2
 endif
 
 " tabs and indents
 set cindent
 set expandtab
 set shiftround
-set shiftwidth=4
+set shiftwidth=2
 set smarttab
-set softtabstop=4
-set tabstop=4
+set softtabstop=2
+set tabstop=2
 
 " colors, syntax highlighting
 " always use the terminal can display 256 colors
@@ -178,8 +178,8 @@ set t_Co=256
 syntax enable
 " prevent overriding colorscheme on reloading
 if !exists('g:colors_name')
-    set background=dark
-    colorscheme sceaduhelm
+  set background=dark
+  colorscheme sceaduhelm
 endif
 "--------------------------------------
 
@@ -223,7 +223,7 @@ set tags& tags+=./tags;
 set wildmenu
 set wildmode=list:longest,full
 if ( v:version >= 703)
-    set wildignorecase
+  set wildignorecase
 endif
 
 "--------------------------------------
@@ -440,36 +440,36 @@ nnoremap <silent> [Leader]i /\v[<=>]{7}<CR>
 " autocmd
 
 augroup vimrc-file
-    autocmd!
+  autocmd!
 
-    " always use this format options regardless of the file type
-    autocmd FileType *
-    \ if ( v:version >= 703)
-    \ | setlocal formatoptions&
-    \ formatoptions-=t formatoptions-=c
-    \ formatoptions+=r formatoptions+=M formatoptions+=j
-    \ | else
-    \ | setlocal formatoptions&
-    \ formatoptions-=t formatoptions-=c
-    \ formatoptions+=r formatoptions+=M
-    \ | endif
+  " always use this format options regardless of the file type
+  autocmd FileType *
+  \ if ( v:version >= 703)
+  \ | setlocal formatoptions&
+  \ formatoptions-=t formatoptions-=c
+  \ formatoptions+=r formatoptions+=M formatoptions+=j
+  \ | else
+  \ | setlocal formatoptions&
+  \ formatoptions-=t formatoptions-=c
+  \ formatoptions+=r formatoptions+=M
+  \ | endif
 
-    " set fileencoding to empty (use default encoding)
-    " when buffer only contains ASCII characters
-    autocmd BufReadPost *
-    \ if &modifiable && !search('[^\x00-\x7F]', 'cnw')
-        \ | setlocal fileencoding=
-    \ | endif
+  " set fileencoding to empty (use default encoding)
+  " when buffer only contains ASCII characters
+  autocmd BufReadPost *
+  \ if &modifiable && !search('[^\x00-\x7F]', 'cnw')
+  \ | setlocal fileencoding=
+  \ | endif
 augroup END
 
 augroup vimrc-highlight
-    autocmd!
+  autocmd!
 
-    " highlight ideographic-space
-    autocmd VimEnter,ColorScheme *
-    \ highlight IdeographicSpace ctermbg=Red guibg=Red
-    autocmd VimEnter,WinEnter *
-    \ let w:match_additional = matchadd('IdeographicSpace', '\%u3000')
+  " highlight ideographic-space
+  autocmd VimEnter,ColorScheme *
+  \ highlight IdeographicSpace ctermbg=Red guibg=Red
+  autocmd VimEnter,WinEnter *
+  \ let w:match_additional = matchadd('IdeographicSpace', '\%u3000')
 augroup END
 "--------------------------------------
 
@@ -491,49 +491,49 @@ let g:php_folding = 1
 let g:is_bash = 1
 
 if ( s:neocomplete_available )
-    " neocomplete
-    let g:neocomplete#enable_at_startup = 1
-    let g:neocomplete#max_list = 20
-    let g:neocomplete#disable_auto_complete = 1
-    let g:neocomplete#enable_smart_case = 1
-    let g:neocomplete#enable_fuzzy_completion = 0
-    let g:neocomplete#enable_refresh_always = 0
+  " neocomplete
+  let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#max_list = 20
+  let g:neocomplete#disable_auto_complete = 1
+  let g:neocomplete#enable_smart_case = 1
+  let g:neocomplete#enable_fuzzy_completion = 0
+  let g:neocomplete#enable_refresh_always = 0
 else
-    " neocomplcache
-    let g:neocomplcache#enable_at_startup = 1
-    let g:neocomplcache#max_list = 20
-    let g:neocomplcache#disable_auto_complete = 1
-    let g:neocomplcache#enable_smart_case = 1
+  " neocomplcache
+  let g:neocomplcache#enable_at_startup = 1
+  let g:neocomplcache#max_list = 20
+  let g:neocomplcache#disable_auto_complete = 1
+  let g:neocomplcache#enable_smart_case = 1
 endif
 
 " unite
 call unite#set_profile('default', 'context', {
-\     'ignorecase': 1,
-\     'smartcase': 0
+\   'ignorecase': 1,
+\   'smartcase': 0
 \ })
 let g:unite_enable_start_insert = 1
 " unite menu
 let g:unite_source_menu_menus = {
-\     'shortcut' : {
-\         'command_candidates' : [
-\             ['DeinUpdate', 'execute "call dein#update()"'],
-\             ['DeinCheck', 'execute "call dein#check_install()"'],
-\             ['DeinInstall', 'execute "call dein#install()"'],
-\             [
-\                 'edit .vimrc',
-\                 'execute "tabedit " . resolve(expand($MYVIMRC))'
-\             ],
-\             [
-\                 'edit .gvimrc',
-\                 'execute "tabedit " . resolve(expand($MYGVIMRC))'
-\             ],
-\             ['highlight', 'Unite highlight -no-start-insert'],
-\             ['output map', 'Unite output:map|map!|lmap'],
-\             ['output message', 'Unite output:message'],
-\             ['output version', 'Unite output:version'],
-\             ['Unite Beautiful Attack', 'Unite colorscheme -auto-preview -no-start-insert'],
-\         ],
-\     },
+\   'shortcut' : {
+\     'command_candidates' : [
+\       ['DeinUpdate', 'execute "call dein#update()"'],
+\       ['DeinCheck', 'execute "call dein#check_install()"'],
+\       ['DeinInstall', 'execute "call dein#install()"'],
+\       [
+\         'edit .vimrc',
+\         'execute "tabedit " . resolve(expand($MYVIMRC))'
+\       ],
+\       [
+\         'edit .gvimrc',
+\         'execute "tabedit " . resolve(expand($MYGVIMRC))'
+\       ],
+\       ['highlight', 'Unite highlight -no-start-insert'],
+\       ['output map', 'Unite output:map|map!|lmap'],
+\       ['output message', 'Unite output:message'],
+\       ['output version', 'Unite output:version'],
+\       ['Unite Beautiful Attack', 'Unite colorscheme -auto-preview -no-start-insert'],
+\     ],
+\   },
 \ }
 
 " ref
@@ -549,42 +549,42 @@ let g:indentLine_setConceal = 0
 
 " quickrun
 let g:quickrun_config = {
-\     '_' : {
-\         'runner/vimproc/sleep': 50,
-\         'runner/vimproc/updatetime': 100,
-\     }
+\   '_' : {
+\     'runner/vimproc/sleep': 50,
+\     'runner/vimproc/updatetime': 100,
+\   }
 \ }
 " if running on cygwin, replace cygwin-style path to windows-style path
 if has('win32unix')
-    let g:quickrun_config = {
-\       '_' : {
-\           'exec': '%c %o %a < `cygpath -m %s`'
-\       }
+  let g:quickrun_config = {
+\     '_' : {
+\       'exec': '%c %o %a < `cygpath -m %s`'
+\     }
 \   }
 endif
 
 " vdebug
 let g:vdebug_options = {
-\     'port': $XDEBUG_PORT,
-\     'marker_default' : '.',
-\     'marker_closed_tree' : '+',
-\     'marker_open_tree' : '-',
+\   'port': $XDEBUG_PORT,
+\   'marker_default' : '.',
+\   'marker_closed_tree' : '+',
+\   'marker_open_tree' : '-',
 \ }
 
 " lightline
 let g:lightline = {
 \   'colorscheme': 'sceaduhelm',
 \   'enable': {
-\       'statusline': 1,
-\       'tabline': 1
+\     'statusline': 1,
+\     'tabline': 1
 \   },
 \   'tabline_subseparator': {
-\       'left': '',
-\       'right': ''
+\     'left': '',
+\     'right': ''
 \   },
 \   'active': {
-\       'left': [ ['mode', 'paste' ],
-\                 [ 'readonly', 'absolutepath', 'modified' ] ]
+\     'left': [ ['mode', 'paste' ],
+\         [ 'readonly', 'absolutepath', 'modified' ] ]
 \   }
 \ }
 
@@ -622,25 +622,25 @@ nnoremap <silent> [unite]o :<C-u>Unite -no-start-insert -no-quit outline<CR>
 nnoremap <silent> [unite]f :<C-u>Unite menu:shortcut<CR>
 
 augroup vimrc-unite
-    autocmd!
-    autocmd FileType unite call s:unite_settings()
+  autocmd!
+  autocmd FileType unite call s:unite_settings()
 augroup END
 
 function! s:unite_settings()
-    " open with horizontally split window
-    nnoremap <silent> <buffer> <expr> <C-s> unite#do_action('below')
-    inoremap <silent> <buffer> <expr> <C-s> unite#do_action('below')
-    " open with vertically split window
-    nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('right')
-    inoremap <silent> <buffer> <expr> <C-v> unite#do_action('right')
-    " add to bookmark
-    nnoremap <silent> <buffer> <expr> <C-a> unite#do_action('bookmark')
-    inoremap <silent> <buffer> <expr> <C-a> unite#do_action('bookmark')
-    " delete backward path
-    imap <silent> <buffer> <C-w> <Plug>(unite_delete_backward_path)
-    " quit unite window
-    nnoremap <silent> <buffer> <C-j> :<C-u>quit<CR>
-    inoremap <silent> <buffer> <C-j> <Esc>
+  " open with horizontally split window
+  nnoremap <silent> <buffer> <expr> <C-s> unite#do_action('below')
+  inoremap <silent> <buffer> <expr> <C-s> unite#do_action('below')
+  " open with vertically split window
+  nnoremap <silent> <buffer> <expr> <C-v> unite#do_action('right')
+  inoremap <silent> <buffer> <expr> <C-v> unite#do_action('right')
+  " add to bookmark
+  nnoremap <silent> <buffer> <expr> <C-a> unite#do_action('bookmark')
+  inoremap <silent> <buffer> <expr> <C-a> unite#do_action('bookmark')
+  " delete backward path
+  imap <silent> <buffer> <C-w> <Plug>(unite_delete_backward_path)
+  " quit unite window
+  nnoremap <silent> <buffer> <C-j> :<C-u>quit<CR>
+  inoremap <silent> <buffer> <C-j> <Esc>
 endfunction
 
 " start with <Leader>
@@ -652,16 +652,16 @@ nnoremap , <Nop>
 nnoremap <Leader>rph :<C-u>Ref phpmanual<Space>
 
 " indentLine
-nnoremap <Leader>t :IndentLinesToggle<CR>
+nnoremap <Leader>t :<C-u>IndentLinesToggle<CR>
 
 " quickrun
 nnoremap <silent> <Leader>x :<C-u>QuickRun<CR>
 nnoremap          <Leader>X :<C-u>QuickRun -args<Space>
 
 " alignta
-vnoremap          <Leader>A :Alignta<Space>
-vnoremap <silent> <Leader>aa :Alignta =>\=<CR>
-vnoremap <silent> <Leader>as :Alignta 0 -r \ [^\ ]<CR>
+vnoremap          <Leader>A :<C-u>Alignta<Space>
+vnoremap <silent> <Leader>aa :<C-u>Alignta =>\=<CR>
+vnoremap <silent> <Leader>as :<C-u>Alignta 0 -r \ [^\ ]<CR>
 " operator-alignta
 nmap          <Leader>A <Plug>(operator-alignta)
 nmap <silent> <Leader>aa <Plug>(operator-alignta-preset) =>\=<CR>
@@ -703,7 +703,7 @@ let g:vdebug_keymap = {
 \ }
 
 " watchdogs
-nnoremap <silent> <Leader>w :WatchdogsRun<CR>
+nnoremap <silent> <Leader>w :<C-u>WatchdogsRun<CR>
 
 " gtags
 let g:Gtags_OpenQuickfixWindow = 0
