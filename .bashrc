@@ -60,6 +60,9 @@ unset -f _set_host_color
 #--------------------------------------
 # Tools {{{1
 
+# fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 # anyenv
 if [ -d ${HOME}/.anyenv ]; then
     export PATH="${HOME}/.anyenv/bin:${PATH}"
