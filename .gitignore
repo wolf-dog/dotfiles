@@ -7,3 +7,5 @@ GRTAGS
 GTAGS
 .netrwhist
 
+.vim/autoload/plug.vim
+.vim/plugged

@@ -11,19 +11,15 @@ language messages C
 
 "--------------------------------------
 " plugins
-
-" set user local directory
-let $DEINDIR=expand('~/.cache/dein')
-let g:dein#types#git#default_protocol='ssh'
-
-if has ('vim_starting')
-  set runtimepath^=$DEINDIR/repos/github.com/Shougo/dein.vim
+if empty(glob('~/.vim/autoload/plug.vim'))
+silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+  \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-call dein#begin(expand($DEINDIR))
 
-call dein#add('/Shougo/dein.vim')
+call plug#begin('~/.vim/plugged')
 
-call dein#add('/Shougo/vimproc.vim', {'build': 'make'})
+Plug 'Shougo/vimproc.vim', {'dir': '~/.vim/plugged/vimproc.vim', 'do': 'make'}
 
 " neocomplete, neocomplcache
 if ( has('lua') && (v:version > 703 || v:version == 703 && has('patch885')) )
@@ -32,73 +28,71 @@ else
   let s:neocomplete_available = 0
 endif
 if ( s:neocomplete_available )
-  call dein#add('/Shougo/neocomplete.vim')
+  Plug 'Shougo/neocomplete.vim'
 else
-  call dein#add('/Shougo/neocomplcache.vim')
+  Plug 'Shougo/neocomplcache.vim'
 endif
 
 " unite
-call dein#add('/Shougo/unite.vim')
-call dein#add('/Shougo/neomru.vim')
-call dein#add('/Shougo/unite-outline')
-call dein#add('/osyo-manga/unite-highlight')
-call dein#add('/ujihisa/unite-colorscheme')
-call dein#add('/osyo-manga/unite-quickfix')
-call dein#add('/Shougo/junkfile.vim')
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/unite-outline'
+Plug 'osyo-manga/unite-highlight'
+Plug 'ujihisa/unite-colorscheme'
+Plug 'osyo-manga/unite-quickfix'
+Plug 'Shougo/junkfile.vim'
 
 " syntax
-call dein#add('/wolf-dog/vim-json')
-call dein#add('/jelera/vim-javascript-syntax')
-call dein#add('/emonkak/vim-filetype-pukiwiki')
-call dein#add('/kchmck/vim-coffee-script')
+Plug 'wolf-dog/vim-json'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'emonkak/vim-filetype-pukiwiki'
+Plug 'kchmck/vim-coffee-script'
 
 " textobj-user
-call dein#add('/kana/vim-textobj-user')
-call dein#add('/kana/vim-textobj-line')
-call dein#add('/kana/vim-textobj-entire')
-call dein#add('/kana/vim-textobj-indent')
-call dein#add('/kana/vim-textobj-underscore')
-call dein#add('/h1mesuke/textobj-wiw')
-call dein#add('/thinca/vim-textobj-between')
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-line'
+Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-underscore'
+Plug 'h1mesuke/textobj-wiw'
+Plug 'thinca/vim-textobj-between'
 
 " operator-user
-call dein#add('/kana/vim-operator-user')
-call dein#add('/osyo-manga/vim-operator-alignta')
-call dein#add('/emonkak/vim-operator-comment')
-call dein#add('/rhysd/vim-operator-surround')
+Plug 'kana/vim-operator-user'
+Plug 'osyo-manga/vim-operator-alignta'
+Plug 'emonkak/vim-operator-comment'
+Plug 'rhysd/vim-operator-surround'
 
 " development tools
-call dein#add('/thinca/vim-ref')
-call dein#add('/thinca/vim-quickrun')
-call dein#add('/joonty/vdebug')
-call dein#add('/osyo-manga/shabadou.vim')
-call dein#add('/osyo-manga/vim-watchdogs')
-call dein#add('/cohama/vim-hier')
-call dein#add('/vim-scripts/gtags.vim')
+Plug 'thinca/vim-ref'
+Plug 'thinca/vim-quickrun'
+Plug 'joonty/vdebug'
+Plug 'osyo-manga/shabadou.vim'
+Plug 'osyo-manga/vim-watchdogs'
+Plug 'cohama/vim-hier'
+Plug 'vim-scripts/gtags.vim'
 
 " colorschemes
-call dein#add('/wolf-dog/nighted.vim')
-call dein#add('/wolf-dog/lightline-nighted.vim')
-call dein#add('/wolf-dog/sceaduhelm.vim')
-call dein#add('/wolf-dog/lightline-sceaduhelm.vim')
-call dein#add('/veloce/vim-aldmeris')
-call dein#add('/apeacox/vim-distinguished')
-call dein#add('/tomasr/molokai')
-call dein#add('/croaker/mustang-vim')
+Plug 'wolf-dog/nighted.vim'
+Plug 'wolf-dog/lightline-nighted.vim'
+Plug 'wolf-dog/sceaduhelm.vim'
+Plug 'wolf-dog/lightline-sceaduhelm.vim'
+Plug 'veloce/vim-aldmeris'
+Plug 'apeacox/vim-distinguished'
+Plug 'tomasr/molokai'
+Plug 'croaker/mustang-vim'
 
 " display color table
-call dein#add('/guns/xterm-color-table.vim')
+Plug 'guns/xterm-color-table.vim'
 
 " misc.
-call dein#add('/Yggdroot/indentLine')
-call dein#add('/h1mesuke/vim-alignta')
-call dein#add('/tpope/vim-fugitive')
-call dein#add('/itchyny/lightline.vim')
-call dein#add('/vim-scripts/sudo.vim')
+Plug 'Yggdroot/indentLine'
+Plug 'h1mesuke/vim-alignta'
+Plug 'tpope/vim-fugitive'
+Plug 'itchyny/lightline.vim'
+Plug 'vim-scripts/sudo.vim'
 
-call dein#end()
-
-filetype plugin indent on
+call plug#end()
 "--------------------------------------
 
 "--------------------------------------
@@ -516,9 +510,8 @@ let g:unite_enable_start_insert = 1
 let g:unite_source_menu_menus = {
 \   'shortcut' : {
 \     'command_candidates' : [
-\       ['DeinUpdate', 'execute "call dein#update()"'],
-\       ['DeinCheck', 'execute "call dein#check_install()"'],
-\       ['DeinInstall', 'execute "call dein#install()"'],
+\       ['update plugins', 'PlugUpdate | PlugUpgrade'],
+\       ['install plugins', 'PlugInstall'],
 \       [
 \         'edit .vimrc',
 \         'execute "tabedit " . resolve(expand($MYVIMRC))'
