@@ -97,7 +97,10 @@ alias .....='cd ../../../..'
 # Tools {{{1
 
 # fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if [ -f ~/.fzf.bash ]; then
+  source ~/.fzf.bash
+  export FZF_CTRL_T_COMMAND="find *"
+fi
 
 # pygments
 type pygmentize > /dev/null 2>&1
