@@ -14,8 +14,9 @@ set -o ignoreeof
 stty stop undef
 # Use case-insensitive filename globbing
 shopt -s nocaseglob
-# Don't put duplicate lines in the history
-export HISTCONTROL=${HISTCONTROL}${HISTCONTROL+,}ignoredups
+# Ignore duplicated lines
+# Ignore lines that starts with spaces
+export HISTCONTROL=ignoreboth
 # set default applications
 export EDITOR=vim
 export PAGER=less
