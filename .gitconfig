@@ -46,6 +46,7 @@
     discard = checkout --
     forget = !git reset --hard HEAD && git clean -d -f
     obey = !git fetch && git reset --hard FETCH_HEAD
+    catchup = !git checkout master && git pull --ff-only --prune
 [push]
     default = simple
 [credential]
