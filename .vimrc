@@ -47,6 +47,7 @@ Plug 'wolf-dog/vim-json'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'emonkak/vim-filetype-pukiwiki'
 Plug 'kchmck/vim-coffee-script'
+Plug 'dag/vim-fish'
 
 " textobj-user
 Plug 'kana/vim-textobj-user'
