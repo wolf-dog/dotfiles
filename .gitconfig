@@ -39,9 +39,10 @@
     sfp = submodule foreach git pull
     su = submodule update
     stl = stash list
+    std = stash drop
+    stp = stash pop
     sta = stash apply
     sts = stash save
-    std = stash drop
     unstage = reset -q HEAD --
     discard = checkout --
     forget = !git reset --hard HEAD && git clean -d -f
