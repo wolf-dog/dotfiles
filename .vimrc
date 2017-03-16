@@ -221,6 +221,10 @@ if ( v:version >= 703)
   set wildignorecase
 endif
 
+if executable("hw")
+  set grepprg=hw\ --no-group\ --no-color
+endif
+
 "--------------------------------------
 " binds
 
@@ -422,13 +426,17 @@ nnoremap <silent> [Leader]cc :<C-u>diffoff<CR>
 " update diff
 nnoremap <silent> [Leader]cu :<C-u>diffupdate<CR>
 " toggle paste
-nnoremap <silent> [Leader]g :<C-u>set paste!<CR>
+nnoremap <silent> [Leader]" :<C-u>set paste!<CR>
 " Go to older quickfix list
 nnoremap <silent> [Leader]qp :<C-u>colder<CR>
 " Go to newer quickfix list
 nnoremap <silent> [Leader]qn :<C-u>cnewer<CR>
 " search conflict marker
 nnoremap <silent> [Leader]i /\v[<=>]{7}<CR>
+" grep
+nnoremap [Leader]g :<C-u>grep<Space>
+" grep the word under the cursor
+nnoremap <silent> [Leader]r :<C-u>grep<Space><C-r><C-w><CR>
 "--------------------------------------
 
 "--------------------------------------
