@@ -31,11 +31,12 @@
     ls = log --decorate --stat
     m = merge --ff-only
     p = pull --ff-only
-    pp = pull --prune
+    pp = pull --ff-only --prune
     pu = push -u origin
     r = rebase
     ri = rebase -i
     s = status
+    cp = cherry-pick
     sfp = submodule foreach git pull
     su = submodule update
     stl = stash list
