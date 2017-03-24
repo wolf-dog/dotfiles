@@ -3,6 +3,8 @@
 
 # Disable greeting messages
 set fish_greeting
+# Set locale
+set LANG 'en_US.UTF-8'
 
 #--------------------------------------
 # Paths {{{1

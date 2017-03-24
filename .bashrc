@@ -17,9 +17,11 @@ shopt -s nocaseglob
 # Ignore duplicated lines
 # Ignore lines that starts with spaces
 export HISTCONTROL=ignoreboth
-# set default applications
+# Set default applications
 export EDITOR=vim
 export PAGER=less
+# Set locale
+export LANG='en_US.UTF-8'
 
 #--------------------------------------
 # Custom prompt {{{1
