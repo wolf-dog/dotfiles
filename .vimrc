@@ -94,6 +94,9 @@ Plug 'itchyny/lightline.vim'
 Plug 'vim-scripts/sudo.vim'
 
 call plug#end()
+
+" matchit
+source $VIMRUNTIME/macros/matchit.vim
 "--------------------------------------
 
 "--------------------------------------
