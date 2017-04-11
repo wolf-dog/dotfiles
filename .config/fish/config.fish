@@ -48,14 +48,35 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
 #--------------------------------------
+# dircolors {{{1
+
+if [ -f $HOME/.dircolors ]; and type dircolors >/dev/null ^&1
+  eval (dircolors $HOME/.dircolors | sed 's/LS_COLORS=/set LS_COLORS /')
+end
+
+#--------------------------------------
+# global {{{1
+
+if grep --quiet 'pygments-parser' /usr/local/etc/gtags.conf ^/dev/null
+  export GTAGSLABEL=pygments
+end
+
+#--------------------------------------
 # fzf {{{1
 
 # On Bash on Windows, remove -fstype option (it doesn't work)
-if grep -q 'Microsoft' /proc/version
+if grep --quiet 'Microsoft' /proc/version ^/dev/null
   set -g FZF_FIND_FILE_COMMAND "
   command find -L . \\( -path '*/\\.*' \\) -prune \
   -o -type f -print \
   -o -type d -print \
   -o -type l -print 2> /dev/null | sed 1d | cut -b3-"
+end
+
+#--------------------------------------
+# source local config {{{1
+
+if [ -f ~/.config/fish/config_local.fish ]
+  source ~/.config/fish/config_local.fish
 end
 
