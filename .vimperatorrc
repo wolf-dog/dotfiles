@@ -1,5 +1,5 @@
 " vim: set ft=vim:
-set hintchars=bhjklasdfgyuiopqwertnmzxcv
+set hintchars=bhjklasdfgyuiopqertnmzxcv
 " input like the terminal
 noremap <C-h> <BS>
 noremap <C-i> <Tab>
@@ -37,4 +37,6 @@ inoremap <C-p> <ESC>gT
 " recall previous/next command
 cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
+" enlarge hints
+highlight Hint font-family: monospace; font-size: 16px; font-weight: bold; text-transform: uppercase; color: white; background-color: red; border-color: ButtonShadow; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px;
 
