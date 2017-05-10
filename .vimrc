@@ -72,6 +72,8 @@ Plug 'osyo-manga/shabadou.vim'
 Plug 'osyo-manga/vim-watchdogs'
 Plug 'cohama/vim-hier'
 Plug 'vim-scripts/gtags.vim'
+Plug 'nvie/vim-flake8'
+Plug 'dannyob/quickfixstatus'
 
 " colorschemes
 Plug 'wolf-dog/nighted.vim'
@@ -546,11 +548,8 @@ let g:unite_source_menu_menus = {
 let g:ref_phpmanual_path = expand('~/usr/local/etc/man/php')
 
 " indentLine
-let g:indentLine_setColors = 0
 let g:indentLine_color_term = 60
 let g:indentLine_color_gui = '#5f5f87'
-let g:indentLine_faster = 1
-let g:indentLine_setConceal = 0
 
 " quickrun
 let g:quickrun_config = {
@@ -570,7 +569,6 @@ endif
 
 " vdebug
 let g:vdebug_options = {
-\   'port': $XDEBUG_PORT,
 \   'marker_default' : '.',
 \   'marker_closed_tree' : '+',
 \   'marker_open_tree' : '-',
@@ -718,4 +716,10 @@ nnoremap <silent> <Leader>dr :<C-u>Gtags -r <C-r><C-w><CR>
 nnoremap <silent> <Leader>dn :<C-u>cn<CR>
 nnoremap <silent> <Leader>dp :<C-u>cp<CR>
 "--------------------------------------
+
+"--------------------------------------
+" local settings
+if filereadable(expand('~/.vimrc_local'))
+  source ~/.vimrc_local
+endif
 
