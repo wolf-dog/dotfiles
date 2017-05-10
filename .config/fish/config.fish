@@ -66,11 +66,10 @@ end
 
 # On Bash on Windows, remove -fstype option (it doesn't work)
 if grep --quiet 'Microsoft' /proc/version ^/dev/null
-  set -g FZF_FIND_FILE_COMMAND "
-  command find -L . \\( -path '*/\\.*' \\) -prune \
-  -o -type f -print \
-  -o -type d -print \
-  -o -type l -print 2> /dev/null | sed 1d | cut -b3-"
+  set -g FZF_DEFAULT_COMMAND "command find -L . -mindepth 1 \\( -path '*/\\.*' \\) -prune \
+    -o -type f -print \
+    -o -type d -print \
+    -o -type l -print 2> /dev/null | cut -b3-"
 end
 
 #--------------------------------------
