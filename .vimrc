@@ -43,11 +43,11 @@ Plug 'osyo-manga/unite-quickfix'
 Plug 'Shougo/junkfile.vim'
 
 " syntax
-Plug 'wolf-dog/vim-json'
-Plug 'jelera/vim-javascript-syntax'
-Plug 'emonkak/vim-filetype-pukiwiki'
-Plug 'kchmck/vim-coffee-script'
-Plug 'dag/vim-fish'
+Plug 'wolf-dog/vim-json', { 'for': 'json' }
+Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
+Plug 'emonkak/vim-filetype-pukiwiki', { 'for': 'pukiwiki' }
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+Plug 'dag/vim-fish', { 'for': 'fish' }
 
 " textobj-user
 Plug 'kana/vim-textobj-user'
@@ -72,18 +72,13 @@ Plug 'osyo-manga/shabadou.vim'
 Plug 'osyo-manga/vim-watchdogs'
 Plug 'cohama/vim-hier'
 Plug 'vim-scripts/gtags.vim'
-Plug 'nvie/vim-flake8'
+Plug 'nvie/vim-flake8', { 'for': 'python' }
+Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'dannyob/quickfixstatus'
 
 " colorschemes
-Plug 'wolf-dog/nighted.vim'
-Plug 'wolf-dog/lightline-nighted.vim'
 Plug 'wolf-dog/sceaduhelm.vim'
 Plug 'wolf-dog/lightline-sceaduhelm.vim'
-Plug 'veloce/vim-aldmeris'
-Plug 'apeacox/vim-distinguished'
-Plug 'tomasr/molokai'
-Plug 'croaker/mustang-vim'
 
 " display color table
 Plug 'guns/xterm-color-table.vim'
