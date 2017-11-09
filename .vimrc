@@ -48,6 +48,8 @@ Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
 Plug 'emonkak/vim-filetype-pukiwiki', { 'for': 'pukiwiki' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 Plug 'dag/vim-fish', { 'for': 'fish' }
+Plug 'ElmCast/elm-vim', { 'for': 'elm' }
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 
 " textobj-user
 Plug 'kana/vim-textobj-user'
@@ -74,7 +76,6 @@ Plug 'cohama/vim-hier'
 Plug 'vim-scripts/gtags.vim'
 Plug 'nvie/vim-flake8', { 'for': 'python' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
-Plug 'dannyob/quickfixstatus'
 
 " colorschemes
 Plug 'wolf-dog/sceaduhelm.vim'
@@ -493,6 +494,10 @@ let g:php_folding = 1
 " use bash by default
 let g:is_bash = 1
 
+" markdown
+" disable concealing
+let g:markdown_syntax_conceal = 0
+let g:markdown_fenced_languages = ['sh', 'sql']
 if ( s:neocomplete_available )
   " neocomplete
   let g:neocomplete#enable_at_startup = 1
