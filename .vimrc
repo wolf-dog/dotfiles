@@ -43,7 +43,7 @@ Plug 'osyo-manga/unite-quickfix'
 Plug 'Shougo/junkfile.vim'
 
 " syntax
-Plug 'wolf-dog/vim-json', { 'for': 'json' }
+Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
 Plug 'emonkak/vim-filetype-pukiwiki', { 'for': 'pukiwiki' }
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
@@ -498,6 +498,11 @@ let g:is_bash = 1
 " disable concealing
 let g:markdown_syntax_conceal = 0
 let g:markdown_fenced_languages = ['sh', 'sql']
+
+" json
+" disable concealing
+let g:vim_json_syntax_conceal = 0
+
 if ( s:neocomplete_available )
   " neocomplete
   let g:neocomplete#enable_at_startup = 1
