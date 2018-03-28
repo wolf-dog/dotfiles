@@ -12,8 +12,8 @@ language messages C
 "--------------------------------------
 " plugins
 if empty(glob('~/.vim/autoload/plug.vim'))
-silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-  \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -457,6 +457,7 @@ augroup vimrc-file
   \ formatoptions-=t formatoptions-=c
   \ formatoptions+=r formatoptions+=M
   \ | endif
+  \ | setlocal conceallevel=0
 
   " set fileencoding to empty (use default encoding)
   " when buffer only contains ASCII characters
@@ -561,6 +562,9 @@ let g:quickrun_config = {
 \   '_' : {
 \     'runner/vimproc/sleep': 50,
 \     'runner/vimproc/updatetime': 100,
+\   },
+\   'python': {
+\     'command': 'python3'
 \   }
 \ }
 " if running on cygwin, replace cygwin-style path to windows-style path
