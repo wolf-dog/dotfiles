@@ -482,14 +482,8 @@ augroup END
 " plugins, filetype settings
 
 " PHP
-" enable sql syntax highlighting in the php strings
-let g:php_sql_query = 1
-" enable html syntax highlighting in the php strings
-let g:php_htmlInStrings = 1
 " disable syntax highlighting on short tags
 let g:php_noShortTags = 1
-" enable class and function folding
-let g:php_folding = 1
 
 " sh
 " use bash by default
