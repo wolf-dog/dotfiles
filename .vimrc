@@ -62,7 +62,6 @@ Plug 'thinca/vim-textobj-between'
 
 " operator-user
 Plug 'kana/vim-operator-user'
-Plug 'osyo-manga/vim-operator-alignta'
 Plug 'emonkak/vim-operator-comment'
 Plug 'rhysd/vim-operator-surround'
 
@@ -86,7 +85,7 @@ Plug 'guns/xterm-color-table.vim'
 
 " misc.
 Plug 'Yggdroot/indentLine'
-Plug 'h1mesuke/vim-alignta'
+Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
 Plug 'itchyny/lightline.vim'
 Plug 'vim-scripts/sudo.vim'
@@ -664,14 +663,13 @@ nnoremap <Leader>t :<C-u>IndentLinesToggle<CR>
 nnoremap <silent> <Leader>x :<C-u>QuickRun<CR>
 nnoremap          <Leader>X :<C-u>QuickRun -args<Space>
 
-" alignta
-vnoremap          <Leader>A :<C-u>Alignta<Space>
-vnoremap <silent> <Leader>aa :<C-u>Alignta =>\=<CR>
-vnoremap <silent> <Leader>as :<C-u>Alignta 0 -r \ [^\ ]<CR>
-" operator-alignta
-nmap          <Leader>A <Plug>(operator-alignta)
-nmap <silent> <Leader>aa <Plug>(operator-alignta-preset) =>\=<CR>
-nmap <silent> <Leader>as <Plug>(operator-alignta-preset) 0 -r \ [^\ ]<CR>
+" easy-align
+vmap <Leader>A <Plug>(EasyAlign)
+vmap <Leader>aa <Plug>(EasyAlign)*=
+vmap <Leader>at <Plug>(EasyAlign)*<Bar>
+vmap <Leader>as <Plug>(EasyAlign)*<Space>
+" intaractive easy-align
+nmap <Leader>A <Plug>(EasyAlign)
 
 " operator-comment
 nmap <silent> <Leader>c <Plug>(operator-comment)
