@@ -1,3 +1,4 @@
 umask 022
-export PATH=${PATH}:${HOME}/bin
-
+export PATH=${PATH}:${HOME}/bin:"/mnt/c/Program Files/Oracle/VirtualBox"
+export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
+#export VAGRANT_WSL_WINDOWS_ACCESS_USER_HOME_PATH="/home/wolfdog"
