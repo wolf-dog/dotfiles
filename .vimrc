@@ -544,7 +544,7 @@ let g:unite_source_menu_menus = {
 
 " ref
 " define path to php manual
-let g:ref_phpmanual_path = expand('~/usr/local/etc/man/php')
+let g:ref_phpmanual_path = expand('~/etc/man/php')
 
 " indentLine
 let g:indentLine_color_term = 60
