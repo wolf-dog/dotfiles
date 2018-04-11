@@ -10,7 +10,7 @@ set LANG 'en_US.UTF-8'
 # Paths {{{1
 
 if status --is-login
-  set -U fish_user_paths $HOME/bin
+  set -U fish_user_paths $HOME/bin $fish_user_paths
 end
 
 #--------------------------------------
