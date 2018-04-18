@@ -78,6 +78,15 @@ Plug 'wolf-dog/lightline-sceaduhelm.vim'
 " display color table
 Plug 'guns/xterm-color-table.vim'
 
+" fzf
+if !empty(glob('~/.fzf'))
+  Plug '~/.fzf'
+  Plug 'junegunn/fzf.vim'
+elseif !empty(glob('/usr/local/opt/fzf'))
+  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf.vim'
+endif
+
 " misc.
 Plug 'Yggdroot/indentLine'
 Plug 'junegunn/vim-easy-align'
@@ -591,6 +600,10 @@ let g:lightline = {
 
 " watchdogs
 let g:watchdogs_check_BufWritePost_enable = 1
+
+" fzf
+let g:fzf_command_prefix = 'Fzf'
+let g:fzf_layout = { 'up': '~40%' }
 "--------------------------------------
 
 "--------------------------------------
@@ -712,6 +725,10 @@ nnoremap          <Leader>dd :<C-u>Gtags<Space>
 nnoremap <silent> <Leader>dr :<C-u>Gtags -r <C-r><C-w><CR>
 nnoremap <silent> <Leader>dn :<C-u>cn<CR>
 nnoremap <silent> <Leader>dp :<C-u>cp<CR>
+
+" fzf
+nnoremap <silent> <Leader>es :<C-u>FzfFiles<CR>
+nnoremap <silent> <Leader>ee :<C-u>FzfGFiles<CR>
 "--------------------------------------
 
 "--------------------------------------
