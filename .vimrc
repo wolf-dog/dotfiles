@@ -530,6 +530,7 @@ let g:unite_source_menu_menus = {
 \     'command_candidates' : [
 \       ['update plugins', 'PlugUpdate | PlugUpgrade'],
 \       ['install plugins', 'PlugInstall'],
+\       ['clean plugins', 'PlugClean'],
 \       [
 \         'edit .vimrc',
 \         'execute "tabedit " . resolve(expand($MYVIMRC))'
@@ -650,6 +651,9 @@ function! s:unite_settings()
   " add to bookmark
   nnoremap <silent> <buffer> <expr> <C-a> unite#do_action('bookmark')
   inoremap <silent> <buffer> <expr> <C-a> unite#do_action('bookmark')
+  " cd
+  nnoremap <silent> <buffer> <expr> <C-g> unite#do_action('cd')
+  inoremap <silent> <buffer> <expr> <C-g> unite#do_action('cd')
   " delete backward path
   imap <silent> <buffer> <C-w> <Plug>(unite_delete_backward_path)
   " quit unite window
