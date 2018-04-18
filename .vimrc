@@ -90,7 +90,7 @@ endif
 " misc.
 Plug 'Yggdroot/indentLine'
 Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
 Plug 'vim-scripts/sudo.vim'
 
@@ -575,6 +575,18 @@ if has('win32unix')
 \   }
 endif
 
+" gitgutter
+hi GitGutterAdd          ctermfg=69  ctermbg=234 cterm=none guifg=#5f87ff guibg=#1c1c1c gui=none
+hi GitGutterDelete       ctermfg=202 ctermbg=234 cterm=none guifg=#ff5f00 guibg=#1c1c1c gui=none
+hi GitGutterChange       ctermfg=221 ctermbg=234 cterm=none guifg=#ffdf5f guibg=#1c1c1c gui=none
+hi GitGutterChangeDelete ctermfg=221 ctermbg=234 cterm=none guifg=#ffdf5f guibg=#1c1c1c gui=none
+let g:gitgutter_sign_added = '.'
+let g:gitgutter_sign_modified = '.'
+let g:gitgutter_sign_removed = '.'
+let g:gitgutter_sign_removed_first_line = ':'
+let g:gitgutter_sign_modified_removed = ':'
+let g:gitgutter_map_keys = 0
+
 " vdebug
 let g:vdebug_options = {
 \   'marker_default' : '.',
@@ -693,16 +705,16 @@ nmap <silent> <Leader>sa <Plug>(operator-surround-append)
 nmap <silent> <Leader>sd <Plug>(operator-surround-delete)
 nmap <silent> <Leader>sr <Plug>(operator-surround-replace)
 
-" fugitive
-nnoremap          <Leader>gi :<C-u>Git<Space>
-nnoremap <silent> <Leader>gl :<C-u>Glog<CR>
-nnoremap <silent> <Leader>gs :<C-u>Gstatus<CR>
-nnoremap <silent> <Leader>gc :<C-u>Gcommit -v<CR>
-nnoremap <silent> <Leader>gw :<C-u>Gwrite<CR>
-nnoremap <silent> <Leader>gb :<C-u>Gblame<CR>
-nnoremap <silent> <Leader>gd :<C-u>Gsdiff<CR>
-nnoremap <silent> <Leader>gh :<C-u>Gsdiff HEAD^<CR>
-nnoremap          <Leader>gg :<C-u>Ggrep<Space>
+" gitgutter
+nmap <silent> <Leader>hn <Plug>GitGutterNextHunk
+nmap <silent> <Leader>hp <Plug>GitGutterPrevHunk
+nmap <silent> <Leader>hh <Plug>GitGutterPreviewHunk
+nmap <silent> <Leader>ha <Plug>GitGutterStageHunk
+nmap <silent> <Leader>hr <Plug>GitGutterUndoHunk
+omap <silent> ih <Plug>GitGutterTextObjectInnerPending
+omap <silent> ah <Plug>GitGutterTextObjectOuterPending
+xmap <silent> ih <Plug>GitGutterTextObjectInnerVisual
+xmap <silent> ah <Plug>GitGutterTextObjectOuterVisual
 
 " vdebug
 let g:vdebug_keymap = {
