@@ -71,12 +71,14 @@ Plug 'vim-scripts/gtags.vim'
 Plug 'nvie/vim-flake8', { 'for': 'python' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
 
-" colorschemes
-Plug 'wolf-dog/sceaduhelm.vim'
-Plug 'wolf-dog/lightline-sceaduhelm.vim'
+" editing
+Plug 'junegunn/vim-easy-align'
+Plug 'vim-scripts/sudo.vim'
 
-" display color table
-Plug 'guns/xterm-color-table.vim'
+" appearance
+Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-gitgutter'
+Plug 'itchyny/lightline.vim'
 
 " fzf
 if !empty(glob('~/.fzf'))
@@ -87,12 +89,12 @@ elseif !empty(glob('/usr/local/opt/fzf'))
   Plug 'junegunn/fzf.vim'
 endif
 
-" misc.
-Plug 'Yggdroot/indentLine'
-Plug 'junegunn/vim-easy-align'
-Plug 'airblade/vim-gitgutter'
-Plug 'itchyny/lightline.vim'
-Plug 'vim-scripts/sudo.vim'
+" colorschemes
+Plug 'wolf-dog/sceaduhelm.vim'
+Plug 'wolf-dog/lightline-sceaduhelm.vim'
+
+" display color table
+Plug 'guns/xterm-color-table.vim'
 
 call plug#end()
 
