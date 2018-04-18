@@ -43,13 +43,8 @@ Plug 'osyo-manga/unite-quickfix'
 Plug 'Shougo/junkfile.vim'
 
 " syntax
-Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
+Plug 'sheerun/vim-polyglot'
 Plug 'emonkak/vim-filetype-pukiwiki', { 'for': 'pukiwiki' }
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-Plug 'dag/vim-fish', { 'for': 'fish' }
-Plug 'ElmCast/elm-vim', { 'for': 'elm' }
-Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 
 " textobj-user
 Plug 'kana/vim-textobj-user'
@@ -456,7 +451,6 @@ augroup vimrc-file
   \ formatoptions-=t formatoptions-=c
   \ formatoptions+=r formatoptions+=M
   \ | endif
-  \ | setlocal conceallevel=0
 
   " set fileencoding to empty (use default encoding)
   " when buffer only contains ASCII characters
@@ -482,7 +476,10 @@ augroup END
 
 " PHP
 " disable syntax highlighting on short tags
-let g:php_noShortTags = 1
+let g:php_sql_heredoc = 0
+let g:php_sql_nowdoc = 0
+let g:php_html_in_heredoc = 0
+let g:php_html_in_nowdoc = 0
 
 " sh
 " use bash by default
@@ -490,8 +487,7 @@ let g:is_bash = 1
 
 " markdown
 " disable concealing
-let g:markdown_syntax_conceal = 0
-let g:markdown_fenced_languages = ['sh', 'sql']
+let g:vim_markdown_conceal = 0
 
 " json
 " disable concealing
