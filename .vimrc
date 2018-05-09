@@ -73,7 +73,6 @@ Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
 
 " editing
 Plug 'junegunn/vim-easy-align'
-Plug 'kana/vim-smartinput'
 Plug 'vim-scripts/sudo.vim'
 Plug 'tpope/vim-speeddating'
 
