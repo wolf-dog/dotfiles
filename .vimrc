@@ -78,8 +78,11 @@ Plug 'tpope/vim-speeddating'
 
 " appearance
 Plug 'Yggdroot/indentLine'
-Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
+
+" git
+Plug 'airblade/vim-gitgutter'
+Plug 'lambdalisue/gina.vim'
 
 " fzf
 if !empty(glob('~/.fzf'))
@@ -712,12 +715,19 @@ nmap <silent> <Leader>sr <Plug>(operator-surround-replace)
 nmap <silent> <Leader>hn <Plug>GitGutterNextHunk
 nmap <silent> <Leader>hp <Plug>GitGutterPrevHunk
 nmap <silent> <Leader>hh <Plug>GitGutterPreviewHunk
-nmap <silent> <Leader>ha <Plug>GitGutterStageHunk
-nmap <silent> <Leader>hr <Plug>GitGutterUndoHunk
 omap <silent> ih <Plug>GitGutterTextObjectInnerPending
 omap <silent> ah <Plug>GitGutterTextObjectOuterPending
 xmap <silent> ih <Plug>GitGutterTextObjectInnerVisual
 xmap <silent> ah <Plug>GitGutterTextObjectOuterVisual
+
+" gina
+nnoremap <silent> <Leader>gb :<C-u>Gina blame<CR>
+nnoremap <silent> <Leader>gd :<C-u>topleft Gina diff --opener=split<CR>
+nnoremap <silent> <Leader>gl :<C-u>topleft Gina log --opener=split<CR>
+nnoremap <silent> <Leader>gs :<C-u>topleft Gina status --opener=split<CR>
+nnoremap <silent> <Leader>gr :Gina qrep! <C-r><C-w><CR>
+nnoremap <Leader>gg :Gina qrep!<Space>
+nnoremap <Leader>G :<C-u>Gina<Space>
 
 " vdebug
 let g:vdebug_keymap = {
