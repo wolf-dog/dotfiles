@@ -30,6 +30,7 @@ Plug 'Shougo/neomru.vim'
 Plug 'Shougo/junkfile.vim'
 Plug 'chemzqm/unite-location'
 Plug 'kmnk/denite-dirmark'
+Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
 
 " syntax
 Plug 'sheerun/vim-polyglot'
@@ -554,9 +555,16 @@ let s:menus.shortcut.command_candidates = [
 \ ]
 
 call denite#custom#var('menu', 'menus', s:menus)
+call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
 call denite#custom#option('_', {
-\ 'direction': 'topleft',
+\ 'highlight_matched_char': 'None',
+\ 'highlight_matched_range': 'None',
+\ 'highlight_mode_insert': 'WildMenu',
 \ })
+
+" fruzzy
+let g:fruzzy#usenative = 1
+let g:fruzzy#sortonempty = 0
 
 " ref
 " define path to php manual
@@ -670,8 +678,11 @@ call denite#custom#map('normal', '<C-s>', '<denite:do_action:split>', 'noremap')
 call denite#custom#map('insert', '<C-v>', '<denite:do_action:vsplit>', 'noremap')
 call denite#custom#map('normal', '<C-v>', '<denite:do_action:vsplit>', 'noremap')
 
-call denite#custom#map('insert', '<C-d>', '<denite:do_action:cd>', 'noremap')
-call denite#custom#map('normal', '<C-d>', '<denite:do_action:cd>', 'noremap')
+call denite#custom#map('insert', '<C-g>', '<denite:do_action:cd>', 'noremap')
+call denite#custom#map('normal', '<C-g>', '<denite:do_action:cd>', 'noremap')
+
+call denite#custom#map('insert', '<C-w>', '<denite:move_up_path>', 'noremap')
+call denite#custom#map('normal', '<C-w>', '<denite:move_up_path>', 'noremap')
 
 call denite#custom#map('insert', '<C-j>', '<denite:quit>', 'noremap')
 call denite#custom#map('normal', '<C-j>', '<denite:quit>', 'noremap')
