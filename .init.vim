@@ -63,6 +63,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 \ 'branch': 'next',
 \ 'do': 'bash install.sh',
 \ }
+Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 Plug 'nvie/vim-flake8', { 'for': 'python' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
 
@@ -546,7 +547,8 @@ let g:vim_json_syntax_conceal = 0
 " deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources = {
-\  '_': ['LanguageClient', 'buffer']
+\   '_': ['LanguageClient', 'around', 'buffer', 'member'],
+\   'php': ['phpcd', 'around', 'buffer', 'member'],
 \ }
 
 " denite
