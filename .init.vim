@@ -776,6 +776,10 @@ nnoremap <silent> <Leader>dp :<C-u>cp<CR>
 " fzf
 nnoremap <silent> <Leader>es :<C-u>FzfFiles<CR>
 nnoremap <silent> <Leader>ee :<C-u>FzfGFiles<CR>
+
+" language client
+nnoremap <silent> <Leader>kk :<C-u>call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <Leader>kr :<C-u>call LanguageClient#textDocument_references()<CR>
 "--------------------------------------
 
 "--------------------------------------
