@@ -570,7 +570,7 @@ call denite#custom#option('_', {
 \ })
 
 " fruzzy
-let g:fruzzy#usenative = 1
+let g:fruzzy#usenative = 0
 let g:fruzzy#sortonempty = 0
 
 " ref
