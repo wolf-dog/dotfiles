@@ -562,6 +562,8 @@ let s:menus.shortcut.command_candidates = [
 call denite#custom#var('menu', 'menus', s:menus)
 call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
 call denite#custom#option('_', {
+\ 'auto_resume': 'true',
+\ 'cursor_wrap': 'true',
 \ 'highlight_matched_char': 'None',
 \ 'highlight_matched_range': 'None',
 \ 'highlight_mode_insert': 'WildMenu',
