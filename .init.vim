@@ -545,13 +545,16 @@ let g:vim_json_syntax_conceal = 0
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources = {
+\  '_': ['LanguageClient', 'buffer']
+\ }
 
 " denite
 let s:menus = {}
 
 let s:menus.shortcut = {
-  \ 'description': 'Various shortcuts'
-  \ }
+\ 'description': 'Various shortcuts'
+\ }
 let s:menus.shortcut.command_candidates = [
 \   ['update plugins', 'PlugUpdate | PlugUpgrade'],
 \   ['install plugins', 'PlugInstall'],
