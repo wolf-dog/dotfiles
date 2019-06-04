@@ -548,7 +548,7 @@ let g:vim_json_syntax_conceal = 0
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources = {
 \   '_': ['LanguageClient', 'around', 'buffer', 'member'],
-\   'php': ['phpcd', 'around', 'buffer', 'member'],
+\   'php': ['phpcd', 'LanguageClient', 'around', 'buffer', 'member'],
 \ }
 
 " denite
