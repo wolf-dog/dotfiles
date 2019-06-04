@@ -678,29 +678,35 @@ nnoremap <silent> [denite]o :<C-u>Denite outline -post-action=open -mode=normal<
 " open menu
 nnoremap <silent> [denite]f :<C-u>Denite menu:shortcut<CR>
 
-call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>', 'noremap')
-call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>', 'noremap')
+autocmd FileType denite call s:denite_key_binds()
+function! s:denite_key_binds() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
 
-call denite#custom#map('insert', '<C-a>', '<denite:move_caret_to_head>', 'noremap')
-call denite#custom#map('insert', '<C-b>', '<denite:move_caret_to_left>', 'noremap')
-call denite#custom#map('insert', '<C-f>', '<denite:move_caret_to_right>', 'noremap')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
 
-call denite#custom#map('insert', '<C-s>', '<denite:do_action:split>', 'noremap')
-call denite#custom#map('normal', '<C-s>', '<denite:do_action:split>', 'noremap')
-call denite#custom#map('insert', '<C-v>', '<denite:do_action:vsplit>', 'noremap')
-call denite#custom#map('normal', '<C-v>', '<denite:do_action:vsplit>', 'noremap')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
 
-call denite#custom#map('insert', '<C-g>', '<denite:do_action:cd>', 'noremap')
-call denite#custom#map('normal', '<C-g>', '<denite:do_action:cd>', 'noremap')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
 
-call denite#custom#map('insert', '<C-w>', '<denite:move_up_path>', 'noremap')
-call denite#custom#map('normal', '<C-w>', '<denite:move_up_path>', 'noremap')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
 
-call denite#custom#map('insert', '<C-j>', '<denite:quit>', 'noremap')
-call denite#custom#map('normal', '<C-j>', '<denite:quit>', 'noremap')
+  nnoremap <silent><buffer><expr> <C-s>
+  \ denite#do_map('do_action', 'split')
 
-call denite#custom#map('normal', '<C-f>', '<denite:wincmd:w>', 'noremap')
-call denite#custom#map('normal', '<C-b>', '<denite:wincmd:b>', 'noremap')
+  nnoremap <silent><buffer><expr> <C-v>
+  \ denite#do_map('do_action', 'vsplit')
+
+  nnoremap <silent><buffer><expr> <C-g>
+  \ denite#do_map('do_action', 'cd')
+
+  nnoremap <silent><buffer><expr> <C-w>
+  \ denite#do_map('move_up_path')
+endfunction
 
 " start with <Leader>
 " disable ',' to use it as the prefix key
