@@ -11,7 +11,7 @@ language messages C
 
 "--------------------------------------
 " plugins
-if empty(glob('~/.vim/autoload/plug.vim'))
+if empty(glob('~/.nvim/plugged'))
   silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
@@ -795,6 +795,6 @@ nnoremap <silent> <Leader>kr :<C-u>call LanguageClient#textDocument_references()
 
 "--------------------------------------
 " local settings
-if filereadable(expand('~/.vimrc_local'))
-  source ~/.vimrc_local
+if filereadable(expand('~/.config/nvim/init_local.vim'))
+  source ~/.config/nvim/init_local.vim
 endif
