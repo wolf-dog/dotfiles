@@ -62,6 +62,23 @@ if grep --quiet 'pygments-parser' /usr/local/etc/gtags.conf ^/dev/null
 end
 
 #--------------------------------------
+# anyenv {{{1
+
+if [ -d $HOME/.anyenv ];
+  status --is-interactive; and source (anyenv init -|psub)
+end
+
+if [ -d $HOME/.anyenv/envs/rbenv ];
+  status --is-interactive; and source (rbenv init -|psub)
+end
+
+if [ -d $HOME/.anyenv/envs/nodenv ];
+  status --is-interactive; and source (nodenv init -|psub)
+end
+
+dedup_path
+
+#--------------------------------------
 # fzf {{{1
 
 # On Bash on Windows, remove -fstype option (it doesn't work)
