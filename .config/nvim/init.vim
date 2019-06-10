@@ -645,6 +645,9 @@ let g:watchdogs_check_BufWritePost_enable = 1
 " fzf
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_layout = { 'up': '~40%' }
+
+" LanguageClient
+let g:LanguageClient_diagnosticsEnable = 0
 "--------------------------------------
 
 "--------------------------------------
