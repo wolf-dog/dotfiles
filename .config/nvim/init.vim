@@ -478,10 +478,6 @@ nnoremap <silent> [Leader]qp :<C-u>colder<CR>
 nnoremap <silent> [Leader]qn :<C-u>cnewer<CR>
 " search conflict marker
 nnoremap <silent> [Leader]i /\v[<=>]{7}<CR>
-" grep
-nnoremap [Leader]g :<C-u>grep<Space>
-" grep the word under the cursor
-nnoremap <silent> [Leader]r :<C-u>grep<Space><C-r><C-w><CR>
 "--------------------------------------
 
 "--------------------------------------
@@ -570,6 +566,15 @@ call denite#custom#option('_', {
 \ 'highlight_matched_range': 'None',
 \ 'highlight_mode_insert': 'WildMenu',
 \ })
+
+if executable("pt")
+  call denite#custom#var('grep', 'command', ['pt'])
+  call denite#custom#var('grep', 'default_opts', ['-i', '--nogroup', '--nocolor'])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('grep', 'pattern_opt', [])
+  call denite#custom#var('grep', 'separator', ['--'])
+  call denite#custom#var('grep', 'final_opts', [])
+endif
 
 " fruzzy
 let g:fruzzy#usenative = 0
@@ -671,8 +676,10 @@ nnoremap <silent> [denite]r :<C-u>Denite file_mru<CR>
 nnoremap <silent> [denite]j :<C-u>Denite junkfile:new junkfile<CR>
 " open register
 nnoremap <silent> [denite]' :<C-u>Denite register<CR>
-" open quickfix
-nnoremap <silent> [denite]q :<C-u>Denite quickfix -post-action=open -mode=normal<CR>
+" quickfix
+nnoremap <silent> [denite]q :<C-u>Denite quickfix<CR>
+" grep
+nnoremap <silent> [denite]g :<C-u>Denite grep -post-action=open<CR>
 " outline
 nnoremap <silent> [denite]o :<C-u>Denite outline<CR>
 " open menu
@@ -757,8 +764,6 @@ nnoremap <silent> <Leader>gb :<C-u>Gina blame<CR>
 nnoremap <silent> <Leader>gd :<C-u>topleft Gina diff --opener=split<CR>
 nnoremap <silent> <Leader>gl :<C-u>topleft Gina log --opener=split<CR>
 nnoremap <silent> <Leader>gs :<C-u>topleft Gina status --opener=split<CR>
-nnoremap <silent> <Leader>gr :Gina qrep! <C-r><C-w><CR>
-nnoremap <Leader>gg :Gina qrep!<Space>
 nnoremap <Leader>G :<C-u>Gina<Space>
 
 " vdebug
