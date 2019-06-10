@@ -707,6 +707,9 @@ function! s:denite_key_binds() abort
 
   nnoremap <silent><buffer><expr> <C-w>
   \ denite#do_map('move_up_path')
+
+  nnoremap <silent><buffer><expr> a
+  \ denite#do_map('do_action', 'add')
 endfunction
 
 " start with <Leader>
