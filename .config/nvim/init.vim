@@ -26,9 +26,9 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " denite
 Plug 'Shougo/denite.nvim'
+Plug 'chemzqm/denite-extra'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/junkfile.vim'
-Plug 'chemzqm/unite-location'
 Plug 'kmnk/denite-dirmark'
 Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
 
