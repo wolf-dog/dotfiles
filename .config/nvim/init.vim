@@ -266,8 +266,8 @@ if ( v:version >= 703)
   set wildignorecase
 endif
 
-if executable("hw")
-  set grepprg=hw\ --no-group\ --no-color
+if executable("pt")
+  set grepprg=pt
 endif
 
 "--------------------------------------
