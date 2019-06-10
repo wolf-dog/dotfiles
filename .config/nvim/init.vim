@@ -559,14 +559,13 @@ let s:menus.shortcut.command_candidates = [
 \   ['update plugins', 'PlugUpdate | PlugUpgrade'],
 \   ['install plugins', 'PlugInstall'],
 \   ['clean plugins', 'PlugClean'],
-\   ['Unite Beautiful Attack', 'Denite colorscheme -post-action=open -mode=normal'],
+\   ['Unite Beautiful Attack', 'Denite colorscheme -post-action=open'],
 \ ]
 
 call denite#custom#var('menu', 'menus', s:menus)
 call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
 call denite#custom#option('_', {
 \ 'auto_resume': 'true',
-\ 'cursor_wrap': 'true',
 \ 'highlight_matched_char': 'None',
 \ 'highlight_matched_range': 'None',
 \ 'highlight_mode_insert': 'WildMenu',
@@ -675,7 +674,7 @@ nnoremap <silent> [denite]' :<C-u>Denite register<CR>
 " open quickfix
 nnoremap <silent> [denite]q :<C-u>Denite quickfix -post-action=open -mode=normal<CR>
 " outline
-nnoremap <silent> [denite]o :<C-u>Denite outline -post-action=open -mode=normal<CR>
+nnoremap <silent> [denite]o :<C-u>Denite outline<CR>
 " open menu
 nnoremap <silent> [denite]f :<C-u>Denite menu:shortcut<CR>
 
