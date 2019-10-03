@@ -625,6 +625,9 @@ let g:vdebug_options = {
 \   'marker_default' : '.',
 \   'marker_closed_tree' : '+',
 \   'marker_open_tree' : '-',
+\   'sign_breakpoint' : '#',
+\   'sign_current' : '>',
+\   'sign_disabled' : 'x',
 \ }
 
 " lightline
