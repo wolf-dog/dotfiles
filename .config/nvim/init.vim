@@ -33,8 +33,15 @@ Plug 'kmnk/denite-dirmark'
 Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
 
 " syntax
-Plug 'sheerun/vim-polyglot'
 Plug 'emonkak/vim-filetype-pukiwiki', { 'for': 'pukiwiki' }
+Plug 'jwalton512/vim-blade', { 'for': 'blade' }
+Plug 'ElmCast/elm-vim', { 'for': 'elm' }
+Plug 'dag/vim-fish', { 'for': 'fish' }
+Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
+Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+Plug 'StanAngeloff/php.vim', { 'for': 'php' }
+Plug 'vim-python/python-syntax', { 'for': 'python' }
 
 " textobj-user
 Plug 'kana/vim-textobj-user'
