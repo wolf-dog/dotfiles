@@ -585,6 +585,9 @@ if executable("pt")
   call denite#custom#var('grep', 'final_opts', [])
 endif
 
+" easy-align
+let g:easy_align_ignore_groups = ['String']
+
 " fruzzy
 let g:fruzzy#usenative = 0
 let g:fruzzy#sortonempty = 0
@@ -751,7 +754,7 @@ vmap <Leader>aa <Plug>(EasyAlign)*=
 vmap <Leader>at <Plug>(EasyAlign)*<Bar>
 vmap <Leader>as <Plug>(EasyAlign)*<Space>
 " intaractive easy-align
-nmap <Leader>A <Plug>(EasyAlign)
+nmap <Leader>a <Plug>(EasyAlign)
 
 " operator-comment
 nmap <silent> <Leader>c <Plug>(operator-comment)
