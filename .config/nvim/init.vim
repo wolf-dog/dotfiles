@@ -624,11 +624,11 @@ hi GitGutterAdd          ctermfg=69  ctermbg=234 cterm=none guifg=#5f87ff guibg=
 hi GitGutterDelete       ctermfg=202 ctermbg=234 cterm=none guifg=#ff5f00 guibg=#1c1c1c gui=none
 hi GitGutterChange       ctermfg=221 ctermbg=234 cterm=none guifg=#ffdf5f guibg=#1c1c1c gui=none
 hi GitGutterChangeDelete ctermfg=221 ctermbg=234 cterm=none guifg=#ffdf5f guibg=#1c1c1c gui=none
-let g:gitgutter_sign_added = '.'
+let g:gitgutter_sign_added = '+'
 let g:gitgutter_sign_modified = '.'
-let g:gitgutter_sign_removed = '.'
-let g:gitgutter_sign_removed_first_line = ':'
-let g:gitgutter_sign_modified_removed = ':'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_removed_first_line = '='
+let g:gitgutter_sign_modified_removed = '='
 let g:gitgutter_map_keys = 0
 
 " vdebug
@@ -766,13 +766,14 @@ nmap <silent> <Leader>sd <Plug>(operator-surround-delete)
 nmap <silent> <Leader>sr <Plug>(operator-surround-replace)
 
 " gitgutter
-nmap <silent> <Leader>hn <Plug>GitGutterNextHunk
-nmap <silent> <Leader>hp <Plug>GitGutterPrevHunk
-nmap <silent> <Leader>hh <Plug>GitGutterPreviewHunk
-omap <silent> ih <Plug>GitGutterTextObjectInnerPending
-omap <silent> ah <Plug>GitGutterTextObjectOuterPending
-xmap <silent> ih <Plug>GitGutterTextObjectInnerVisual
-xmap <silent> ah <Plug>GitGutterTextObjectOuterVisual
+nmap <silent> <Leader>hn <Plug>(GitGutterNextHunk)
+nmap <silent> <Leader>hp <Plug>(GitGutterPrevHunk)
+nmap <silent> <Leader>hh <Plug>(GitGutterPreviewHunk)
+nmap <silent> <Leader>hu <Plug>(GitGutterUndoHunk)
+omap <silent> ih <Plug>(GitGutterTextObjectInnerPending)
+omap <silent> ah <Plug>(GitGutterTextObjectOuterPending)
+xmap <silent> ih <Plug>(GitGutterTextObjectInnerVisual)
+xmap <silent> ah <Plug>(GitGutterTextObjectOuterVisual)
 
 " gina
 nnoremap <silent> <Leader>gb :<C-u>Gina blame<CR>
