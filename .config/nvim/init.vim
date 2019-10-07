@@ -553,7 +553,6 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources = {
 \   '_': ['LanguageClient', 'around', 'buffer', 'member'],
 \ }
-call deoplete#custom#option('auto_complete', v:false)
 
 " denite
 let s:menus = {}
