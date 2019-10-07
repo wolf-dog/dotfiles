@@ -64,7 +64,6 @@ Plug 'joonty/vdebug'
 Plug 'osyo-manga/shabadou.vim'
 Plug 'osyo-manga/vim-watchdogs'
 Plug 'cohama/vim-hier'
-Plug 'vim-scripts/gtags.vim'
 Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
 Plug 'autozimu/LanguageClient-neovim', {
 \ 'branch': 'next',
@@ -800,21 +799,14 @@ let g:vdebug_keymap = {
 " watchdogs
 nnoremap <silent> <Leader>w :<C-u>WatchdogsRun<CR>
 
-" gtags
-let g:Gtags_OpenQuickfixWindow = 0
-nnoremap <silent> <C-k> :<C-u>GtagsCursor<CR>
-nnoremap          <Leader>dd :<C-u>Gtags<Space>
-nnoremap <silent> <Leader>dr :<C-u>Gtags -r <C-r><C-w><CR>
-nnoremap <silent> <Leader>dn :<C-u>cn<CR>
-nnoremap <silent> <Leader>dp :<C-u>cp<CR>
-
 " fzf
 nnoremap <silent> <Leader>es :<C-u>FzfFiles<CR>
 nnoremap <silent> <Leader>ee :<C-u>FzfGFiles<CR>
 
 " language client
-nnoremap <silent> <Leader>kk :<C-u>call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <Leader>kr :<C-u>call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> <Leader>dd :<C-u>call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <Leader>dr :<C-u>call LanguageClient#textDocument_references()<CR>
+nnoremap <silent> <Leader>dh :<C-u>call LanguageClient#textDocument_hover()<CR>
 "--------------------------------------
 
 "--------------------------------------
