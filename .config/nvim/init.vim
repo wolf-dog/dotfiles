@@ -276,6 +276,7 @@ endif
 if executable("pt")
   set grepprg=pt
 endif
+"--------------------------------------
 
 "--------------------------------------
 " binds
@@ -589,7 +590,7 @@ endif
 let g:easy_align_ignore_groups = ['String']
 
 " fruzzy
-let g:fruzzy#usenative = 0
+let g:fruzzy#usenative = 1
 let g:fruzzy#sortonempty = 0
 
 " ref
