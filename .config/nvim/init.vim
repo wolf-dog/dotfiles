@@ -64,11 +64,9 @@ Plug 'joonty/vdebug'
 Plug 'osyo-manga/shabadou.vim'
 Plug 'osyo-manga/vim-watchdogs'
 Plug 'cohama/vim-hier'
-Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
-Plug 'autozimu/LanguageClient-neovim', {
-\ 'branch': 'next',
-\ 'do': 'bash install.sh',
-\ }
+Plug 'phpactor/phpactor', { 'for': 'php', 'do': 'composer install' }
+Plug 'kristijanhusak/deoplete-phpactor', { 'for': 'php' }
+Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 Plug 'nvie/vim-flake8', { 'for': 'python' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
 
@@ -551,7 +549,8 @@ let g:vim_json_syntax_conceal = 0
 " deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources = {
-\   '_': ['LanguageClient', 'around', 'buffer', 'member'],
+\   '_': ['around', 'buffer', 'member'],
+\   'php' : ['phpactor', 'phpcd', 'around', 'buffer'],
 \ }
 
 " denite
@@ -664,9 +663,6 @@ let g:watchdogs_check_BufWritePost_enable = 1
 " fzf
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_layout = { 'up': '~40%' }
-
-" LanguageClient
-let g:LanguageClient_diagnosticsEnable = 0
 "--------------------------------------
 
 "--------------------------------------
@@ -804,10 +800,16 @@ nnoremap <silent> <Leader>w :<C-u>WatchdogsRun<CR>
 nnoremap <silent> <Leader>es :<C-u>FzfFiles<CR>
 nnoremap <silent> <Leader>ee :<C-u>FzfGFiles<CR>
 
-" language client
-nnoremap <silent> <Leader>dd :<C-u>call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <Leader>dr :<C-u>call LanguageClient#textDocument_references()<CR>
-nnoremap <silent> <Leader>dh :<C-u>call LanguageClient#textDocument_hover()<CR>
+" phpactor
+nnoremap <silent> <Leader>dg :<C-u>call phpactor#GotoDefinition()<CR>
+nnoremap <silent> <Leader>dr :<C-u>call phpactor#FindReferences()<CR>
+nnoremap <silent> <Leader>dh :<C-u>call phpactor#Hover()<CR>
+
+nnoremap <silent> <Leader>da :<C-u>call phpactor#Transform()<CR>
+nnoremap <silent> <Leader>dc :<C-u>call phpactor#CopyFile()<CR>
+nnoremap <silent> <Leader>dn :<C-u>call phpactor#ClassNew()<CR>
+nnoremap <silent> <Leader>di :<C-u>call phpactor#ClassInflect()<CR>
+nnoremap <silent> <Leader>dd :<C-u>call phpactor#ContextMenu()<CR>
 "--------------------------------------
 
 "--------------------------------------
