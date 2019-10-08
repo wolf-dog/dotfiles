@@ -254,6 +254,7 @@ set virtualedit& virtualedit+=block
 set hlsearch
 set ignorecase
 set incsearch
+set inccommand=split
 set smartcase
 set wrapscan
 nohlsearch
