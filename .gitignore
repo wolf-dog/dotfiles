@@ -9,3 +9,5 @@ GTAGS
 
 .vim/autoload/plug.vim*
 .vim/plugged
+
+.phpcd/
