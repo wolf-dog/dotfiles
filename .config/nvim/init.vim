@@ -688,8 +688,6 @@ nnoremap <silent> [denite]j :<C-u>Denite junkfile:new junkfile<CR>
 nnoremap <silent> [denite]' :<C-u>Denite register<CR>
 " quickfix
 nnoremap <silent> [denite]q :<C-u>Denite quickfix<CR>
-" grep
-nnoremap <silent> [denite]g :<C-u>Denite grep -post-action=open<CR>
 " outline
 nnoremap <silent> [denite]o :<C-u>Denite outline<CR>
 " open menu
@@ -775,7 +773,21 @@ nnoremap <silent> <Leader>gb :<C-u>Gina blame<CR>
 nnoremap <silent> <Leader>gd :<C-u>topleft Gina diff --opener=split<CR>
 nnoremap <silent> <Leader>gl :<C-u>topleft Gina log --opener=split<CR>
 nnoremap <silent> <Leader>gs :<C-u>topleft Gina status --opener=split<CR>
+nnoremap <Leader>gg :<C-u>Gina grep --opener=split<Space>
 nnoremap <Leader>G :<C-u>Gina<Space>
+
+call gina#custom#mapping#nmap(
+\   'grep', '<C-s>',
+\   '<Plug>(gina-edit-split)'
+\ )
+call gina#custom#mapping#nmap(
+\   'grep', '<C-v>',
+\   '<Plug>(gina-edit-vsplit)'
+\ )
+call gina#custom#mapping#nmap(
+\   'grep', '<C-t>',
+\   '<Plug>(gina-edit-tab)'
+\ )
 
 " vdebug
 let g:vdebug_keymap = {
