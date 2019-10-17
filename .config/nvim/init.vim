@@ -95,7 +95,8 @@ endif
 " colorschemes
 Plug 'wolf-dog/sceaduhelm.vim'
 Plug 'wolf-dog/lightline-sceaduhelm.vim'
-" Plug 'wolf-dog/nighted.vim'
+Plug 'wolf-dog/nighted.vim'
+Plug 'wolf-dog/lightline-nighted.vim'
 " Plug 'hzchirs/vim-material'
 " Plug 'Dru89/vim-adventurous'
 " Plug 'skielbasa/vim-material-monokai'
@@ -220,6 +221,7 @@ set tabstop=2
 " always use the terminal can display 256 colors
 set t_Co=256
 syntax enable
+let g:sceaduhelm_transparent_bg = 1
 " prevent overriding colorscheme on reloading
 if !exists('g:colors_name')
   set background=dark
@@ -662,6 +664,7 @@ let g:watchdogs_check_BufWritePost_enable = 1
 " fzf
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_layout = { 'up': '~40%' }
+
 "--------------------------------------
 
 "--------------------------------------
