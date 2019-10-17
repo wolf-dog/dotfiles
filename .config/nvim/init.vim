@@ -777,6 +777,24 @@ nnoremap <Leader>gg :<C-u>Gina grep --opener=split<Space>
 nnoremap <Leader>G :<C-u>Gina<Space>
 
 call gina#custom#mapping#nmap(
+\   'blame', '<Return>',
+\   '<Plug>(gina-show-commit-tab)'
+\ )
+
+call gina#custom#mapping#nmap(
+\   'log', '<C-s>',
+\   '<Plug>(gina-show-split)'
+\ )
+call gina#custom#mapping#nmap(
+\   'log', '<C-v>',
+\   '<Plug>(gina-show-vsplit)'
+\ )
+call gina#custom#mapping#nmap(
+\   'log', '<C-t>',
+\   '<Plug>(gina-show-tab)'
+\ )
+
+call gina#custom#mapping#nmap(
 \   'grep', '<C-s>',
 \   '<Plug>(gina-edit-split)'
 \ )
