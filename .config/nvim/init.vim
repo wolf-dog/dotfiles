@@ -61,12 +61,17 @@ Plug 'rhysd/vim-operator-surround'
 Plug 'thinca/vim-ref'
 Plug 'thinca/vim-quickrun'
 Plug 'joonty/vdebug'
+
 Plug 'osyo-manga/shabadou.vim'
 Plug 'osyo-manga/vim-watchdogs'
 Plug 'cohama/vim-hier'
+
 Plug 'phpactor/phpactor', { 'for': 'php', 'do': 'composer install' }
 Plug 'kristijanhusak/deoplete-phpactor', { 'for': 'php' }
 Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
+Plug 'tobyS/vmustache', { 'for': 'php' }
+Plug 'YaroslavMolchan/pdv', { 'for': 'php' }
+
 Plug 'nvie/vim-flake8', { 'for': 'python' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
 
@@ -665,6 +670,8 @@ let g:watchdogs_check_BufWritePost_enable = 1
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_layout = { 'up': '~40%' }
 
+" pdv
+let g:pdv_template_dir = $HOME ."/.nvim/plugged/pdv/templates"
 "--------------------------------------
 
 "--------------------------------------
@@ -842,6 +849,9 @@ nnoremap <silent> <Leader>dc :<C-u>call phpactor#CopyFile()<CR>
 nnoremap <silent> <Leader>dn :<C-u>call phpactor#ClassNew()<CR>
 nnoremap <silent> <Leader>di :<C-u>call phpactor#ClassInflect()<CR>
 nnoremap <silent> <Leader>dd :<C-u>call phpactor#ContextMenu()<CR>
+
+" pdv
+nnoremap <silent> <Leader>p :<C-u>call pdv#DocumentCurrentLine()<CR>
 "--------------------------------------
 
 "--------------------------------------
