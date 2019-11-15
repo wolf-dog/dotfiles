@@ -35,7 +35,7 @@ Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
 " syntax
 Plug 'emonkak/vim-filetype-pukiwiki', { 'for': 'pukiwiki' }
 Plug 'jwalton512/vim-blade', { 'for': 'blade' }
-Plug 'ElmCast/elm-vim', { 'for': 'elm' }
+Plug 'andys8/vim-elm-syntax', { 'for': 'elm' }
 Plug 'dag/vim-fish', { 'for': 'fish' }
 Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
 Plug 'elzr/vim-json', { 'for': 'json' }
@@ -62,10 +62,12 @@ Plug 'thinca/vim-ref'
 Plug 'thinca/vim-quickrun'
 Plug 'joonty/vdebug'
 
-Plug 'osyo-manga/shabadou.vim'
-Plug 'osyo-manga/vim-watchdogs'
-Plug 'cohama/vim-hier'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
+Plug 'felixfbecker/php-language-server', {'do': 'composer install && composer run-script parse-stubs'}
 Plug 'phpactor/phpactor', { 'for': 'php', 'do': 'composer install' }
 Plug 'kristijanhusak/deoplete-phpactor', { 'for': 'php' }
 Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
@@ -383,8 +385,6 @@ inoremap <C-w> <C-g>u<C-w>
 inoremap <C-u> <C-g>u<C-u>
 " disable Ctrl-s
 nnoremap <C-s> <Nop>
-" :HierStop on Ctrl-l
-nnoremap <silent> <C-l> <C-l>:<C-u>HierStop<CR>
 
 " start with [Leader]
 " disable <Space> to use it as the prefix key
@@ -663,15 +663,40 @@ let g:lightline = {
 \   }
 \ }
 
-" watchdogs
-let g:watchdogs_check_BufWritePost_enable = 1
-
 " fzf
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_layout = { 'up': '~40%' }
 
 " pdv
 let g:pdv_template_dir = $HOME ."/.nvim/plugged/pdv/templates"
+
+" lsp
+augroup vimrc-lsp
+  autocmd!
+
+  if executable('elm-language-server')
+    autocmd User lsp_setup
+    \  call lsp#register_server({
+    \    'name': 'elm-language-server',
+    \    'cmd': {server_info->[&shell, &shellcmdflag, 'elm-language-server --stdio']},
+    \    'initialization_options': {
+    \      'runtime': 'node',
+    \      'elmPath': 'elm',
+    \      'elmFormatPath': 'elm-format',
+    \      'elmTestPath': 'elm-test',
+    \      'rootPatterns': 'elm.json'
+    \    },
+    \    'whitelist': ['elm'],
+    \  })
+  endif
+
+  autocmd User lsp_setup
+  \  call lsp#register_server({
+  \   'name': 'php-language-server',
+  \   'cmd': {server_info->['php', expand('~/.nvim/plugged/php-language-server/bin/php-language-server.php')]},
+  \   'whitelist': ['php'],
+  \  })
+augroup END
 "--------------------------------------
 
 "--------------------------------------
