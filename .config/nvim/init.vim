@@ -170,8 +170,6 @@ set fileencodings=ucs-bom,iso-2022-jp,utf-8,euc-jp,cp932,latin1
 set fileformat=unix
 " detect ordinary eol formats
 set fileformats=unix,dos,mac
-" always use utf-8 inside the terminal
-set termencoding=utf-8
 "--------------------------------------
 
 "--------------------------------------
