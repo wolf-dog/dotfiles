@@ -46,6 +46,8 @@ Suggestion	Ctrl u	Cancel
 Prediction	Ctrl j	Cancel
 Prediction	Ctrl u	Cancel
 Composition	Backspace	Backspace
+DirectInput	Hankaku/Zenkaku	InputModeHiragana
+Precomposition	Hankaku/Zenkaku	IMEOff
 Composition	OFF	IMEOff
 Composition	ON	IMEOn
 Conversion	OFF	IMEOff
