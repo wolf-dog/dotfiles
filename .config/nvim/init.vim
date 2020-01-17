@@ -30,7 +30,6 @@ Plug 'chemzqm/denite-extra'
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/junkfile.vim'
 Plug 'kmnk/denite-dirmark'
-Plug 'raghur/fruzzy', {'do': { -> fruzzy#install()}}
 
 " syntax
 Plug 'emonkak/vim-filetype-pukiwiki', { 'for': 'pukiwiki' }
@@ -571,8 +570,10 @@ let s:menus.shortcut.command_candidates = [
 \ ]
 
 call denite#custom#var('menu', 'menus', s:menus)
-call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
+call denite#custom#source('_', 'matchers', ['matcher/substring'])
+call denite#custom#source('_', 'sorters', ['sorter/word'])
 call denite#custom#option('_', {
+\ 'start_filter': 'true',
 \ 'auto_resume': 'true',
 \ 'highlight_matched_char': 'None',
 \ 'highlight_matched_range': 'None',
@@ -590,10 +591,6 @@ endif
 
 " easy-align
 let g:easy_align_ignore_groups = ['String']
-
-" fruzzy
-let g:fruzzy#usenative = 1
-let g:fruzzy#sortonempty = 0
 
 " ref
 " define path to php manual
@@ -704,13 +701,13 @@ augroup END
 noremap [denite] <Nop>
 nmap s [denite]
 " open file list
-nnoremap <silent> [denite]s :<C-u>Denite file file:new<CR>
+nnoremap <silent> [denite]s :<C-u>Denite file file:new -expand<CR>
 " open file list with current buffer directory
-nnoremap <silent> [denite]d :<C-u>DeniteBufferDir file file:new<CR>
+nnoremap <silent> [denite]d :<C-u>DeniteBufferDir file file:new -expand<CR>
 " open bookmarks
 nnoremap <silent> [denite]a :<C-u>Denite dirmark<CR>
 " add bookmarks
-nnoremap <silent> [denite]A :<C-u>Denite dirmark/add<CR>
+nnoremap <silent> [denite]A :<C-u>Denite dirmark/add -expand<CR>
 " open buffer list
 nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
 " open recently used files list
@@ -718,30 +715,27 @@ nnoremap <silent> [denite]r :<C-u>Denite file_mru<CR>
 " open junk file
 nnoremap <silent> [denite]j :<C-u>Denite junkfile:new junkfile<CR>
 " open register
-nnoremap <silent> [denite]' :<C-u>Denite register<CR>
+nnoremap <silent> [denite]' :<C-u>Denite register -no-start-filter<CR>
 " quickfix
-nnoremap <silent> [denite]q :<C-u>Denite quickfix<CR>
+nnoremap <silent> [denite]q :<C-u>Denite quickfix -no-start-filter<CR>
 " outline
-nnoremap <silent> [denite]o :<C-u>Denite outline<CR>
+nnoremap <silent> [denite]o :<C-u>Denite outline -no-start-filter<CR>
 " open menu
 nnoremap <silent> [denite]f :<C-u>Denite menu:shortcut<CR>
 
-autocmd FileType denite call s:denite_key_binds()
+autocmd filetype denite call s:denite_key_binds()
 function! s:denite_key_binds() abort
-  nnoremap <silent><buffer><expr> <CR>
+  nnoremap <silent><buffer><expr> <cr>
   \ denite#do_map('do_action')
 
   nnoremap <silent><buffer><expr> p
   \ denite#do_map('do_action', 'preview')
 
-  nnoremap <silent><buffer><expr> q
+  nnoremap <silent><buffer><expr> <C-j>
   \ denite#do_map('quit')
 
   nnoremap <silent><buffer><expr> i
   \ denite#do_map('open_filter_buffer')
-
-  nnoremap <silent><buffer><expr> <Space>
-  \ denite#do_map('toggle_select').'j'
 
   nnoremap <silent><buffer><expr> <C-s>
   \ denite#do_map('do_action', 'split')
@@ -757,6 +751,17 @@ function! s:denite_key_binds() abort
 
   nnoremap <silent><buffer><expr> a
   \ denite#do_map('do_action', 'add')
+endfunction
+
+autocmd filetype denite-filter call s:denite_filter_my_settings()
+function! s:denite_filter_my_settings() abort
+  nnoremap <silent><buffer><expr> <C-j>
+  \ denite#do_map('quit')
+  inoremap <silent><buffer><expr> <C-j>
+  \ denite#do_map('quit')
+
+  nnoremap <silent><buffer><expr> <C-w>
+  \ denite#do_map('move_up_path')
 endfunction
 
 " start with <Leader>
