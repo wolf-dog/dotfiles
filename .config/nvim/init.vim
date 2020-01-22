@@ -743,6 +743,9 @@ function! s:denite_key_binds() abort
   nnoremap <silent><buffer><expr> <C-v>
   \ denite#do_map('do_action', 'vsplit')
 
+  nnoremap <silent><buffer><expr> <C-t>
+  \ denite#do_map('do_action', 'tabopen')
+
   nnoremap <silent><buffer><expr> <C-g>
   \ denite#do_map('do_action', 'cd')
 
