@@ -43,8 +43,15 @@ Plug 'osyo-manga/unite-quickfix'
 Plug 'Shougo/junkfile.vim'
 
 " syntax
-Plug 'sheerun/vim-polyglot'
 Plug 'emonkak/vim-filetype-pukiwiki', { 'for': 'pukiwiki' }
+Plug 'jwalton512/vim-blade', { 'for': 'blade' }
+Plug 'andys8/vim-elm-syntax', { 'for': 'elm' }
+Plug 'dag/vim-fish', { 'for': 'fish' }
+Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
+Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+Plug 'StanAngeloff/php.vim', { 'for': 'php' }
+Plug 'vim-python/python-syntax', { 'for': 'python' }
 
 " textobj-user
 Plug 'kana/vim-textobj-user'
@@ -67,7 +74,6 @@ Plug 'joonty/vdebug'
 Plug 'osyo-manga/shabadou.vim'
 Plug 'osyo-manga/vim-watchdogs'
 Plug 'cohama/vim-hier'
-Plug 'vim-scripts/gtags.vim'
 Plug 'nvie/vim-flake8', { 'for': 'python' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
 
@@ -96,7 +102,8 @@ endif
 " colorschemes
 Plug 'wolf-dog/sceaduhelm.vim'
 Plug 'wolf-dog/lightline-sceaduhelm.vim'
-" Plug 'wolf-dog/nighted.vim'
+Plug 'wolf-dog/nighted.vim'
+Plug 'wolf-dog/lightline-nighted.vim'
 " Plug 'hzchirs/vim-material'
 " Plug 'Dru89/vim-adventurous'
 " Plug 'skielbasa/vim-material-monokai'
@@ -221,6 +228,7 @@ set tabstop=2
 " always use the terminal can display 256 colors
 set t_Co=256
 syntax enable
+let g:sceaduhelm_transparent_bg = 1
 " prevent overriding colorscheme on reloading
 if !exists('g:colors_name')
   set background=dark
@@ -271,9 +279,10 @@ if ( v:version >= 703)
   set wildignorecase
 endif
 
-if executable("hw")
-  set grepprg=hw\ --no-group\ --no-color
+if executable("pt")
+  set grepprg=pt
 endif
+"--------------------------------------
 
 "--------------------------------------
 " binds
@@ -483,10 +492,6 @@ nnoremap <silent> [Leader]qp :<C-u>colder<CR>
 nnoremap <silent> [Leader]qn :<C-u>cnewer<CR>
 " search conflict marker
 nnoremap <silent> [Leader]i /\v[<=>]{7}<CR>
-" grep
-nnoremap [Leader]g :<C-u>grep<Space>
-" grep the word under the cursor
-nnoremap <silent> [Leader]r :<C-u>grep<Space><C-r><C-w><CR>
 "--------------------------------------
 
 "--------------------------------------
@@ -542,7 +547,7 @@ let g:is_bash = 1
 
 " markdown
 " disable concealing
-let g:vim_markdown_conceal = 0
+let g:markdown_syntax_conceal = 0
 
 " json
 " disable concealing
@@ -626,11 +631,11 @@ hi GitGutterAdd          ctermfg=69  ctermbg=234 cterm=none guifg=#5f87ff guibg=
 hi GitGutterDelete       ctermfg=202 ctermbg=234 cterm=none guifg=#ff5f00 guibg=#1c1c1c gui=none
 hi GitGutterChange       ctermfg=221 ctermbg=234 cterm=none guifg=#ffdf5f guibg=#1c1c1c gui=none
 hi GitGutterChangeDelete ctermfg=221 ctermbg=234 cterm=none guifg=#ffdf5f guibg=#1c1c1c gui=none
-let g:gitgutter_sign_added = '.'
+let g:gitgutter_sign_added = '+'
 let g:gitgutter_sign_modified = '.'
-let g:gitgutter_sign_removed = '.'
-let g:gitgutter_sign_removed_first_line = ':'
-let g:gitgutter_sign_modified_removed = ':'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_removed_first_line = '='
+let g:gitgutter_sign_modified_removed = '='
 let g:gitgutter_map_keys = 0
 
 " vdebug
@@ -638,6 +643,9 @@ let g:vdebug_options = {
 \   'marker_default' : '.',
 \   'marker_closed_tree' : '+',
 \   'marker_open_tree' : '-',
+\   'sign_breakpoint' : '#',
+\   'sign_current' : '>',
+\   'sign_disabled' : 'x',
 \ }
 
 " lightline
@@ -752,22 +760,53 @@ nmap <silent> <Leader>sd <Plug>(operator-surround-delete)
 nmap <silent> <Leader>sr <Plug>(operator-surround-replace)
 
 " gitgutter
-nmap <silent> <Leader>hn <Plug>GitGutterNextHunk
-nmap <silent> <Leader>hp <Plug>GitGutterPrevHunk
-nmap <silent> <Leader>hh <Plug>GitGutterPreviewHunk
-omap <silent> ih <Plug>GitGutterTextObjectInnerPending
-omap <silent> ah <Plug>GitGutterTextObjectOuterPending
-xmap <silent> ih <Plug>GitGutterTextObjectInnerVisual
-xmap <silent> ah <Plug>GitGutterTextObjectOuterVisual
+nmap <silent> <Leader>hn <Plug>(GitGutterNextHunk)
+nmap <silent> <Leader>hp <Plug>(GitGutterPrevHunk)
+nmap <silent> <Leader>hh <Plug>(GitGutterPreviewHunk)
+nmap <silent> <Leader>hu <Plug>(GitGutterUndoHunk)
+omap <silent> ih <Plug>(GitGutterTextObjectInnerPending)
+omap <silent> ah <Plug>(GitGutterTextObjectOuterPending)
+xmap <silent> ih <Plug>(GitGutterTextObjectInnerVisual)
+xmap <silent> ah <Plug>(GitGutterTextObjectOuterVisual)
 
 " gina
 nnoremap <silent> <Leader>gb :<C-u>Gina blame<CR>
 nnoremap <silent> <Leader>gd :<C-u>topleft Gina diff --opener=split<CR>
 nnoremap <silent> <Leader>gl :<C-u>topleft Gina log --opener=split<CR>
 nnoremap <silent> <Leader>gs :<C-u>topleft Gina status --opener=split<CR>
-nnoremap <silent> <Leader>gr :Gina qrep! <C-r><C-w><CR>
-nnoremap <Leader>gg :Gina qrep!<Space>
+nnoremap <Leader>gg :<C-u>Gina grep --opener=split<Space>
 nnoremap <Leader>G :<C-u>Gina<Space>
+
+call gina#custom#mapping#nmap(
+\   'blame', '<Return>',
+\   '<Plug>(gina-show-commit-tab)'
+\ )
+
+call gina#custom#mapping#nmap(
+\   'log', '<C-s>',
+\   '<Plug>(gina-show-split)'
+\ )
+call gina#custom#mapping#nmap(
+\   'log', '<C-v>',
+\   '<Plug>(gina-show-vsplit)'
+\ )
+call gina#custom#mapping#nmap(
+\   'log', '<C-t>',
+\   '<Plug>(gina-show-tab)'
+\ )
+
+call gina#custom#mapping#nmap(
+\   'grep', '<C-s>',
+\   '<Plug>(gina-edit-split)'
+\ )
+call gina#custom#mapping#nmap(
+\   'grep', '<C-v>',
+\   '<Plug>(gina-edit-vsplit)'
+\ )
+call gina#custom#mapping#nmap(
+\   'grep', '<C-t>',
+\   '<Plug>(gina-edit-tab)'
+\ )
 
 " vdebug
 let g:vdebug_keymap = {
@@ -786,14 +825,6 @@ let g:vdebug_keymap = {
 
 " watchdogs
 nnoremap <silent> <Leader>w :<C-u>WatchdogsRun<CR>
-
-" gtags
-let g:Gtags_OpenQuickfixWindow = 0
-nnoremap <silent> <C-k> :<C-u>GtagsCursor<CR>
-nnoremap          <Leader>dd :<C-u>Gtags<Space>
-nnoremap <silent> <Leader>dr :<C-u>Gtags -r <C-r><C-w><CR>
-nnoremap <silent> <Leader>dn :<C-u>cn<CR>
-nnoremap <silent> <Leader>dp :<C-u>cp<CR>
 
 " fzf
 nnoremap <silent> <Leader>es :<C-u>FzfFiles<CR>
