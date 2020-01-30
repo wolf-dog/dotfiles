@@ -571,7 +571,6 @@ let s:menus.shortcut.command_candidates = [
 
 call denite#custom#var('menu', 'menus', s:menus)
 call denite#custom#source('_', 'matchers', ['matcher/substring'])
-call denite#custom#source('_', 'sorters', ['sorter/word'])
 call denite#custom#option('_', {
 \ 'start_filter': 'true',
 \ 'auto_resume': 'true',
@@ -701,13 +700,13 @@ augroup END
 noremap [denite] <Nop>
 nmap s [denite]
 " open file list
-nnoremap <silent> [denite]s :<C-u>Denite file file:new -expand<CR>
+nnoremap <silent> [denite]s :<C-u>Denite file file:new -expand -sorters='sorter/word'<CR>
 " open file list with current buffer directory
-nnoremap <silent> [denite]d :<C-u>DeniteBufferDir file file:new -expand<CR>
+nnoremap <silent> [denite]d :<C-u>DeniteBufferDir file file:new -expand -sorters='sorter/word'<CR>
 " open bookmarks
 nnoremap <silent> [denite]a :<C-u>Denite dirmark<CR>
 " add bookmarks
-nnoremap <silent> [denite]A :<C-u>Denite dirmark/add -expand<CR>
+nnoremap <silent> [denite]A :<C-u>Denite dirmark/add -expand -sorters='sorter/word'<CR>
 " open buffer list
 nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
 " open recently used files list
