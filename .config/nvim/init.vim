@@ -66,12 +66,12 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
-Plug 'felixfbecker/php-language-server', {'do': 'composer install && composer run-script parse-stubs'}
+Plug 'felixfbecker/php-language-server', { 'for': 'php', 'do': 'composer install' }
 Plug 'phpactor/phpactor', { 'for': 'php', 'do': 'composer install' }
 Plug 'kristijanhusak/deoplete-phpactor', { 'for': 'php' }
 Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 Plug 'tobyS/vmustache', { 'for': 'php' }
-Plug 'YaroslavMolchan/pdv', { 'for': 'php' }
+Plug 'pageer/pdv', { 'for': 'php' }
 
 Plug 'nvie/vim-flake8', { 'for': 'python' }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }
@@ -250,6 +250,8 @@ set nrformats=hex
 set ttimeoutlen=50
 " allow virtualedit in visual block mode
 set virtualedit& virtualedit+=block
+" disable mouse input
+set mouse=
 "--------------------------------------
 
 "--------------------------------------
@@ -551,10 +553,10 @@ let g:vim_json_syntax_conceal = 0
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources = {
+call deoplete#custom#option('sources', {
 \   '_': ['around', 'buffer', 'member'],
 \   'php' : ['phpactor', 'phpcd', 'around', 'buffer'],
-\ }
+\ })
 
 " denite
 let s:menus = {}
