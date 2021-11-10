@@ -10,7 +10,7 @@ set LANG 'en_US.UTF-8'
 # Paths {{{1
 
 if status --is-login
-  set -U fish_user_paths $HOME/bin $fish_user_paths
+  set PATH $HOME/bin $PATH
 end
 
 #--------------------------------------
@@ -57,7 +57,7 @@ end
 #--------------------------------------
 # global {{{1
 
-if grep --quiet 'pygments-parser' /usr/local/etc/gtags.conf ^/dev/null
+if [ -f /usr/local/etc/gtags.conf ]; and grep --quiet 'pygments-parser' /usr/local/etc/gtags.conf ^/dev/null
   export GTAGSLABEL=pygments
 end
 
@@ -82,7 +82,7 @@ dedup_path
 # fzf {{{1
 
 # On Bash on Windows, remove -fstype option (it doesn't work)
-if grep --quiet 'Microsoft' /proc/version ^/dev/null
+if [ -f /proc/version ]; and grep --quiet 'Microsoft' /proc/version ^/dev/null
   set -g FZF_DEFAULT_COMMAND "command find -L . -mindepth 1 \\( -path '*/\\.*' \\) -prune \
     -o -type f -print \
     -o -type d -print \
@@ -95,4 +95,3 @@ end
 if [ -f ~/.config/fish/config_local.fish ]
   source ~/.config/fish/config_local.fish
 end
-
