@@ -21,8 +21,18 @@ call plug#begin('~/.nvim/plugged')
 
 Plug 'Shougo/vimproc.vim', {'dir': '~/.vim/plugged/vimproc.vim', 'do': 'make'}
 
-" deoplete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" lsp
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
+Plug 'folke/trouble.nvim'
+
+" nvim-cmp
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 
 " denite
 Plug 'Shougo/denite.nvim'
@@ -61,15 +71,6 @@ Plug 'thinca/vim-ref'
 Plug 'thinca/vim-quickrun'
 Plug 'joonty/vdebug'
 
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-
-Plug 'felixfbecker/php-language-server', { 'for': 'php', 'do': 'composer install' }
-Plug 'phpactor/phpactor', { 'for': 'php', 'do': 'composer install' }
-Plug 'kristijanhusak/deoplete-phpactor', { 'for': 'php' }
-Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 Plug 'tobyS/vmustache', { 'for': 'php' }
 Plug 'pageer/pdv', { 'for': 'php' }
 
@@ -252,6 +253,8 @@ set ttimeoutlen=50
 set virtualedit& virtualedit+=block
 " disable mouse input
 set mouse=
+" completion
+set completeopt=menu,menuone,noselect
 "--------------------------------------
 
 "--------------------------------------
@@ -310,11 +313,6 @@ onoremap j gj
 onoremap k gk
 onoremap gj j
 onoremap gk k
-" use very magic by default
-nnoremap / /\v
-nnoremap ? ?\v
-" shorthand of replace using very magic
-nnoremap // :<C-u>%s/\v
 " yank to the end of the line
 nnoremap Y y$
 " quit
@@ -365,11 +363,14 @@ nnoremap <silent> <C-p> :<C-u>tabprev<CR>
 nmap <C-g> %
 vmap <C-g> %
 omap <C-g> %
+" call omnifunc
+imap <C-g> <C-x><C-o>
 " cancel and return to normal mode
 vnoremap <C-j> <Esc>
 onoremap <C-j> <Esc>
 inoremap <silent> <C-j> <Esc>:<C-u>set iminsert=0<CR>
 cnoremap <C-j> <C-c>
+snoremap <C-j> <Esc>
 " clear highlighting on last searched pattern
 nnoremap <silent> <C-j> :<C-u>nohlsearch<CR>
 " switch to next window
@@ -530,7 +531,7 @@ augroup END
 "--------------------------------------
 
 "--------------------------------------
-" plugins, filetype settings
+" filetype settings
 
 " PHP
 " disable syntax highlighting on short tags
@@ -550,13 +551,83 @@ let g:markdown_syntax_conceal = 0
 " json
 " disable concealing
 let g:vim_json_syntax_conceal = 0
+"--------------------------------------
 
-" deoplete
-let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option('sources', {
-\   '_': ['around', 'buffer', 'member'],
-\   'php' : ['phpactor', 'phpcd', 'around', 'buffer'],
-\ })
+"--------------------------------------
+" plugin settings
+
+" lsp
+lua << EOF
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
+)
+EOF
+
+" nvim-cmp
+lua << EOF
+local cmp = require'cmp'
+
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn['vsnip#anonymous'](args.body)
+    end,
+  },
+  mapping = {
+    ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    ['<C-y>'] = cmp.config.disable,
+    ['<C-e>'] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+    }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' },
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+cmp.setup.cmdline('/', {
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({
+    { name = 'cmdline' }
+  })
+})
+
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+require('lspconfig')['phpactor'].setup {
+  capabilities = capabilities
+}
+EOF
+
+" trouble
+lua << EOF
+  require('trouble').setup {
+    icons = false,
+    fold_open = 'v',
+    fold_closed = '>',
+    indent_lines = false,
+    auto_open = true,
+    auto_close = true,
+    signs = {
+      error = '#',
+      warning = '!',
+      hint = '*',
+      information = '?',
+      other = '.',
+    },
+  }
+EOF
 
 " denite
 let s:menus = {}
@@ -665,34 +736,6 @@ let g:fzf_layout = { 'up': '~40%' }
 
 " pdv
 let g:pdv_template_dir = $HOME ."/.nvim/plugged/pdv/templates"
-
-" lsp
-augroup vimrc-lsp
-  autocmd!
-
-  if executable('elm-language-server')
-    autocmd User lsp_setup
-    \  call lsp#register_server({
-    \    'name': 'elm-language-server',
-    \    'cmd': {server_info->[&shell, &shellcmdflag, 'elm-language-server --stdio']},
-    \    'initialization_options': {
-    \      'runtime': 'node',
-    \      'elmPath': 'elm',
-    \      'elmFormatPath': 'elm-format',
-    \      'elmTestPath': 'elm-test',
-    \      'rootPatterns': 'elm.json'
-    \    },
-    \    'whitelist': ['elm'],
-    \  })
-  endif
-
-  autocmd User lsp_setup
-  \  call lsp#register_server({
-  \   'name': 'php-language-server',
-  \   'cmd': {server_info->['php', expand('~/.nvim/plugged/php-language-server/bin/php-language-server.php')]},
-  \   'whitelist': ['php'],
-  \  })
-augroup END
 "--------------------------------------
 
 "--------------------------------------
@@ -773,8 +816,42 @@ endfunction
 let g:mapleader = ','
 nnoremap , <Nop>
 
+" lsp
+lua << EOF
+local nvim_lsp = require('lspconfig')
+
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  local opts = { noremap=true, silent=true }
+
+  buf_set_keymap('n', ',dd', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', ',dk', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', ',di', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', ',ds', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', ',dm', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', ',da', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', ',dr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', ',df', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+end
+
+local servers = { 'phpactor' }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
+end
+EOF
+
+" trouble
+nnoremap <Leader>r :<C-u>TroubleToggle lsp_references<CR>
+
 " ref
-nnoremap <Leader>rph :<C-u>Ref phpmanual<Space>
+nnoremap <Leader>qph :<C-u>Ref phpmanual<Space>
 
 " indentLine
 nnoremap <Leader>t :<C-u>IndentLinesToggle<CR>
@@ -870,17 +947,6 @@ nnoremap <silent> <Leader>w :<C-u>WatchdogsRun<CR>
 " fzf
 nnoremap <silent> <Leader>es :<C-u>FzfFiles<CR>
 nnoremap <silent> <Leader>ee :<C-u>FzfGFiles<CR>
-
-" phpactor
-nnoremap <silent> <Leader>dg :<C-u>call phpactor#GotoDefinition()<CR>
-nnoremap <silent> <Leader>dr :<C-u>call phpactor#FindReferences()<CR>
-nnoremap <silent> <Leader>dh :<C-u>call phpactor#Hover()<CR>
-
-nnoremap <silent> <Leader>da :<C-u>call phpactor#Transform()<CR>
-nnoremap <silent> <Leader>dc :<C-u>call phpactor#CopyFile()<CR>
-nnoremap <silent> <Leader>dn :<C-u>call phpactor#ClassNew()<CR>
-nnoremap <silent> <Leader>di :<C-u>call phpactor#ClassInflect()<CR>
-nnoremap <silent> <Leader>dd :<C-u>call phpactor#ContextMenu()<CR>
 
 " pdv
 nnoremap <silent> <Leader>p :<C-u>call pdv#DocumentCurrentLine()<CR>
