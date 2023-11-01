@@ -70,7 +70,7 @@ Plug 'rhysd/vim-operator-surround'
 " development tools
 Plug 'thinca/vim-ref'
 Plug 'thinca/vim-quickrun'
-Plug 'joonty/vdebug'
+"Plug 'joonty/vdebug'
 Plug 'osyo-manga/shabadou.vim'
 Plug 'osyo-manga/vim-watchdogs'
 Plug 'cohama/vim-hier'

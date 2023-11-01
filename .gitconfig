@@ -4,7 +4,7 @@
 [color]
     ui = auto
 [core]
-    editor = vim
+    editor = nvim
     pager = less -R
     excludesfile = ~/.gitignore
     whitespace = trailing-space, space-before-tab
@@ -16,41 +16,32 @@
     a = add
     aa = add --all :/
     b = branch
-    bd = branch -d
+    bd = branch --delete
     ci = commit
     ca = commit --amend
-    co = checkout
-    cb = checkout -b
+    cp = cherry-pick
     d = diff
     dc = diff --cached
     dh = diff HEAD^
     f = fetch
     l = log --oneline
-    l5 = log --oneline -n5
+    l5 = log --oneline --max-count=5
     ll = log --decorate
     ls = log --decorate --stat
-    m = merge --ff-only
+    m = merge
     p = pull --ff-only
     pp = pull --ff-only --prune
-    pu = push -u origin
+    pu = push --set-upstream
     r = rebase
-    ri = rebase -i
+    ri = rebase --interactive
+    re = restore
+    rs = restore --staged
     s = status
-    cp = cherry-pick
-    sfp = submodule foreach git pull
-    su = submodule update
-    stl = stash list
-    std = stash drop
-    stp = stash pop
-    sta = stash apply
-    sts = stash save
-    unstage = reset -q HEAD --
-    discard = checkout --
-    forget = !git reset --hard HEAD && git clean -d -f
-    obey = !git fetch && git reset --hard FETCH_HEAD
-    catchup = !git checkout master && git pull --ff-only --prune
+    sw = switch
+    sc = switch --create
+    forget = !git reset --hard HEAD && git clean -d --force
+    obey = !git fetch && git reset --hard FETCH_HEAD && git clean -d --force
 [push]
     default = simple
 [credential]
     helper = cache --timeout=300
-

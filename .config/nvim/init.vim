@@ -26,6 +26,8 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'folke/trouble.nvim'
 
+Plug 'phpactor/phpactor'
+
 " nvim-cmp
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -313,6 +315,8 @@ onoremap j gj
 onoremap k gk
 onoremap gj j
 onoremap gk k
+" substitute
+nnoremap // :%s/
 " yank to the end of the line
 nnoremap Y y$
 " quit
@@ -425,8 +429,8 @@ nnoremap <silent> [Leader]u :<C-u>tabnew %<CR>
 " search using very nomagic
 nnoremap [Leader]/ /\V
 nnoremap [Leader]? ?\V
-" shorthand of replace
-nnoremap [Leader]// :<C-u>%s/
+" substitute using very nomagic
+nnoremap [Leader]// :<C-u>%s/\V
 " search for the word under the cursor
 nnoremap [Leader]n *zz
 " search backward for the word under the cursor
@@ -573,9 +577,9 @@ cmp.setup({
       vim.fn['vsnip#anonymous'](args.body)
     end,
   },
-  mapping = {
-    ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+  mapping = cmp.mapping.preset.insert({
+    ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<C-y>'] = cmp.config.disable,
     ['<C-e>'] = cmp.mapping({
@@ -583,7 +587,7 @@ cmp.setup({
       c = cmp.mapping.close(),
     }),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
-  },
+  }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
@@ -593,19 +597,14 @@ cmp.setup({
 })
 
 cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = {
     { name = 'buffer' }
   }
 })
 
-cmp.setup.cmdline(':', {
-  sources = cmp.config.sources({
-    { name = 'cmdline' }
-  })
-})
-
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-require('lspconfig')['phpactor'].setup {
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+require'lspconfig'.phpactor.setup {
   capabilities = capabilities
 }
 EOF
@@ -617,7 +616,7 @@ lua << EOF
     fold_open = 'v',
     fold_closed = '>',
     indent_lines = false,
-    auto_open = true,
+    auto_open = false,
     auto_close = true,
     signs = {
       error = '#',
@@ -818,37 +817,31 @@ nnoremap , <Nop>
 
 " lsp
 lua << EOF
-local nvim_lsp = require('lspconfig')
 
 local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  local opts = { noremap=true, silent=true }
-
-  buf_set_keymap('n', ',dd', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', ',dk', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', ',di', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', ',ds', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', ',dm', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', ',da', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', ',dr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', ',df', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', ',dk', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', ',dd', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', ',di', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', ',ds', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', ',de', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', ',dm', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', ',da', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', ',dr', vim.lsp.buf.references, bufopts)
 end
 
-local servers = { 'phpactor' }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
+local lsp_flags = {
+  debounce_text_changes = 150,
+}
+require('lspconfig')['phpactor'].setup{
     on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
-  }
-end
+    flags = lsp_flags,
 EOF
 
 " trouble
-nnoremap <Leader>r :<C-u>TroubleToggle lsp_references<CR>
+nnoremap <Leader>r :<C-u>TroubleToggle<CR>
 
 " ref
 nnoremap <Leader>qph :<C-u>Ref phpmanual<Space>
