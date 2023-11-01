@@ -836,8 +836,9 @@ local lsp_flags = {
   debounce_text_changes = 150,
 }
 require('lspconfig')['phpactor'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
+  on_attach = on_attach,
+  flags = lsp_flags,
+}
 EOF
 
 " trouble
