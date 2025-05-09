@@ -3,4 +3,4 @@ program = "/Windows/System32/wsl.exe"
 
 [window.dimensions]
 columns = 100
-lines = 40
+lines = 30
