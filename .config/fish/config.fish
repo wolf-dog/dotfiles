@@ -48,48 +48,6 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
 #--------------------------------------
-# dircolors {{{1
-
-if [ -f $HOME/.dircolors ]; and type dircolors >/dev/null ^&1
-  eval (dircolors $HOME/.dircolors | sed 's/LS_COLORS=/set LS_COLORS /')
-end
-
-#--------------------------------------
-# global {{{1
-
-if [ -f /usr/local/etc/gtags.conf ]; and grep --quiet 'pygments-parser' /usr/local/etc/gtags.conf ^/dev/null
-  export GTAGSLABEL=pygments
-end
-
-#--------------------------------------
-# anyenv {{{1
-
-if [ -d $HOME/.anyenv ];
-  status --is-interactive; and source (anyenv init -|psub)
-end
-
-if [ -d $HOME/.anyenv/envs/rbenv ];
-  status --is-interactive; and source (rbenv init -|psub)
-end
-
-if [ -d $HOME/.anyenv/envs/nodenv ];
-  status --is-interactive; and source (nodenv init -|psub)
-end
-
-dedup_path
-
-#--------------------------------------
-# fzf {{{1
-
-# On Bash on Windows, remove -fstype option (it doesn't work)
-if [ -f /proc/version ]; and grep --quiet 'Microsoft' /proc/version ^/dev/null
-  set -g FZF_DEFAULT_COMMAND "command find -L . -mindepth 1 \\( -path '*/\\.*' \\) -prune \
-    -o -type f -print \
-    -o -type d -print \
-    -o -type l -print 2> /dev/null | cut -b3-"
-end
-
-#--------------------------------------
 # source local config {{{1
 
 if [ -f ~/.config/fish/config_local.fish ]
