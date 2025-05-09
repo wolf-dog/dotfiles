@@ -11,3 +11,4 @@ GTAGS
 .vim/plugged
 
 .phpcd/
+.phpactor.json
