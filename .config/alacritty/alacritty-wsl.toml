@@ -1,0 +1,6 @@
+[terminal.shell]
+program = "/Windows/System32/wsl.exe"
+
+[window.dimensions]
+columns = 100
+lines = 40
