@@ -23,8 +23,8 @@ Plug 'Shougo/vimproc.vim', {'dir': '~/.vim/plugged/vimproc.vim', 'do': 'make'}
 
 " lsp
 Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer'
-Plug 'folke/trouble.nvim'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 
 Plug 'phpactor/phpactor'
 
@@ -69,9 +69,7 @@ Plug 'emonkak/vim-operator-comment'
 Plug 'rhysd/vim-operator-surround'
 
 " development tools
-Plug 'thinca/vim-ref'
 Plug 'thinca/vim-quickrun'
-Plug 'joonty/vdebug'
 
 Plug 'tobyS/vmustache', { 'for': 'php' }
 Plug 'pageer/pdv', { 'for': 'php' }
@@ -98,6 +96,9 @@ if !empty(glob('~/.fzf'))
   Plug 'junegunn/fzf.vim'
 elseif !empty(glob('/usr/local/opt/fzf'))
   Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf.vim'
+elseif !empty(glob('/opt/homebrew/opt/fzf'))
+  Plug '/opt/homebrew/opt/fzf'
   Plug 'junegunn/fzf.vim'
 endif
 
@@ -211,9 +212,7 @@ let &statusline .= '%='
 let &statusline .= '[%{&l:fileencoding == "" ? &encoding : &l:fileencoding}]'
 let &statusline .= ' %-14.(%l,%c%V%) %P'
 " always show the tabline
-if v:version >= 700
-  set showtabline=2
-endif
+set showtabline=2
 
 " tabs and indents
 set cindent
@@ -280,9 +279,7 @@ set tags& tags+=./tags;
 " use command-line completion
 set wildmenu
 set wildmode=list:longest,full
-if ( v:version >= 703)
-  set wildignorecase
-endif
+set wildignorecase
 
 if executable("pt")
   set grepprg=pt
@@ -367,8 +364,6 @@ nnoremap <silent> <C-p> :<C-u>tabprev<CR>
 nmap <C-g> %
 vmap <C-g> %
 omap <C-g> %
-" call omnifunc
-imap <C-g> <C-x><C-o>
 " cancel and return to normal mode
 vnoremap <C-j> <Esc>
 onoremap <C-j> <Esc>
@@ -381,9 +376,6 @@ nnoremap <silent> <C-j> :<C-u>nohlsearch<CR>
 nnoremap <C-f> <C-w>w
 " switch to last accessed window
 nnoremap <C-b> <C-w>p
-" jump to the tag under the cursor,
-" or show candidates if multiple tags found
-nnoremap <C-k> g<C-]>
 " enable to undo
 inoremap <C-w> <C-g>u<C-w>
 inoremap <C-u> <C-g>u<C-u>
@@ -461,21 +453,6 @@ nnoremap <silent> [Leader]' :<C-u>help <C-r><C-w><CR>
 nnoremap <silent> [Leader]= :<C-u>source $MYVIMRC<CR>
 " source .gvimrc
 nnoremap <silent> [Leader]+ :<C-u>source $MYGVIMRC<CR>
-" open the preview window and jump to the tag under the cursor
-" or show candidates if multiple tags found
-nnoremap [Leader]ff <C-w>g}
-" list the matches
-nnoremap <silent> [Leader]fl :<C-u>ptselect<CR>
-" jump to the next match
-nnoremap <silent> [Leader]fn :<C-u>ptnext<CR>
-" jump to the previous match
-nnoremap <silent> [Leader]fp :<C-u>ptprevious<CR>
-" jump to the first match
-nnoremap <silent> [Leader]fN :<C-u>ptfirst<CR>
-" jump to the last match
-nnoremap <silent> [Leader]fP :<C-u>ptlast<CR>
-" close the preview window
-nnoremap <silent> [Leader]fj :<C-u>pclose<CR>
 " quick diff
 nnoremap <silent> [Leader]cd :<C-u>diffthis<CR><C-w>p:<C-u>diffthis<CR><C-w>p
 " turn off diff mode in all windows
@@ -489,10 +466,6 @@ nnoremap <silent> [Leader]cc :<C-u>diffoff<CR>
 nnoremap <silent> [Leader]cu :<C-u>diffupdate<CR>
 " toggle paste
 nnoremap <silent> [Leader]" :<C-u>set paste!<CR>
-" Go to older quickfix list
-nnoremap <silent> [Leader]qp :<C-u>colder<CR>
-" Go to newer quickfix list
-nnoremap <silent> [Leader]qn :<C-u>cnewer<CR>
 " search conflict marker
 nnoremap <silent> [Leader]i /\v[<=>]{7}<CR>
 "--------------------------------------
@@ -505,15 +478,9 @@ augroup vimrc-file
 
   " always use this format options regardless of the file type
   autocmd FileType *
-  \ if ( v:version >= 703)
-  \ | setlocal formatoptions&
+  \ setlocal formatoptions&
   \ formatoptions-=t formatoptions-=c
   \ formatoptions+=r formatoptions+=M formatoptions+=j
-  \ | else
-  \ | setlocal formatoptions&
-  \ formatoptions-=t formatoptions-=c
-  \ formatoptions+=r formatoptions+=M
-  \ | endif
 
   " set fileencoding to empty (use default encoding)
   " when buffer only contains ASCII characters
@@ -562,6 +529,10 @@ let g:vim_json_syntax_conceal = 0
 
 " lsp
 lua << EOF
+require("mason").setup()
+EOF
+
+lua << EOF
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
 )
@@ -609,25 +580,6 @@ require'lspconfig'.phpactor.setup {
 }
 EOF
 
-" trouble
-lua << EOF
-  require('trouble').setup {
-    icons = false,
-    fold_open = 'v',
-    fold_closed = '>',
-    indent_lines = false,
-    auto_open = false,
-    auto_close = true,
-    signs = {
-      error = '#',
-      warning = '!',
-      hint = '*',
-      information = '?',
-      other = '.',
-    },
-  }
-EOF
-
 " denite
 let s:menus = {}
 
@@ -663,10 +615,6 @@ endif
 " easy-align
 let g:easy_align_ignore_groups = ['String']
 
-" ref
-" define path to php manual
-let g:ref_phpmanual_path = expand('~/etc/man/php')
-
 " indentLine
 let g:indentLine_color_term = 60
 let g:indentLine_color_gui = '#5f5f87'
@@ -701,16 +649,6 @@ let g:gitgutter_sign_removed = '-'
 let g:gitgutter_sign_removed_first_line = '='
 let g:gitgutter_sign_modified_removed = '='
 let g:gitgutter_map_keys = 0
-
-" vdebug
-let g:vdebug_options = {
-\   'marker_default' : '.',
-\   'marker_closed_tree' : '+',
-\   'marker_open_tree' : '-',
-\   'sign_breakpoint' : '#',
-\   'sign_current' : '>',
-\   'sign_disabled' : 'x',
-\ }
 
 " lightline
 let g:lightline = {
@@ -822,14 +760,16 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', ',dk', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', ',dd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', ',dd', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', ',di', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', ',ds', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', ',de', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', ',dm', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', ',da', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', ',dt', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', ',dn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', ',dr', vim.lsp.buf.references, bufopts)
+
+  vim.keymap.set('n', ',df', vim.diagnostic.open_float, bufopts)
+  vim.keymap.set('n', ',dq', vim.diagnostic.setqflist, bufopts)
 end
 
 local lsp_flags = {
@@ -840,12 +780,6 @@ require('lspconfig')['phpactor'].setup{
   flags = lsp_flags,
 }
 EOF
-
-" trouble
-nnoremap <Leader>r :<C-u>TroubleToggle<CR>
-
-" ref
-nnoremap <Leader>qph :<C-u>Ref phpmanual<Space>
 
 " indentLine
 nnoremap <Leader>t :<C-u>IndentLinesToggle<CR>
@@ -919,24 +853,6 @@ call gina#custom#mapping#nmap(
 \   'grep', '<C-t>',
 \   '<Plug>(gina-edit-tab)'
 \ )
-
-" vdebug
-let g:vdebug_keymap = {
-\   'run'               : '<Leader>ff',
-\   'run_to_cursor'     : '<Leader>fr',
-\   'step_over'         : '<Leader>fl',
-\   'step_into'         : '<Leader>fi',
-\   'step_out'          : '<Leader>fo',
-\   'close'             : '<Leader>fj',
-\   'detach'            : '<Leader>fd',
-\   'set_breakpoint'    : '<Leader>fb',
-\   'get_context'       : '<Leader>fc',
-\   'eval_under_cursor' : '<Leader>fx',
-\   'eval_visual'       : '<Leader>fv',
-\ }
-
-" watchdogs
-nnoremap <silent> <Leader>w :<C-u>WatchdogsRun<CR>
 
 " fzf
 nnoremap <silent> <Leader>es :<C-u>FzfFiles<CR>
