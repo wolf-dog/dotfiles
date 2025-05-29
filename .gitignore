@@ -1,14 +1,6 @@
 *~
 .*.sw?
 .sw?
-tags
-GPATH
-GRTAGS
-GTAGS
 .netrwhist
 
-.vim/autoload/plug.vim*
-.vim/plugged
-
-.phpcd/
 .phpactor.json
