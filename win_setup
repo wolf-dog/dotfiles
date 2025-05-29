@@ -2,27 +2,64 @@
 
 ## Ctrl2Cap
 
+以下からダウンロードしてインストールする。
+https://learn.microsoft.com/ja-jp/sysinternals/downloads/ctrl2cap
+
+
 ## wsl
+
+Powershellからインストールする。
+
+```
+wsl --install
+```
+
 
 ## ubuntu
 
+Microsoft storeからインストールする。
+
+
 ## alacritty
 
-via winget
+PowershellからWinGetでインストールする。
 
-windowsで設定ファイルをコピー
+```
+winget install alacritty
+```
 
-`alacritty-win.toml` を `alacritty-local.toml` にリネーム
+Windows上で `dotfiles/.config/alacritty/*` にある設定ファイルを
+`Users/{User}/AppData/Roaming/alacritty/` にコピーする。
+`alacritty-wsl.toml` を `alacritty-local.toml` にリネームする。
 
 
 ## fish
 
-sudo apt update
-sudo apt upgrade
+```
+sudo apt update && sudo apt upgrade
 sudo apt install fish
+```
 
+```
 sudo ln -s /usr/bin/fish /usr/local/bin/fish
 echo '/usr/local/bin/fish' | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/fish
+```
+
+```
+curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+
+fisher install jethrokuan/z
+```
 
 ## neovim
+
+```
+sudo apt install build-essential
+
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+tar -C ./ -xzf nvim-linux-x86_64.tar.gz
+sudo mv nvim-linux-x86_64/bin/* /usr/local/bin/
+sudo mv nvim-linux-x86_64/lib/* /usr/local/lib/
+sudo mv nvim-linux-x86_64/share/* /usr/local/share/
+```
