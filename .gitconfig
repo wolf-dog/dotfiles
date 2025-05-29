@@ -1,47 +1,46 @@
 [user]
-    name = Takaaki Hirano
-    email = hivedark@gmail.com
+  name = Takaaki Hirano
+  email = hivedark@gmail.com
 [color]
-    ui = auto
+  ui = auto
 [core]
-    editor = nvim
-    pager = less -R
-    excludesfile = ~/.gitignore
-    whitespace = trailing-space, space-before-tab
-    autocrlf = input
-    safecrlf = true
-    preloadindex = true
-    fscache = true
+  editor = nvim
+  pager = less -R
+  excludesfile = ~/.gitignore
+  whitespace = trailing-space, space-before-tab
+  autocrlf = input
+  safecrlf = true
+  preloadindex = true
+  fscache = true
 [alias]
-    a = add
-    aa = add --all :/
-    b = branch
-    bd = branch --delete
-    ci = commit
-    ca = commit --amend
-    cp = cherry-pick
-    d = diff
-    dc = diff --cached
-    dh = diff HEAD^
-    f = fetch
-    l = log --oneline
-    l5 = log --oneline --max-count=5
-    ll = log --decorate
-    ls = log --decorate --stat
-    m = merge
-    p = pull --ff-only
-    pp = pull --ff-only --prune
-    pu = push --set-upstream
-    r = rebase
-    ri = rebase --interactive
-    re = restore
-    rs = restore --staged
-    s = status
-    sw = switch
-    sc = switch --create
-    forget = !git reset --hard HEAD && git clean -d --force
-    obey = !git fetch && git reset --hard FETCH_HEAD && git clean -d --force
+  a = add
+  aa = add --all :/
+  b = branch
+  bd = branch --delete
+  ci = commit
+  ca = commit --amend
+  cp = cherry-pick
+  d = diff
+  dc = diff --cached
+  dh = diff HEAD^
+  f = fetch
+  l = log --oneline
+  l5 = log --oneline --max-count=5
+  ll = log --decorate
+  ls = log --decorate --stat
+  m = merge
+  p = pull --ff-only --prune
+  pu = push --set-upstream
+  r = rebase
+  ri = rebase --interactive
+  re = restore
+  rs = restore --staged
+  s = status
+  sw = switch
+  sc = switch --create
+  forget = !git reset --hard HEAD && git clean -d --force
+  obey = !git fetch && git reset --hard FETCH_HEAD && git clean -d --force
 [push]
-    default = simple
+  default = simple
 [credential]
-    helper = cache --timeout=300
+  helper = cache --timeout=300
