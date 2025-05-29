@@ -1,0 +1,28 @@
+# Windows環境セットアップ手順
+
+## Ctrl2Cap
+
+## wsl
+
+## ubuntu
+
+## alacritty
+
+via winget
+
+windowsで設定ファイルをコピー
+
+`alacritty-win.toml` を `alacritty-local.toml` にリネーム
+
+
+## fish
+
+sudo apt update
+sudo apt upgrade
+sudo apt install fish
+
+sudo ln -s /usr/bin/fish /usr/local/bin/fish
+echo '/usr/local/bin/fish' | sudo tee -a /etc/shells
+chsh -s /usr/local/bin/fish
+
+## neovim
