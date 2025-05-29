@@ -1,6 +1,7 @@
 /completions/
 /conf.d/
+/functions/
+/themes/
+/config_local.fish
 /fish_plugins
 /fish_variables
-/functions/
-/config_local.fish

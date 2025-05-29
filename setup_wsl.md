@@ -1,4 +1,4 @@
-# Windows環境セットアップ手順
+# WSL環境セットアップ手順
 
 ## Ctrl2Cap
 
@@ -6,7 +6,13 @@
 https://learn.microsoft.com/ja-jp/sysinternals/downloads/ctrl2cap
 
 
-## wsl
+## Cica font
+
+以下からダウンロードしてインストールする。
+https://github.com/miiton/Cica
+
+
+## WSL
 
 Powershellからインストールする。
 
@@ -15,12 +21,12 @@ wsl --install
 ```
 
 
-## ubuntu
+## Ubuntu
 
 Microsoft storeからインストールする。
 
 
-## alacritty
+## Alacritty
 
 PowershellからWinGetでインストールする。
 
@@ -29,11 +35,11 @@ winget install alacritty
 ```
 
 Windows上で `dotfiles/.config/alacritty/*` にある設定ファイルを
-`Users/{User}/AppData/Roaming/alacritty/` にコピーする。
+`Users/{User}/AppData/Roaming/alacritty/` に配置する。
 `alacritty-wsl.toml` を `alacritty-local.toml` にリネームする。
 
 
-## fish
+## Fish
 
 ```
 sudo apt update && sudo apt upgrade
@@ -50,9 +56,10 @@ chsh -s /usr/local/bin/fish
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 
 fisher install jethrokuan/z
+fisher install wolf-dog/styriga
 ```
 
-## neovim
+## Neovim
 
 ```
 sudo apt install build-essential
