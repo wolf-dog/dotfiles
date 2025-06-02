@@ -178,3 +178,18 @@ bind('n', '<Space>cu', ':<C-u>diffupdate<CR>', silent)
 bind('n', '<Space>"', ':<C-u>set paste!<CR>', silent)
 -- search conflict marker
 bind('n', '<Space>i', '/\\v[<=>]{7}<CR>', silent)
+
+-- LSP
+bind('n', '<Space>kk', vim.lsp.buf.definition)
+bind('n', '<Space>ka', vim.lsp.buf.code_action)
+bind('n', '<Space>kd', vim.lsp.buf.document_symbol)
+bind('n', '<Space>kf', vim.lsp.buf.format)
+bind('n', '<Space>kh', vim.lsp.buf.hover)
+bind('n', '<Space>kr', vim.lsp.buf.references)
+bind('n', '<Space>kn', vim.lsp.buf.rename)
+bind('n', '<Space>ks', vim.lsp.buf.signature_help)
+
+bind('n', '<Space>jj', vim.diagnostic.open_float)
+bind('n', '<Space>jq', vim.diagnostic.setqflist)
+bind('n', '<Space>jn', vim.diagnostic.goto_next)
+bind('n', '<Space>jp', vim.diagnostic.goto_prev)
