@@ -8,6 +8,7 @@ return {
     dependencies = {
       { 'tobyS/vmustache' },
     },
+
     init = function()
       vim.g.pdv_template_dir = vim.env.HOME .. '/.local/share/nvim/lazy/pdv/templates'
 

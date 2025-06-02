@@ -2,6 +2,7 @@ return {
   {
     'elzr/vim-json',
     ft = 'json',
+
     init = function()
       vim.g.vim_json_syntax_conceal = 0
     end
@@ -9,6 +10,7 @@ return {
   {
     'tpope/vim-markdown',
     ft = 'markdown',
+
     init = function()
       vim.g.markdown_syntax_conceal = 0
     end
