@@ -11,11 +11,5 @@ return {
   },
 
   { 'vim-scripts/sudo.vim' },
-  { 'tpope/vim-speeddating' },
   { 'guns/xterm-color-table.vim' },
-
-  -- fzf-lua
-  -- telescope
-  -- nvim-treesitter
-  -- indent-blankline
 }

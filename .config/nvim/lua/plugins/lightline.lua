@@ -3,6 +3,7 @@ return {
     'wolf-dog/lightline-sceaduhelm.vim',
     dependencies = {
       'itchyny/lightline.vim',
+
       init = function()
         vim.g.lightline = {
           colorscheme = 'sceaduhelm',

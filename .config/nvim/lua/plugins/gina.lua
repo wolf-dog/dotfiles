@@ -4,6 +4,7 @@ local silent = { silent = true, noremap = true }
 return {
   {
     'lambdalisue/gina.vim',
+
     init = function ()
       bind('n', '<Leader>gb', ':<C-u>Gina blame<CR>', silent)
       bind('n', '<Leader>gd', ':<C-u>topleft Gina diff --opener=split<CR>', silent)
@@ -12,6 +13,7 @@ return {
       bind('n', '<Leader>gg', ':<C-u>Gina grep --opener=split<Space>')
       bind('n', '<Leader>G', ':<C-u>Gina<Space>')
     end,
+
     config = function ()
       vim.fn['gina#custom#mapping#nmap'](
         'blame',
