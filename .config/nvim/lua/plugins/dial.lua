@@ -3,7 +3,7 @@ local bind = vim.keymap.set
 return {
   {
     'monaqa/dial.nvim',
-    init function()
+    init = function()
       vim.keymap.set('n', '<C-a>', function()
         require('dial.map').manipulate('increment', 'normal')
       end)
@@ -22,10 +22,10 @@ return {
       vim.keymap.set('v', '<C-x>', function()
         require('dial.map').manipulate('decrement', 'visual')
       end)
-      vin.keymap.set('v', 'g<C-a>', function()
+      vim.keymap.set('v', 'g<C-a>', function()
         require('dial.map').manipulate('increment', 'gvisual')
       end)
-      vin.keymap.set('v', 'g<C-x>', function()
+      vim.keymap.set('v', 'g<C-x>', function()
       require('dial.map').manipulate('decrement', 'gvisual')
       end)
     end,
