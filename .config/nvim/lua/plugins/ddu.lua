@@ -261,7 +261,7 @@ return {
           bind('n', '<C-j>', [[<Cmd>q<CR>]], silentBuf)
 
           bind('n', 'i', [[<Cmd>call ddu#ui#do_action('openFilterWindow')<CR>]], silentBuf)
-          bind('n', 'o', [[<Cmd>call ddu#ui#do_action('chooseAction')<CR>]], silentBuf)
+          bind('n', '<Tab>', [[<Cmd>call ddu#ui#do_action('chooseAction')<CR>]], silentBuf)
 
           bind('n', '<CR>', function()
             if vim.fn['ddu#ui#get_item']().isTree == true then

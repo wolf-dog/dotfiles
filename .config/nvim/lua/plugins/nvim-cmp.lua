@@ -49,9 +49,9 @@ return {
       })
 
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      require('lspconfig')['phpactor'].setup {
+      vim.lsp.config('phpactor', {
         capabilities = capabilities
-      }
+      })
     end
   },
 
