@@ -12,6 +12,20 @@ bind('v', ':', ';')
 bind('o', ';', ':')
 bind('o', ':', ';')
 
+-- use screen lines normally
+bind('n', 'j', 'gj')
+bind('n', 'k', 'gk')
+bind('n', 'gj', 'j')
+bind('n', 'gk', 'k')
+bind('v', 'j', 'gj')
+bind('v', 'k', 'gk')
+bind('v', 'gj', 'j')
+bind('v', 'gk', 'k')
+bind('o', 'j', 'gj')
+bind('o', 'k', 'gk')
+bind('o', 'gj', 'j')
+bind('o', 'gk', 'k')
+
 -- substitute
 bind('n', '//', ':%s/')
 

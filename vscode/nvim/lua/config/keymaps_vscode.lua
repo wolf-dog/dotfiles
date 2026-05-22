@@ -2,7 +2,7 @@ local bind = vim.keymap.set
 local silent = { silent = true, noremap = true }
 
 -- use screen lines normally with vs code
-bind({ 'n', 'x' }, 'j', function()
+bind('n', 'j', function()
   if vim.v.count == 0 then
     require('vscode').call('cursorMove', { args = { { to = 'down', by = 'wrappedLine', value = 1 } } })
     return '<Ignore>'
@@ -11,7 +11,7 @@ bind({ 'n', 'x' }, 'j', function()
   end
 end, { expr = true, silent = true })
 
-bind({ 'n', 'x' }, 'k', function()
+bind('n', 'k', function()
   if vim.v.count == 0 then
     require('vscode').call('cursorMove', { args = { { to = 'up', by = 'wrappedLine', value = 1 } } })
     return '<Ignore>'
