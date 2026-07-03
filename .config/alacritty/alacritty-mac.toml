@@ -1,3 +1,6 @@
+[terminal]
+shell = { program = "/usr/local/bin/fish", args = ["-l"] }
+
 [window.dimensions]
 columns = 120
 lines = 60

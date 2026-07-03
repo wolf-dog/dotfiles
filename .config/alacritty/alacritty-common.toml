@@ -2,22 +2,22 @@
 style = "Beam"
 
 [font]
-size = 16.0
+size = 14.0
 
 [font.bold]
-family = "Cica"
+family = "UDEV Gothic JPDOC"
 style = "Bold"
 
 [font.bold_italic]
-family = "Cica"
+family = "UDEV Gothic JPDOC"
 style = "Bold Italic"
 
 [font.italic]
-family = "Cica"
+family = "UDEV Gothic JPDOC"
 style = "Italic"
 
 [font.normal]
-family = "Cica"
+family = "UDEV Gothic JPDOC"
 style = "Regular"
 
 [font.offset]
