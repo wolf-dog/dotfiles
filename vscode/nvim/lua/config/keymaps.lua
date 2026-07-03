@@ -97,6 +97,11 @@ bind('n', '<C-j>', ':<C-u>nohlsearch<CR>', silent)
 bind('i', '<C-w>', '<C-g>u<C-w>')
 bind('i', '<C-u>', '<C-g>u<C-u>')
 
+-- jump to match parens
+bind('n', '<C-g>', '%')
+bind('v', '<C-g>', '%')
+bind('o', '<C-g>', '%')
+
 
 ------------------------
 -- start with <Space> --
