@@ -70,3 +70,18 @@ sudo mv nvim-linux-x86_64/bin/* /usr/local/bin/
 sudo mv nvim-linux-x86_64/lib/* /usr/local/lib/
 sudo mv nvim-linux-x86_64/share/* /usr/local/share/
 ```
+
+設定ファイルへのシンボリックリンクを張る。
+この設定はVS Code Neovimと素のNeovimの両方で共用する。
+
+```
+ln -sfn ~/dotfiles/.config/nvim ~/.config/nvim
+```
+
+プラグインマネージャにvim-plugを使っているので、
+インストールしてから `nvim` を起動し `:PlugInstall` を実行する。
+
+```
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```

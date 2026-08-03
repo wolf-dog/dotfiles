@@ -8,18 +8,11 @@ option.nrformats = 'hex'
 option.virtualedit = 'block'
 -- disable mouse input
 option.mouse = ''
--- completion
-option.completeopt = 'menu,menuone,noinsert,noselect'
 
 -- searching
 option.ignorecase = true
-option.inccommand = 'split'
 option.smartcase = true
 vim.cmd('nohlsearch')
-
--- use command-line completion
-option.wildmode = 'list:longest,full'
-option.wildignorecase = true
 
 -- match <>
 option.matchpairs:append({ '<:>' })
@@ -27,3 +20,13 @@ option.matchpairs:append({ '<:>' })
 option.matchtime = 0
 -- show the matching brace
 option.showmatch = true
+
+-- VS Code環境「ではない」ときだけ有効にする設定
+if not vim.g.vscode then
+  -- preview the substitution in a split window
+  option.inccommand = 'split'
+
+  -- use command-line completion
+  option.wildmode = 'list:longest,full'
+  option.wildignorecase = true
+end

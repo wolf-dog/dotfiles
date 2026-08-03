@@ -32,9 +32,6 @@ bind('n', '//', ':%s/')
 -- yank to the end of the line
 bind('n', 'Y', 'y$')
 
--- quit
-bind('n', 'Q', ':<C-u>q<CR>')
-
 -- select angle blacket <>
 bind('v', 'ia', 'i>')
 bind('v', 'aa', 'a>')
@@ -86,17 +83,6 @@ bind('c', '<C-a>', '<Home>')
 bind('c', '<C-f>', '<Right>')
 bind('c', '<C-b>', '<Left>')
 
--- tab navigation
-bind('n', '<C-n>', ':<C-u>tabnext<CR>', silent)
-bind('n', '<C-p>', ':<C-u>tabprev<CR>', silent)
-
--- jump to the matching brace or bracket
-
--- use map, not noremap to refer the binds of matchit.vim
-bind('n', '<C-g>', '%')
-bind('v', '<C-g>', '%')
-bind('o', '<C-g>', '%')
-
 -- cancel and return to normal mode
 bind('v', '<C-j>', '<Esc>')
 bind('o', '<C-j>', '<Esc>')
@@ -107,21 +93,14 @@ bind('s', '<C-j>', '<Esc>')
 -- clear highlighting on last searched pattern
 bind('n', '<C-j>', ':<C-u>nohlsearch<CR>', silent)
 
--- switch to next window
-bind('n', '<C-f>', '<C-w>w')
-
--- switch to last accessed window
-bind('n', '<C-b>', '<C-w>p')
-
 -- enable to undo
 bind('i', '<C-w>', '<C-g>u<C-w>')
 bind('i', '<C-u>', '<C-g>u<C-u>')
 
--- disable Ctrl-s
-bind('n', '<C-s>', '<Nop>')
-
--- tag jump
-bind('n', '<C-k>', 'g<C-]>')
+-- jump to match parens
+bind('n', '<C-g>', '%')
+bind('v', '<C-g>', '%')
+bind('o', '<C-g>', '%')
 
 
 ------------------------
@@ -165,12 +144,6 @@ bind('n', '<Space>O', 'O<Esc>')
 -- insert text before the last character
 bind('n', '<Space>a', '$i')
 
--- open a new tab
-bind('n', '<Space>t', ':<C-u>tabnew<CR>', silent)
-
--- duplicate current tab
-bind('n', '<Space>u', ':<C-u>tabnew %<CR>', silent)
-
 -- search using very nomagic
 bind('n', '<Space>/', '/\\V')
 bind('n', '<Space>?', '?\\V')
@@ -187,65 +160,14 @@ bind('n', '<Space>N', '#zz')
 -- list the marks
 bind('n', '<Space>m', ':<C-u>marks<CR>', silent)
 
--- change encodings and formats
-bind('n', '<Space>e', '<Nop>')
-bind('n', '<Space>ec', ':<C-u>setlocal fileencoding=cp932<CR>', silent)
-bind('n', '<Space>ee', ':<C-u>setlocal fileencoding=euc-jp<CR>', silent)
-bind('n', '<Space>eu', ':<C-u>setlocal fileencoding=utf-8<CR>', silent)
-bind('n', '<Space>ei', ':<C-u>setlocal fileencoding=iso-2022-jp<CR>', silent)
-bind('n', '<Space>ed', ':<C-u>setlocal fileformat=dos<CR>', silent)
-bind('n', '<Space>ex', ':<C-u>setlocal fileformat=unix<CR>', silent)
-
--- move tab to next/previous
-bind('n', '<Space><C-n>', ':<C-u>tabmove +1<CR>', silent)
-bind('n', '<Space><C-p>', ':<C-u>tabmove -1<CR>', silent)
-
--- split window
-bind('n', '<Space>s', ':<C-u>rightbelow split<CR>', silent)
-bind('n', '<Space>v', ':<C-u>rightbelow vsplit<CR>', silent)
-
--- help
-bind('n', '<Space>;', ':<C-u>help<Space>')
-
 -- quickref
 bind('n', '<Space>:', ':<C-u>help quickref<CR>', silent)
 
 -- search help about the word under the cursor
 bind('n', "<Space>'", ':<C-u>help <C-r><C-w><CR>', silent)
 
--- quick diff
-bind('n', '<Space>cd', ':<C-u>diffthis<CR><C-w>p:<C-u>diffthis<CR><C-w>p', silent)
-
--- turn off diff mode in all windows
-bind('n', '<Space>cq', ':<C-u>diffoff!<CR><C-w>p:<C-u>quit<CR>', silent)
-
--- diff
-bind('n', '<Space>cs', ':<C-u>diffsplit<Space>')
-bind('n', '<Space>cv', ':<C-u>vertical diffsplit<Space>')
-
--- turn off diff mode
-bind('n', '<Space>cc', ':<C-u>diffoff<CR>', silent)
-
--- update diff
-bind('n', '<Space>cu', ':<C-u>diffupdate<CR>', silent)
-
 -- toggle paste
 bind('n', '<Space>"', ':<C-u>set paste!<CR>', silent)
 
 -- search conflict marker
 bind('n', '<Space>i', '/\\v[<=>]{7}<CR>', silent)
-
--- LSP
-bind('n', '<Space>kk', vim.lsp.buf.definition)
-bind('n', '<Space>ka', vim.lsp.buf.code_action)
-bind('n', '<Space>kd', vim.lsp.buf.document_symbol)
-bind('n', '<Space>kf', vim.lsp.buf.format)
-bind('n', '<Space>kh', vim.lsp.buf.hover)
-bind('n', '<Space>kr', vim.lsp.buf.references)
-bind('n', '<Space>kn', vim.lsp.buf.rename)
-bind('n', '<Space>ks', vim.lsp.buf.signature_help)
-
-bind('n', '<Space>jj', vim.diagnostic.open_float)
-bind('n', '<Space>jq', vim.diagnostic.setqflist)
-bind('n', '<Space>jn', vim.diagnostic.goto_next)
-bind('n', '<Space>jp', vim.diagnostic.goto_prev)

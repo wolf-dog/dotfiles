@@ -1,0 +1,62 @@
+local vim = vim
+local Plug = vim.fn['plug#']
+
+-- set the leader before declaring plugins so that <Leader> mappings are correct
+vim.g.mapleader = ","
+
+-- Plugins
+vim.call('plug#begin')
+
+Plug 'monaqa/dial.nvim'
+Plug 'junegunn/vim-easy-align'
+
+Plug 'kana/vim-operator-user'
+Plug 'emonkak/vim-operator-comment'
+Plug 'rhysd/vim-operator-surround'
+
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-line'
+Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-underscore'
+Plug 'h1mesuke/textobj-wiw'
+Plug 'thinca/vim-textobj-between'
+
+-- VS Code環境「ではない」ときだけ読み込むプラグイン
+if not vim.g.vscode then
+  Plug 'wolf-dog/sceaduhelm.vim'
+  Plug 'wolf-dog/lightline-sceaduhelm.vim'
+  Plug 'itchyny/lightline.vim'
+
+  Plug 'Yggdroot/indentLine'
+  Plug 'brenoprata10/nvim-highlight-colors'
+
+  Plug 'vim-scripts/sudo.vim'
+  Plug 'guns/xterm-color-table.vim'
+
+  -- syntax ('for' is a Lua keyword, hence the bracket syntax)
+  Plug('elzr/vim-json', { ['for'] = 'json' })
+  Plug('tpope/vim-markdown', { ['for'] = 'markdown' })
+  Plug('StanAngeloff/php.vim', { ['for'] = 'php' })
+  Plug('jwalton512/vim-blade', { ['for'] = 'blade' })
+  Plug('andys8/vim-elm-syntax', { ['for'] = 'elm' })
+  Plug('dag/vim-fish', { ['for'] = 'fish' })
+  Plug('jelera/vim-javascript-syntax', { ['for'] = 'javascript' })
+  Plug('vim-python/python-syntax', { ['for'] = 'python' })
+end
+
+vim.call('plug#end')
+
+-- Plugin settings
+require('plugins.dial')
+require('plugins.easy-align')
+require('plugins.operator')
+
+-- VS Code環境「ではない」ときだけ読み込む設定
+if not vim.g.vscode then
+  require('plugins.colorscheme')
+  require('plugins.lightline')
+  require('plugins.indent-line')
+  require('plugins.nvim-highlight-colors')
+  require('plugins.syntax')
+end
