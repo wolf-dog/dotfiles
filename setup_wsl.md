@@ -6,10 +6,10 @@
 https://learn.microsoft.com/ja-jp/sysinternals/downloads/ctrl2cap
 
 
-## Cica font
+## UDEV Gothic font
 
 以下からダウンロードしてインストールする。
-https://github.com/miiton/Cica
+https://github.com/yuru7/udev-gothic
 
 
 ## WSL
@@ -24,6 +24,25 @@ wsl --install
 ## Ubuntu
 
 Microsoft storeからインストールする。
+
+
+## Locale
+
+英語UTF8ロケールをインストールしてシステム既定に設定する。
+
+```
+sudo apt install language-pack-en
+sudo update-locale LANG=en_US.UTF-8
+```
+
+`update-locale` 実行時にperlのロケール警告が出ることがあるが、
+現在のシェルの `LANG` が未生成のロケールを指しているために出るものなので無視してよい。
+
+Powershellからシャットダウンして再起動すると反映される。
+
+```
+wsl --shutdown
+```
 
 
 ## Alacritty
@@ -50,6 +69,8 @@ sudo apt install fish
 sudo ln -s /usr/bin/fish /usr/local/bin/fish
 echo '/usr/local/bin/fish' | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/fish
+
+ここからはfish上で実行する。
 ```
 
 ```
@@ -62,8 +83,6 @@ fisher install wolf-dog/styriga
 ## Neovim
 
 ```
-sudo apt install build-essential
-
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
 tar -C ./ -xzf nvim-linux-x86_64.tar.gz
 sudo mv nvim-linux-x86_64/bin/* /usr/local/bin/

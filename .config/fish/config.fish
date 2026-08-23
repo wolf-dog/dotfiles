@@ -4,7 +4,7 @@
 # Disable greeting messages
 set fish_greeting
 # Set locale
-set LANG 'en_US.UTF-8'
+set -gx LANG en_US.UTF-8
 
 # Neovim queries the terminal at startup for 'background' and truecolor support.
 # Terminals that never reply make it wait out the timeout and report E1568.
