@@ -27,7 +27,7 @@ config.treat_east_asian_ambiguous_width_as_wide = true
 config.font = wezterm.font_with_fallback {
   'UDEV Gothic JPDOC',
 }
-config.font_size = is_windows and 12.0 or 14.0
+config.font_size = 12.0
 
 -- Loosen the grid slightly. Both scale the computed cell and default to 1.0.
 config.line_height = 1.1
@@ -35,8 +35,11 @@ config.cell_width = 1.05
 
 -- window {{{1
 --------------------------------------
-config.initial_cols = is_windows and 100 or 120
-config.initial_rows = is_windows and 30 or 60
+config.initial_cols = 100
+config.initial_rows = 30
+
+-- The tab bar only appears once a second tab exists.
+config.hide_tab_bar_if_only_one_tab = true
 
 config.window_background_opacity = 0.92
 config.window_padding = {
@@ -101,6 +104,29 @@ config.colors = {
     '#E6EEF3', -- white
   },
 }
+
+-- machine-local overrides {{{1
+--------------------------------------
+-- Display-dependent values (font_size, line_height, cell_width, initial_cols,
+-- initial_rows) live in an untracked wezterm_local.lua next to this file, which
+-- returns a table of config keys to override:
+--
+--   return {
+--     font_size = 14.0,
+--     initial_cols = 120,
+--     initial_rows = 60,
+--   }
+--
+-- Absent file -> no-op. The load itself is unguarded so a syntax error in the
+-- local file surfaces in the config-error overlay instead of being swallowed.
+local local_config = wezterm.config_dir .. '/wezterm_local.lua'
+local f = io.open(local_config, 'r')
+if f then
+  f:close()
+  for k, v in pairs(dofile(local_config)) do
+    config[k] = v
+  end
+end
 
 return config
 
