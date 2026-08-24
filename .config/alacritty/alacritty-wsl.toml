@@ -1,5 +1,6 @@
 [terminal.shell]
-program = "/Windows/System32/wsl.exe ~"
+program = "C:\\Windows\\System32\\wsl.exe"
+args = ["~"]
 
 [window.dimensions]
 columns = 100
