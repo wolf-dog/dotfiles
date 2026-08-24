@@ -6,6 +6,13 @@ set fish_greeting
 # Set locale
 set LANG 'en_US.UTF-8'
 
+# Neovim queries the terminal at startup for 'background' and truecolor support.
+# Terminals that never reply make it wait out the timeout and report E1568.
+# This has to come from the environment: the queries run before user config.
+set -gx NVIM_NOTTYFAST 1
+# That also skips truecolor detection, so state it instead of probing for it.
+set -gx COLORTERM truecolor
+
 #--------------------------------------
 # Paths {{{1
 
