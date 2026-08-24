@@ -23,11 +23,33 @@ config.treat_east_asian_ambiguous_width_as_wide = true
 
 -- font {{{1
 --------------------------------------
--- Bold/italic/bold-italic are resolved automatically from the same family.
+-- Italic resolves automatically from the same family, but bold does not: given a
+-- bare family name, wezterm synthesizes bold by thickening Regular instead of
+-- loading the real Bold face (visible as "Will synthesize bold" in
+-- `wezterm ls-fonts`). Naming the weight explicitly in font_rules below loads the
+-- installed face. Unrelated to where the fonts are installed -- confirmed with
+-- the faces registered both per-user and system-wide.
 config.font = wezterm.font_with_fallback {
   'UDEV Gothic JPDOC',
 }
 config.font_size = 12.0
+
+config.font_rules = {
+  {
+    intensity = 'Bold',
+    italic = false,
+    font = wezterm.font_with_fallback {
+      { family = 'UDEV Gothic JPDOC', weight = 'Bold' },
+    },
+  },
+  {
+    intensity = 'Bold',
+    italic = true,
+    font = wezterm.font_with_fallback {
+      { family = 'UDEV Gothic JPDOC', weight = 'Bold', style = 'Italic' },
+    },
+  },
+}
 
 -- Loosen the grid slightly. Both scale the computed cell and default to 1.0.
 config.line_height = 1.1
