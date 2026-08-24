@@ -8,7 +8,7 @@ https://learn.microsoft.com/ja-jp/sysinternals/downloads/ctrl2cap
 
 ## UDEV Gothic font
 
-以下からダウンロードしてインストールする。
+以下からJPDOC版をダウンロードしてインストールする。
 https://github.com/yuru7/udev-gothic
 
 
@@ -45,17 +45,16 @@ wsl --shutdown
 ```
 
 
-## Alacritty
+## WezTerm
 
 PowershellからWinGetでインストールする。
 
 ```
-winget install alacritty
+winget install wez.wezterm
 ```
 
-Windows上で `dotfiles/.config/alacritty/*` にある設定ファイルを
-`Users/{User}/AppData/Roaming/alacritty/` に配置する。
-`alacritty-wsl.toml` を `alacritty-local.toml` にリネームする。
+Windows上で `dotfiles/.config/wezterm/wezterm.lua` を
+`Users/{User}/.config/wezterm/` に配置する。
 
 
 ## Fish
@@ -69,9 +68,9 @@ sudo apt install fish
 sudo ln -s /usr/bin/fish /usr/local/bin/fish
 echo '/usr/local/bin/fish' | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/fish
+```
 
 ここからはfish上で実行する。
-```
 
 ```
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
