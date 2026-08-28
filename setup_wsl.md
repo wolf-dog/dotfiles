@@ -1,20 +1,20 @@
-# WSL環境セットアップ手順
+# WSL environment setup
 
 ## Ctrl2Cap
 
-以下からダウンロードしてインストールする。
+Download and install from:
 https://learn.microsoft.com/ja-jp/sysinternals/downloads/ctrl2cap
 
 
 ## UDEV Gothic font
 
-以下からJPDOC版をダウンロードしてインストールする。
+Download and install the JPDOC variant from:
 https://github.com/yuru7/udev-gothic
 
 
 ## WSL
 
-Powershellからインストールする。
+Install from PowerShell.
 
 ```
 wsl --install
@@ -23,22 +23,23 @@ wsl --install
 
 ## Ubuntu
 
-Microsoft storeからインストールする。
+Install from the Microsoft Store.
 
 
 ## Locale
 
-英語UTF8ロケールをインストールしてシステム既定に設定する。
+Install the English UTF-8 locale and set it as the system default.
 
 ```
 sudo apt install language-pack-en
 sudo update-locale LANG=en_US.UTF-8
 ```
 
-`update-locale` 実行時にperlのロケール警告が出ることがあるが、
-現在のシェルの `LANG` が未生成のロケールを指しているために出るものなので無視してよい。
+`update-locale` may print a perl locale warning. It appears because the current
+shell's `LANG` points at a locale that has not been generated yet, so it is safe
+to ignore.
 
-Powershellからシャットダウンして再起動すると反映される。
+Shut down from PowerShell and restart for the change to take effect.
 
 ```
 wsl --shutdown
@@ -47,15 +48,15 @@ wsl --shutdown
 
 ## Alacritty
 
-PowershellからWinGetでインストールする。
+Install from PowerShell with WinGet.
 
 ```
 winget install alacritty
 ```
 
-Windows上で `dotfiles/.config/alacritty/*` にある設定ファイルを
-`Users/{User}/AppData/Roaming/alacritty/` に配置する。
-`alacritty-wsl.toml` を `alacritty-local.toml` にリネームする。
+On Windows, place the config files from `dotfiles/.config/alacritty/*` into
+`Users/{User}/AppData/Roaming/alacritty/`.
+Rename `alacritty-wsl.toml` to `alacritty-local.toml`.
 
 
 ## Fish
@@ -71,7 +72,7 @@ echo '/usr/local/bin/fish' | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/fish
 ```
 
-ここからはfish上で実行する。
+Run the rest from fish.
 
 ```
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
@@ -90,15 +91,15 @@ sudo mv nvim-linux-x86_64/lib/* /usr/local/lib/
 sudo mv nvim-linux-x86_64/share/* /usr/local/share/
 ```
 
-設定ファイルへのシンボリックリンクを張る。
-この設定はVS Code Neovimと素のNeovimの両方で共用する。
+Symlink the config directory.
+This config is shared by both VS Code Neovim and plain Neovim.
 
 ```
 ln -sfn ~/dotfiles/.config/nvim ~/.config/nvim
 ```
 
-プラグインマネージャにvim-plugを使っているので、
-インストールしてから `nvim` を起動し `:PlugInstall` を実行する。
+vim-plug is used as the plugin manager, so install it, then launch `nvim` and
+run `:PlugInstall`.
 
 ```
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \

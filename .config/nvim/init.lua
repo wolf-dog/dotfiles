@@ -1,5 +1,5 @@
 -- Load modules
--- VS Code環境「ではない」ときだけ、画面表示やファイル設定を読み込む
+-- load display and file settings only when not in VS Code
 if not vim.g.vscode then
   require("config.files")
   require("config.display")
@@ -8,7 +8,7 @@ require("config.input")
 require("config.keymaps")
 require("config.plug")
 
--- 環境ごとの専用キーマップを読み込む
+-- load the keymaps for each environment
 if vim.g.vscode then
   require('config.keymaps_vscode')
 else

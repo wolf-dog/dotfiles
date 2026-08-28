@@ -22,7 +22,7 @@ Plug 'kana/vim-textobj-underscore'
 Plug 'h1mesuke/textobj-wiw'
 Plug 'thinca/vim-textobj-between'
 
--- VS Code環境「ではない」ときだけ読み込むプラグイン
+-- plugins loaded only when not in VS Code
 if not vim.g.vscode then
   Plug 'wolf-dog/sceaduhelm.vim'
   Plug 'wolf-dog/lightline-sceaduhelm.vim'
@@ -52,7 +52,7 @@ require('plugins.dial')
 require('plugins.easy-align')
 require('plugins.operator')
 
--- VS Code環境「ではない」ときだけ読み込む設定
+-- settings loaded only when not in VS Code
 if not vim.g.vscode then
   require('plugins.colorscheme')
   require('plugins.lightline')

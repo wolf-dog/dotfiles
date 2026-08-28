@@ -21,7 +21,7 @@ option.matchtime = 0
 -- show the matching brace
 option.showmatch = true
 
--- VS Code環境「ではない」ときだけ有効にする設定
+-- settings enabled only when not in VS Code
 if not vim.g.vscode then
   -- preview the substitution in a split window
   option.inccommand = 'split'
