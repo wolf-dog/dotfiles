@@ -45,16 +45,17 @@ wsl --shutdown
 ```
 
 
-## WezTerm
+## Alacritty
 
 PowershellからWinGetでインストールする。
 
 ```
-winget install wez.wezterm
+winget install alacritty
 ```
 
-Windows上で `dotfiles/.config/wezterm/wezterm.lua` を
-`Users/{User}/.config/wezterm/` に配置する。
+Windows上で `dotfiles/.config/alacritty/*` にある設定ファイルを
+`Users/{User}/AppData/Roaming/alacritty/` に配置する。
+`alacritty-wsl.toml` を `alacritty-local.toml` にリネームする。
 
 
 ## Fish
