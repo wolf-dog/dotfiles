@@ -8,10 +8,11 @@
   pager = less -R
   excludesfile = ~/.gitignore
   whitespace = trailing-space, space-before-tab
-  autocrlf = input
-  safecrlf = true
+  autocrlf = false
+  safecrlf = false
   preloadindex = true
   fscache = true
+  quotepath = false
 [alias]
   a = add
   aa = add --all :/
