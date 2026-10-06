@@ -28,8 +28,12 @@ if not vim.g.vscode then
   Plug 'wolf-dog/lightline-sceaduhelm.vim'
   Plug 'itchyny/lightline.vim'
 
-  Plug 'Yggdroot/indentLine'
+  Plug 'lukas-reineke/indent-blankline.nvim'
   Plug 'brenoprata10/nvim-highlight-colors'
+
+  Plug 'echasnovski/mini.files'
+  Plug('junegunn/fzf', { ['do'] = './install --bin' })
+  Plug 'ibhagwan/fzf-lua'
 
   Plug 'vim-scripts/sudo.vim'
   Plug 'guns/xterm-color-table.vim'
@@ -56,7 +60,9 @@ require('plugins.operator')
 if not vim.g.vscode then
   require('plugins.colorscheme')
   require('plugins.lightline')
-  require('plugins.indent-line')
+  require('plugins.indent-blankline')
   require('plugins.nvim-highlight-colors')
+  require('plugins.mini-files')
+  require('plugins.fzf-lua')
   require('plugins.syntax')
 end

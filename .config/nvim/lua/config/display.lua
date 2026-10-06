@@ -17,6 +17,13 @@ option.scrolloff = 3
 option.shortmess:append({ I = true })
 -- set title of the window
 option.title = true
+-- keep floating window borders free of non-ASCII glyphs
+-- (custom border chars need nvim 0.12+)
+if vim.fn.has('nvim-0.12') == 1 then
+  option.winborder = '+,-,+,|,+,-,+,|'
+else
+  option.winborder = 'solid'
+end
 
 -- status line, tab line
 -- show fileencoding (or internal encoding) in the status line
