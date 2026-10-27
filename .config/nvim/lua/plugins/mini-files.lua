@@ -1,6 +1,9 @@
 local bind = vim.keymap.set
 local silent = { silent = true, noremap = true }
 
+-- file icons in the explorer
+require('mini.icons').setup()
+
 local files = require('mini.files')
 files.setup({
   windows = {

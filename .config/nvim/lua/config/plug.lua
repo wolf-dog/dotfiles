@@ -31,6 +31,7 @@ if not vim.g.vscode then
   Plug 'lukas-reineke/indent-blankline.nvim'
   Plug 'brenoprata10/nvim-highlight-colors'
 
+  Plug 'echasnovski/mini.icons'
   Plug 'echasnovski/mini.files'
   Plug('junegunn/fzf', { ['do'] = './install --bin' })
   Plug 'ibhagwan/fzf-lua'
