@@ -12,6 +12,9 @@ set -gx LANG en_US.UTF-8
 set -gx NVIM_NOTTYFAST 1
 # That also skips truecolor detection, so state it instead of probing for it.
 set -gx COLORTERM truecolor
+# Editor for git, Claude Code's ctrl+g and anything else that asks.
+set -gx EDITOR nvim
+set -gx VISUAL nvim
 
 #--------------------------------------
 # Paths {{{1
