@@ -5,19 +5,19 @@ style = "Beam"
 size = 14.0
 
 [font.bold]
-family = "UDEV Gothic JPDOC"
+family = "UDEV Gothic NF"
 style = "Bold"
 
 [font.bold_italic]
-family = "UDEV Gothic JPDOC"
+family = "UDEV Gothic NF"
 style = "Bold Italic"
 
 [font.italic]
-family = "UDEV Gothic JPDOC"
+family = "UDEV Gothic NF"
 style = "Italic"
 
 [font.normal]
-family = "UDEV Gothic JPDOC"
+family = "UDEV Gothic NF"
 style = "Regular"
 
 [font.offset]

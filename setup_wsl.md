@@ -8,7 +8,7 @@ https://learn.microsoft.com/ja-jp/sysinternals/downloads/ctrl2cap
 
 ## UDEV Gothic font
 
-Download and install the JPDOC variant from:
+Download and install the NF variant from:
 https://github.com/yuru7/udev-gothic
 
 
