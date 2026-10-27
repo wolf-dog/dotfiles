@@ -28,6 +28,14 @@ bind('n', '<C-k>', 'g<C-]>')
 -- leave terminal mode
 bind('t', '<C-j>', '<C-\\><C-n>')
 
+-- pass <C-j> through to fzf
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'fzf',
+  callback = function(ev)
+    bind('t', '<C-j>', '<C-j>', { buffer = ev.buf })
+  end,
+})
+
 
 ------------------------
 -- start with <Space> --
