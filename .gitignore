@@ -5,4 +5,5 @@
 
 .phpactor.json
 .claude/settings.local.json
+.claude/worktrees/*
 .superpowers/*
