@@ -3,8 +3,8 @@ local option = vim.opt
 option.list = true
 option.listchars = 'tab:|-,trail:<'
 option.number = true
--- display doublewidth char correctly
-option.ambiwidth = 'double'
+-- treat ambiguous-width chars as single width
+option.ambiwidth = 'single'
 -- always show the last line of the file, not @
 option.display = 'lastline'
 -- open all folds when starting to edit another buffer
