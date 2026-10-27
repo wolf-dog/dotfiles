@@ -25,6 +25,9 @@ bind('n', '<C-s>', '<Nop>')
 -- tag jump
 bind('n', '<C-k>', 'g<C-]>')
 
+-- leave terminal mode
+bind('t', '<C-j>', '<C-\\><C-n>')
+
 
 ------------------------
 -- start with <Space> --
