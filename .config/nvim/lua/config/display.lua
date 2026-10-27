@@ -13,6 +13,8 @@ option.foldlevelstart = 99
 option.foldmethod = 'syntax'
 -- let the cursor keep 3 lines away from edge of the window
 option.scrolloff = 3
+-- keep more lines in terminal buffers
+option.scrollback = 100000
 -- disable intro message
 option.shortmess:append({ I = true })
 -- set title of the window
