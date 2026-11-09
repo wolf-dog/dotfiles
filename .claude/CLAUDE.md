@@ -19,3 +19,7 @@ Permission granted once covers that one action, not later ones.
 `Co-Authored-By: Claude ...` trailer, no "Generated with Claude Code" footer, no
 equivalent line in commit messages, pull request bodies, code comments, or
 documentation.
+
+## Machine-local instructions
+
+@~/.claude/CLAUDE.local.md
