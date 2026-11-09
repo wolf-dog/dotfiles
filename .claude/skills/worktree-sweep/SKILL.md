@@ -1,6 +1,6 @@
 ---
 name: worktree-sweep
-description: Use to take stock of the worktrees of every repo under a parent dir (both Claude's and Orca's) and delete the unneeded ones with their branches. Triggers include "worktreeを掃除して", "不要なworktreeを消して", "clean up worktrees".
+description: Use to take stock of the worktrees of every repo under a parent dir (both Claude's and Orca's) and delete the unneeded ones with their branches. Triggers include "worktreeを掃除して", "不要なworktreeを消して", "clean up worktrees". To clean up only the worktree you are in, use orca-wt-rm instead.
 ---
 
 # Worktree sweep
@@ -56,3 +56,11 @@ Report the deleted and kept worktrees in a table with the reasons.
 
 A branch with the same name in another repo is a different branch. Never
 delete it.
+
+## Troubleshooting
+
+| symptom | what to do |
+|---|---|
+| The deletion is refused by auto mode's permission check | Do not work around it. Show the list and the exact commands, and ask the user to switch to manual mode or run them with `! <command>`. |
+| Fish syntax errors, or `set --` has no effect | The Bash tool shell must be bash (`CLAUDE_CODE_SHELL` in settings). Check with `echo $BASH_VERSION`; wrap commands in `bash -c '...'`. |
+| `declare: -A: invalid option` | macOS bash is 3.2. Do not use associative arrays. |
