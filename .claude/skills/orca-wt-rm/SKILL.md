@@ -9,14 +9,21 @@ If any check below fails, abort and delete nothing.
 
 ## 1. Identify
 
-Run `orca worktree current --json` and note:
+The CLI is `orca`; under WSL with Orca installed on Windows it is `orca.exe`.
 
-- `ID`, `PATH`, and Orca's branch name.
-- `BASE`: `baseRef`, else `origin/HEAD`, else `origin/main`.
-- `MAIN`: the main checkout, from the JSON or the parent of
+Run `orca worktree current --json`. The worktree is under `.result.worktree`.
+
+- Abort if `.ok` is false (e.g. `selector_not_found`: not Orca-managed) or
+  `.isMainWorktree` is true.
+- `ID`: `.id`, the full `<repoId>::<path>` string.
+- `PATH`: `git rev-parse --show-toplevel`. Do not use `.path` for git: under
+  WSL it is a Windows UNC path (`\\wsl.localhost\...`).
+- Orca's branch: `.branch` with `refs/heads/` stripped. It is empty when HEAD
+  is detached.
+- `BASE`: `.baseRef` (a full ref such as `refs/remotes/origin/master`; may be
+  null), else `origin/HEAD`, else `origin/main`.
+- `MAIN`: not in the JSON. Use the parent of
   `git rev-parse --path-format=absolute --git-common-dir`.
-
-Abort if the worktree is not Orca-managed or is the main worktree.
 
 If `git branch --show-current` differs from Orca's branch (it was renamed),
 note both. Both are deleted in step 7.
@@ -66,9 +73,12 @@ cd <MAIN> && nohup bash -c '
 ```
 
 `git branch -D` is safe here because step 4 proved the branches are merged,
-and Orca does not always delete them.
+and Orca does not always delete them: `--delete-branch` keeps any branch
+whose changes Orca cannot prove are merged, and `--force` does not force
+branch deletion.
 
-Never use the `active` selector or `--run-hooks`.
+Always select by `id:<ID>`. Never use the `active` or `current` selectors (the
+command runs from `MAIN`, not the worktree) or `--run-hooks`.
 
 ## 8. Report
 
