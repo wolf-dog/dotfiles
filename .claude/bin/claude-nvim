@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+#
+# Start claude inside a Neovim :terminal. All arguments are passed through to
+# claude, so setting this path as Orca's Claude command override
+# (agentCmdOverrides.claude) also opens Orca's new sessions and resumes
+# (`claude-nvim --resume <ID>`) inside nvim. The orca-wt-new skill uses it too.
+#
+# Set CLAUDE_NVIM_DISABLE=1 to run claude directly without nvim.
+
+set -euo pipefail
+
+# The real binary. Do not use `claude` from PATH: if claude is aliased or
+# overridden to this wrapper, it would recurse into itself.
+claude_bin="$HOME/.local/bin/claude"
+
+if [[ "${CLAUDE_NVIM_DISABLE:-}" == 1 ]] || ! command -v nvim >/dev/null 2>&1; then
+  exec "$claude_bin" ${1+"$@"}
+fi
+
+# nvim's :terminal runs its command through 'shell' (fish, etc.), so putting
+# the arguments directly on that command line breaks their quoting. Write them
+# to a launcher script run by bash instead.
+tmpdir=${TMPDIR:-/tmp}
+launcher=$(mktemp "${tmpdir%/}/claude-nvim.XXXXX")
+
+{
+  # The launcher removes itself as soon as it starts.
+  printf 'rm -f %q\n' "$launcher"
+
+  # If SHELL stays fish, Claude Code runs its Bash tool with zsh while telling
+  # the model the shell is fish, so the commands the model writes do not match
+  # the shell that runs them.
+  printf 'export SHELL=/bin/bash CLAUDE_CODE_SHELL=/bin/bash\n'
+
+  printf 'exec %q' "$claude_bin"
+  if (( $# > 0 )); then
+    printf ' %q' "$@"
+  fi
+  printf '\n'
+} > "$launcher"
+
+# Start in Terminal mode so you can type at once.
+exec nvim -c "terminal bash $launcher" -c startinsert
