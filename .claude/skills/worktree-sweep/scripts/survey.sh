@@ -8,7 +8,7 @@
 # Usage: bash survey.sh [ROOT]
 #   ROOT defaults to $WORKTREE_SWEEP_ROOT, then to the parent directory of the
 #   current repo's main checkout. A repo is handled once even if several of
-#   its worktrees sit under ROOT.
+#   its worktrees sit under ROOT. The worktree you are running in is skipped.
 #
 # The only write is `git fetch --prune origin` per repo. git status runs with
 # --no-optional-locks so it does not refresh the index.
@@ -56,6 +56,8 @@ common_dir_of() {
   esac
   (cd "$common" 2>/dev/null && pwd -P)
 }
+
+here=$(pwd -P)
 
 root=${1:-${WORKTREE_SWEEP_ROOT:-}}
 if [ -z "$root" ]; then
@@ -109,7 +111,15 @@ pr_of() {
 # survey_worktree <repo> <main> <base> <path> <branch> <prunable>
 survey_worktree() {
   local repo=$1 main=$2 base=$3 path=$4 branch=$5 prunable=$6
-  local orca=no dirty ignored ahead unique pr verdict
+  local orca=no dirty ignored ahead unique pr verdict resolved
+
+  # Skip the worktree we are running in (or any directory inside it).
+  if [ -d "$path" ]; then
+    resolved=$(cd "$path" 2>/dev/null && pwd -P) || resolved=$path
+    case "$here/" in
+      "$resolved/"*) return ;;
+    esac
+  fi
 
   case "$path/" in
     "$orca_prefix"*) orca=yes ;;
