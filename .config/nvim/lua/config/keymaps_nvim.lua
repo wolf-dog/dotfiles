@@ -82,3 +82,14 @@ bind('n', '<Space>cc', ':<C-u>diffoff<CR>', silent)
 
 -- update diff
 bind('n', '<Space>cu', ':<C-u>diffupdate<CR>', silent)
+
+
+------------------
+-- start with s --
+------------------
+
+-- open a terminal
+bind('n', 'st', ':<C-u>terminal<CR>:<C-u>startinsert<CR>', silent)
+
+-- open a terminal running claude
+bind('n', 'sc', ':<C-u>terminal claude<CR>:<C-u>startinsert<CR>', silent)

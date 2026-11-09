@@ -71,6 +71,14 @@ bind('v', '\\', ',')
 bind('o', '\\', ',')
 
 
+------------------
+-- start with s --
+------------------
+
+-- disable s to use it as the prefix key
+bind('n', 's', '<Nop>')
+
+
 -----------------------
 -- start with <Ctrl> --
 -----------------------
