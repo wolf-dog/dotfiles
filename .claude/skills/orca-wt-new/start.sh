@@ -14,7 +14,10 @@
 #
 # Output: one line of JSON on stdout:
 #   {status, note, worktreeId, path, branch, terminal, links}
-# Errors go to stderr with exit status 1.
+#   status: created (--no-claude), started, not-started or failed.
+#   not-started and failed exit 1 and keep the temp files; the worktree is
+#   never deleted.
+# Errors before the worktree exists go to stderr with exit status 1.
 #
 # WSL: the Orca CLI may be orca.exe, and paths in Orca's JSON may be Windows
 # UNC paths (\\wsl.localhost\...). They are converted with wslpath; Orca's
@@ -108,9 +111,15 @@ else
 fi
 command -v jq >/dev/null 2>&1 || die "jq not found"
 
-if ! $no_claude && ! $no_nvim; then
-  command -v nvim >/dev/null 2>&1 || die "nvim not found (use --no-nvim)"
-  [ -x "$HOME/.local/bin/claude-nvim" ] || die "$HOME/.local/bin/claude-nvim not found (run .claude/install.sh, or use --no-nvim)"
+if ! $no_claude; then
+  if $no_nvim; then
+    claude_cmd="$HOME/.local/bin/claude"
+    [ -x "$claude_cmd" ] || die "$claude_cmd not found"
+  else
+    command -v nvim >/dev/null 2>&1 || die "nvim not found (use --no-nvim)"
+    claude_cmd="$HOME/.local/bin/claude-nvim"
+    [ -x "$claude_cmd" ] || die "$claude_cmd not found (run .claude/install.sh, or use --no-nvim)"
+  fi
 fi
 
 # Convert a path from Orca's JSON to a local path (Windows UNC under WSL).
@@ -223,7 +232,108 @@ if $no_claude; then
   exit 0
 fi
 
-# --- second half: start claude (next unit) ---
-# Uses: $wt_path, $wt_id, $terminal, $prompt, $no_nvim.
-result created
+# --- second half: start claude -------------------------------------------------
+#
+# claude starts only now, after the links were restored, so that it reads
+# CLAUDE.md (and .claude/*) through the restored links. That is also why
+# `orca worktree create --agent claude` is not used: it would start claude
+# before the links exist, and without the claude-nvim wrapper.
+
+prompt_tmp=''
+launcher=''
+
+# Report a failure: keep the temp files, never delete the worktree.
+fail() {
+  if [ -n "$launcher" ]; then
+    add_note "temp files kept: $launcher${prompt_tmp:+ $prompt_tmp}"
+  fi
+  result "$1"
+  exit 1
+}
+
+# 1. Terminal: the startup terminal, else the worktree's first one, else a new one.
+if [ -z "$terminal" ]; then
+  terminal=$("$orca" terminal list --worktree "id:$wt_id" --json 2>/dev/null |
+    jq -r '.result.terminals[0].handle // empty' 2>/dev/null || true)
+fi
+if [ -z "$terminal" ]; then
+  terminal=$("$orca" terminal create --worktree "id:$wt_id" --title "$name" --json 2>/dev/null |
+    jq -r '.result.terminal.handle // .result.handle // empty' 2>/dev/null || true)
+fi
+if [ -z "$terminal" ]; then
+  add_note "no terminal handle for the worktree"
+  fail failed
+fi
+
+# 2. Launcher. The prompt is passed as a claude argument, not typed into the
+# TUI, where a multi-line prompt would be sent at the first newline. Running
+# `bash <launcher>` keeps the quoting intact through the terminal's login
+# shell (e.g. fish). Under WSL the terminal runs on the Linux side, so these
+# are Linux paths.
+tmpdir=${TMPDIR:-/tmp}
+launcher=$(mktemp "${tmpdir%/}/orca-wt-new-launcher.XXXXXX") || {
+  add_note "could not create a launcher file in $tmpdir"
+  fail failed
+}
+{
+  printf 'cd %q || exit 1\n' "$wt_path"
+  if [ -n "$prompt" ]; then
+    prompt_tmp=$(mktemp "${tmpdir%/}/orca-wt-new-prompt.XXXXXX") || exit 1
+    printf '%s' "$prompt" > "$prompt_tmp"
+    printf 'exec %q "$(cat %q)"\n' "$claude_cmd" "$prompt_tmp"
+  else
+    printf 'exec %q\n' "$claude_cmd"
+  fi
+} > "$launcher" || {
+  add_note "could not write the launcher $launcher"
+  fail failed
+}
+
+if [ -n "$prompt" ]; then
+  prompt_note='prompt passed'
+else
+  prompt_note='no prompt'
+fi
+
+if ! "$orca" terminal send --terminal "$terminal" --text "bash $launcher" --enter --json >/dev/null 2>&1; then
+  add_note "orca terminal send failed"
+  fail failed
+fi
+
+# 3. Wait for the TUI to settle: 60 s, then once more 120 s.
+idle=false
+for ms in 60000 120000; do
+  if "$orca" terminal wait --terminal "$terminal" --for tui-idle --timeout-ms "$ms" --json 2>/dev/null |
+    jq -e '.ok == true' >/dev/null 2>&1; then
+    idle=true
+    break
+  fi
+done
+if ! $idle; then
+  add_note "timed out waiting for claude to start ($prompt_note)"
+  fail not-started
+fi
+
+# 4. tui-idle is also reached when claude exits at once, so confirm that the
+# terminal is running claude.
+is_claude=false
+for _ in 1 2 3 4 5; do
+  if "$orca" terminal show --terminal "$terminal" --json 2>/dev/null |
+    jq -e '.result.terminal.agentIdentity == "claude"' >/dev/null 2>&1; then
+    is_claude=true
+    break
+  fi
+  sleep 2
+done
+if ! $is_claude; then
+  tail_lines=$("$orca" terminal read --terminal "$terminal" --limit 20 --json 2>/dev/null |
+    jq -r '[.result.terminal.tail[]? | select(length > 0)] | .[-5:] | join(" | ")' 2>/dev/null || true)
+  add_note "claude is not running in the terminal ($prompt_note); last lines: ${tail_lines:-(none)}"
+  fail not-started
+fi
+
+# 5. Started: the prompt was already read into claude's arguments.
+rm -f "$launcher" ${prompt_tmp:+"$prompt_tmp"}
+add_note "$prompt_note"
+result started
 exit 0
